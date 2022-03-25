@@ -1,5 +1,5 @@
 # Choose Your own cocktail
-A collection of beer where you can choose which one should be in your fridge
+A collection of cocktails where you can choose which one should enjoy during your evening
 
 We will follow [blu](https://www.figma.com/file/yGApBLVEfjfaK7E3NGpNCa/Esercizio?node-id=0%3A1) figma design.
 
