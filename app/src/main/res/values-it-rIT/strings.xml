@@ -6,6 +6,8 @@
     <string name="title_search">Ricerca</string>
     <string name="search_bar">Cerca…</string>
     <string name="search_navbar">cerca</string>
+    <string name="profile_navbar">profilo</string>
+    <string name="home_navbar">home</string>
     <string name="details">Vai ai dettagli</string>
     <string name="results">risultati</string>
 </resources>
