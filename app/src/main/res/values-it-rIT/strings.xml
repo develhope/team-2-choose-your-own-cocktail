@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scegli la tua birra</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profilo</string>
+    <string name="title_search">Ricerca</string>
+    <string name="search_bar">Cerca…</string>
+    <string name="search_navbar">cerca</string>
+    <string name="details">Vai ai dettagli</string>
+    <string name="results">risultati</string>
+</resources>
