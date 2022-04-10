@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.chooseyouowncocktail_g2.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_search"
+        android:name="com.example.chooseyouowncocktail_g2.ui.search.SearchFragment"
         android:label="@string/search_navbar"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_profile"
