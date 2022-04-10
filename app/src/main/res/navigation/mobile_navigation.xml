@@ -22,4 +22,9 @@
         android:name="com.example.chooseyouowncocktail_g2.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/drinkDetailFragment"
+        android:name="com.example.chooseyouowncocktail_g2.DrinkDetailFragment"
+        android:label="fragment_drink_detail"
+        tools:layout="@layout/fragment_drink_detail" />
 </navigation>

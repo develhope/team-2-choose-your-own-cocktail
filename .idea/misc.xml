@@ -21,6 +21,10 @@
         <entry key="..\:/Users/franc/Desktop/team-2-choose-your-own-cocktail-develop/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/franc/Desktop/team-2-choose-your-own-cocktail-develop/app/src/main/res/layout/fragment_notifications.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/franc/Desktop/team-2-choose-your-own-cocktail-develop/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18802083333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2760416666666667" />
+        <entry key="app/src/main/res/layout/fragment_detail_drink.xml" value="0.3269927536231884" />
+        <entry key="app/src/main/res/layout/fragment_drink_detail.xml" value="0.3269927536231884" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3269927536231884" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.18" />
       </map>
     </option>
