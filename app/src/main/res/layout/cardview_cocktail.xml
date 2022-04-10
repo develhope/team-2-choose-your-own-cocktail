@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardDrink"
+    android:layout_width="@dimen/cardView_width"
+    android:layout_height="@dimen/cardView_height"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+
+    <ImageView
+        android:id="@+id/drinkImage"
+        android:layout_width="@dimen/imageView_width"
+        android:layout_height="@dimen/imageView_height"
+        android:hint="add an image"
+        android:layout_marginLeft= "@dimen/imageView_marginLeft"
+        android:layout_marginTop="@dimen/imageView_marginTop"
+        android:gravity="center_vertical|center_horizontal|top"
+        app:layout_constraintBottom_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+
+        android:id="@+id/info_textTop"
+        android:layout_width= "@dimen/TextViewTop_width"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/TextViewTop_marginLeft"
+        android:layout_marginTop="@dimen/TextViewTop_marginTop"
+
+        android:gravity="center_vertical|center_horizontal|top"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeTextViewTop"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/drinkImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.048"
+
+
+        />
+    <TextView
+        android:id="@+id/info_textMiddle"
+        android:layout_width="@dimen/TextViewMiddle_width"
+        android:layout_height="@dimen/TextViewMiddle_height"
+
+        android:layout_marginTop="@dimen/TextViewTop_marginTop"
+
+        android:gravity="center_vertical|center_horizontal|top"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeTextViewMiddle"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/drinkImage"
+        app:layout_constraintTop_toBottomOf="@id/info_textTop"
+        app:layout_constraintStart_toStartOf="@id/info_textTop"
+        app:layout_constraintVertical_bias="0.048"
+        />
+    <TextView
+        android:id="@+id/info_textBottom"
+        android:layout_width="@dimen/TextBottom_width"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+
+        android:gravity="center_vertical|center_horizontal|top"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeTextViewMiddle"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/drinkImage"
+        app:layout_constraintTop_toBottomOf="@id/info_textMiddle"
+        app:layout_constraintStart_toStartOf="@id/info_textMiddle"
+        app:layout_constraintVertical_bias="0.048"
+        />
+
+    <Button
+        android:id="@+id/button_goToDetail"
+        android:layout_width="@dimen/buttonGoToDetail_width"
+        android:layout_height="@dimen/buttonGoToDetail_height"
+        android:backgroundTint="@color/orange"
+        android:layout_marginTop="@dimen/TextViewTop_marginTop"
+
+        android:text="Vai al dettaglio"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/drinkImage"
+        app:layout_constraintTop_toBottomOf="@id/info_textBottom"
+        app:layout_constraintStart_toStartOf="@id/info_textBottom"
+        app:layout_constraintVertical_bias="0.048" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_icon"
+        android:layout_width="@dimen/buttonIcon_width"
+        android:layout_height="@dimen/buttonIcon_height"
+        android:layout_marginLeft="@dimen/buttonIcon_marginLeft"
+        android:layout_marginTop="@dimen/buttonIcon_marginTop"
+        android:backgroundTint="@color/white"
+
+
+        android:visibility="invisible"
+        app:icon="@drawable/ic_fav_off"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.048" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
