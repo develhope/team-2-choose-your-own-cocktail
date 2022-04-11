@@ -1,6 +1,8 @@
 package com.example.chooseyouowncocktail_g2
 
+import android.media.Image
 import android.os.Bundle
+import android.widget.ImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -12,6 +14,8 @@ import com.example.chooseyouowncocktail_g2.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
