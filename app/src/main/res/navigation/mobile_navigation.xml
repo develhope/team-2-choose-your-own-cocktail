@@ -22,4 +22,8 @@
         android:name="com.example.chooseyouowncocktail_g2.ui.notifications.NotificationsFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/detailDrinkFragment"
+        android:name="com.example.chooseyouowncocktail_g2.DetailDrinkFragment"
+        android:label="DetailDrinkFragment" />
 </navigation>
