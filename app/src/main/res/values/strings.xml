@@ -1,6 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ChooseYou OwnCocktail_G2</string>
+    <string name="app_name">Choose Your Own Beer</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_search">Search</string>
+    <string name="search_bar">Search…</string>
+    <string name="search_navbar">search</string>
+    <string name="profile_navbar">profile</string>
+    <string name="home_navbar">home</string>
+    <string name="details">Go to detail</string>
+    <string name="results">results</string>
 </resources>
