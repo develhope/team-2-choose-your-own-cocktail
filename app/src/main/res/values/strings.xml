@@ -10,4 +10,8 @@
     <string name="home_navbar">home</string>
     <string name="details">Go to detail</string>
     <string name="results">results</string>
+    <string name="contactus">contactus</string>
+    <string name="log_out">log out</string>
+    <string name="settings">settings</string>
+    <string name="app_version">v.1.0.0</string>
 </resources>
