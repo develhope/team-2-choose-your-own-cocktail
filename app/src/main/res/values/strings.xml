@@ -14,4 +14,8 @@
     <string name="Loreipsum" tools:ignore="MissingTranslation">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</string>
     <string name="type_of_drink" tools:ignore="MissingTranslation">ichnusa non filtrata\n33 cl</string>
+    <string name="contactus">contactus</string>
+    <string name="log_out">log out</string>
+    <string name="settings">settings</string>
+    <string name="app_version">v.1.0.0</string>
 </resources>
