@@ -16,10 +16,13 @@
         android:name="com.example.chooseyouowncocktail_g2.ui.dashboard.DashboardFragment"
         android:label="@string/search_navbar"
         tools:layout="@layout/fragment_dashboard" />
-
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.chooseyouowncocktail_g2.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/detailDrinkFragment"
+        android:name="com.example.chooseyouowncocktail_g2.DetailDrinkFragment"
+        android:label="DetailDrinkFragment" />
 </navigation>
