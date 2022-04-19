@@ -9,6 +9,6 @@ We will follow [blu](https://www.figma.com/file/yGApBLVEfjfaK7E3NGpNCa/Esercizio
  -  A third screen with all "settings", "user" and  app info's
  -  A fourth screen will be the detail for each beer with more info's
 
-### Separation 
+##Separation
 - A first step could be create all the stuff to make the ui/ux part work with mocked info
 - A second one connect the rest api to take the advantage of real info
