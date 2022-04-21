@@ -39,11 +39,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/textdrink_marginLeft"
             android:layout_marginTop="@dimen/textdrink_marginTop"
-            android:fontFamily="@font/poppins_semibold"
+            android:textAppearance="@style/drink_card_beerName"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+   
             android:text="Titolo"
-            android:textColor="@color/black"
+    
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
             app:layout_constraintTop_toTopOf="parent"
@@ -82,15 +82,13 @@
             android:layout_width="@dimen/textcl_width"
             android:layout_height="@dimen/textcl_height"
             android:layout_marginTop="@dimen/textcl_marginTop"
-            android:textColor="@color/black"
             android:textAlignment="textStart"
-            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
             app:layout_constraintStart_toStartOf="@id/drink_name"
             app:layout_constraintTop_toBottomOf="@id/drink_name"
             app:layout_constraintVertical_bias="0.0"
-            android:fontFamily="@font/poppins_regular"
+            android:textAppearance="@style/drink_card_cl"
             tools:text="33 cl" />
 
         <TextView
@@ -98,10 +96,9 @@
             android:layout_width="179dp"
             android:layout_height="59dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_regular"
+            android:textAppearance="@style/drink_card_beerDescription"
             android:textAlignment="textStart"
-            android:textSize="12sp"
-            android:textColor="@color/black"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
             app:layout_constraintStart_toStartOf="@id/drink_cl"
