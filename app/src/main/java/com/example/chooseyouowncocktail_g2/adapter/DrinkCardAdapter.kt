@@ -1,17 +1,10 @@
 package com.example.chooseyouowncocktail_g2.adapter
 
-import android.graphics.Typeface
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.util.DisplayMetrics
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chooseyouowncocktail_g2.model.Beer
 import com.example.chooseyouowncocktail_g2.DrinkList
-import com.example.chooseyouowncocktail_g2.DrinkList.beers
-import com.bumptech.glide.Glide
-import android.content.res.AssetManager
-
 import com.example.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 
 class DrinkCardAdapter(
@@ -38,41 +31,19 @@ class DrinkCardAdapter(
     // to keep it simple we are
     // not setting any image data to view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(receiver = holder){
-            with(beers[position]){
+        with(receiver = holder) {
+            with(DrinkList.beerList()[position]) {
                 binding.drinkName.text = this.name
-                binding.drinkCl.text=this.cl.toString()
+                binding.drinkCl.text = this.cl.toString()
                 binding.drinkShortDescription.text = this.shortDescription
-
-
-
-                val setTextNameSize=binding.drinkName
-                setTextNameSize.setTextSize(18f)
-                val setDrinkImage=binding.drinkImage
-                setDrinkImage.setImageResource(this.img)
-                val setTextClSize=binding.drinkCl
-                setTextClSize.setTextSize(16f)
-                val setShortDescriptionSize=binding.drinkShortDescription
-                setShortDescriptionSize.setTextSize(12f)
-                setTextNameSize.gravity=0
-                setTextClSize.gravity=0
-                setShortDescriptionSize.gravity= 0
-                // val textNameFont Typeface.createFromAsset(this.getAssets(),"@fonts/poppins_semibold.ttf")
-                // setTextNameSize.setTypeface(textNameFont )
-
-
-
-
-
-
-
-
+                binding.drinkImage.setImageResource(this.img)
             }
         }
     }
 
     // return the size of languageList
     override fun getItemCount(): Int {
-        return beers.size
+        return DrinkList.beerList().size
     }
 }
+
