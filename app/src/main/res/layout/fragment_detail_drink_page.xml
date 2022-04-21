@@ -1,60 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/detailpage_fragment_margin"
-        android:layout_marginEnd="@dimen/detailpage_fragment_margin"
-        card_view:cardCornerRadius="4dp"
+
+    <ImageView
+        android:id="@+id/preview"
+        android:layout_width="239dp"
+        android:layout_height="244dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@android:string/ok"
+        android:src="@drawable/ichnusaprev"
+        card_view:layout_constraintBottom_toTopOf="@+id/title"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@android:string/ok"
-            android:src="@drawable/ichnusaprev" />
-
-
-    </androidx.cardview.widget.CardView>
-
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.51" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/detailpage_fragment_margin"
-        android:layout_marginEnd="@dimen/detailpage_fragment_margin"
+        android:id="@+id/description"
+        android:layout_width="378dp"
+        android:layout_height="277dp"
         android:text="@string/Loreipsum"
         android:textAlignment="viewStart"
+        android:textAppearance="@style/detail_beerDescription"
+        card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.0"
+        card_view:layout_constraintHorizontal_bias="0.484"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/info_text">
+        card_view:layout_constraintTop_toBottomOf="@+id/title"
+        card_view:layout_constraintVertical_bias="0.747">
 
     </TextView>
 
     <TextView
-        android:id="@+id/info_text"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/detailpage_fragment_margin"
         android:layout_marginEnd="@dimen/detailpage_fragment_margin"
-        android:text="@string/type_of_drink"
+        android:text="Nome Birra"
+        android:textAppearance="@style/detail_beerName"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintHorizontal_bias="0.0"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/card_view">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="309dp">
 
     </TextView>
+
+    <TextView
+        android:id="@+id/cl"
+        android:layout_width="46dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="@dimen/detailpage_fragment_margin"
+        android:layout_marginEnd="@dimen/detailpage_fragment_margin"
+        android:text="33 cl"
+        android:textAppearance="@style/detail_cl"
+        card_view:layout_constraintBottom_toTopOf="@+id/description"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.0"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/title"
+        card_view:layout_constraintVertical_bias="0.244">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="35dp"
+        android:layout_height="33dp"
+        android:background="@drawable/ic_fav_off"
+        card_view:layout_constraintBottom_toTopOf="@+id/title"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.042"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.974" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
