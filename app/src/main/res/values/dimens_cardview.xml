@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="cardview_lateralMargin">24dp</dimen>
+    <dimen name="cardview_marginBottom">16dp</dimen>
+    <dimen name="cardview_marginElevation">24dp</dimen>
+
     <dimen name="card_width">327dp</dimen>
     <dimen name="card_height">229dp</dimen>
     <dimen name="imageview_width">88dp</dimen>
     <dimen name="imageview_height">139dp</dimen>
     <dimen name="imageview_marginLeft">34dp</dimen>
     <dimen name="imageview_marginTop">22dp</dimen>
+    <dimen name="imageview_marginBottom">68dp</dimen>
     <dimen name="textdrink_width">172dp</dimen>
     <dimen name="textdrink_marginLeft">14dp</dimen>
     <dimen name="textdrink_marginTop">16dp</dimen>
     <dimen name="gotodetail_width">155dp</dimen>
-    <dimen name="gototdetail_height">40dp</dimen>
+    <dimen name="gotodetail_height">40dp</dimen>
+    <dimen name="gotodetail_marginTop">12dp</dimen>
+    <dimen name="gotodetail_marginBottom">16dp</dimen>
+    <dimen name="gotodetail_marginRight">36dp</dimen>
     <dimen name="favouritebutton_width">32.81dp</dimen>
     <dimen name="favouritebutton_height">31.48dp</dimen>
     <dimen name="favouritebutton_marginLeft">20.09dp</dimen>
     <dimen name="favouritebutton_marginTop">179.76dp</dimen>
+    <dimen name="favouritebutton_marginBottom">17.76dp</dimen>
     <dimen name="textcl_width">37dp</dimen>
     <dimen name="textcl_height">24dp</dimen>
     <dimen name="textcl_marginTop">10dp</dimen>
     <dimen name="shortdescription_width">172dp</dimen>
     <dimen name="shortdescription_marginTop">10dp</dimen>
+    <dimen name="shortdescription_marginRight">19dp</dimen>
     <dimen name="name_size">18sp</dimen>
     <dimen name="cl_size">16sp</dimen>
 

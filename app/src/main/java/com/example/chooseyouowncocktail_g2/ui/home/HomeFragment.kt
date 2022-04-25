@@ -11,7 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.chooseyouowncocktail_g2.DrinkList
 import com.example.chooseyouowncocktail_g2.R
+import com.example.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 
 import com.example.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 
@@ -32,6 +34,8 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val drinkCardAdapter = DrinkCardAdapter(DrinkList.beerList())
+        binding.drinkCardRecyclerView.adapter = drinkCardAdapter
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
