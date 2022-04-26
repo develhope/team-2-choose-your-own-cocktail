@@ -1,4 +1,4 @@
-package com.example.chooseyouowncocktail_g2.ui.profile
+package co.develhope.chooseyouowncocktail_g2.ui.profile
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.chooseyouowncocktail_g2.databinding.FragmentProfileBinding
+import co.develhope.chooseyouowncocktail_g2.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
