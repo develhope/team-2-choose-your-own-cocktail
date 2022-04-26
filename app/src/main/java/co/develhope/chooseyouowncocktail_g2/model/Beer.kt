@@ -1,4 +1,4 @@
-package com.example.chooseyouowncocktail_g2.model
+package co.develhope.chooseyouowncocktail_g2.model
 
 import android.graphics.drawable.Drawable
 

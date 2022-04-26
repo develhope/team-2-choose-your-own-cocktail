@@ -1,4 +1,4 @@
-package com.example.chooseyouowncocktail_g2.ui.dashboard
+package co.develhope.chooseyouowncocktail_g2.ui.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
