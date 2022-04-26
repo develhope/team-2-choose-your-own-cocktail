@@ -1,4 +1,4 @@
-package com.example.chooseyouowncocktail_g2
+package co.develhope.chooseyouowncocktail_g2
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
