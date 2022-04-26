@@ -1,6 +1,6 @@
-package com.example.chooseyouowncocktail_g2
+package co.develhope.chooseyouowncocktail_g2
 
-import com.example.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.model.Beer
 import java.util.*
 
 

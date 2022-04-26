@@ -1,4 +1,4 @@
-package com.example.chooseyouowncocktail_g2.ui.dashboard
+package co.develhope.chooseyouowncocktail_g2.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.chooseyouowncocktail_g2.databinding.FragmentDashboardBinding
+import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
 
