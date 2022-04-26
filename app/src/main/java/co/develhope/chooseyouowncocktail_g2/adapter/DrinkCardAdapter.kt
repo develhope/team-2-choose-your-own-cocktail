@@ -1,11 +1,11 @@
-package com.example.chooseyouowncocktail_g2.adapter
+package co.develhope.chooseyouowncocktail_g2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chooseyouowncocktail_g2.model.Beer
-import com.example.chooseyouowncocktail_g2.DrinkList
-import com.example.chooseyouowncocktail_g2.databinding.DrinkCardBinding
+import co.develhope.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 
 class DrinkCardAdapter(
     var languageList: List<Beer>,
