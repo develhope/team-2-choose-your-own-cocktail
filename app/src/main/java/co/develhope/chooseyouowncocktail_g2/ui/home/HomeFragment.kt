@@ -1,7 +1,7 @@
 
 
 
-package com.example.chooseyouowncocktail_g2.ui.home
+package co.develhope.chooseyouowncocktail_g2.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.chooseyouowncocktail_g2.R
+import co.develhope.chooseyouowncocktail_g2.R
 
-import com.example.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
+import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
