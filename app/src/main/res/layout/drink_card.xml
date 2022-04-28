@@ -75,7 +75,6 @@
             android:layout_height="@dimen/favouritebutton_height"
             android:layout_marginLeft="@dimen/favouritebutton_marginLeft"
             android:background="@drawable/ic_fav_off"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drink_image"
@@ -99,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/shortdescription_marginTop"
             android:layout_marginRight="@dimen/shortdescription_marginRight"
+
             android:textAppearance="@style/drink_card_beerDescription"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
