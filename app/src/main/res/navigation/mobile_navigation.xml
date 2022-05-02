@@ -12,11 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="co.develhope.chooseyouowncocktail_g2.ui.search.SearchFragment"
-        android:label="@string/title_search"
-        tools:layout="@layout/fragment_search"/>
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="co.develhope.chooseyouowncocktail_g2.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
@@ -25,4 +20,8 @@
         android:id="@+id/detailDrinkFragment"
         android:name="co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment"
         android:label="DetailDrinkFragment" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="co.develhope.chooseyouowncocktail_g2.ui.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>
