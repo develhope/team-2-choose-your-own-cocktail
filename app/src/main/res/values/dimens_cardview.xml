@@ -22,5 +22,5 @@
     <dimen name="shortdescription_marginTop">10dp</dimen>
     <dimen name="name_size">18sp</dimen>
     <dimen name="cl_size">16sp</dimen>
-
+    <dimen name="recyclerview_paddingBottom">48dp</dimen>
 </resources>
