@@ -1,4 +1,4 @@
-package co.develhope.chooseyouowncocktail_g2
+package co.develhope.chooseyouowncocktail_g2.network
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
@@ -11,7 +11,7 @@ object RestClient {
         .create()
 
     private val retrofit =
-        Retrofit.Builder().baseUrl("https://www.thecocktaildb.com/api.php").addConverterFactory(
+        Retrofit.Builder().baseUrl("https://www.thecocktaildb.com/api.php/").addConverterFactory(
             GsonConverterFactory.create(gsonBuilder)
         ).build()
 
