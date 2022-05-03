@@ -21,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent" />
   
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list"
+        android:id="@+id/drinkCardRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/drinkcard"
+        tools:listitem="@layout/drink_card"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/recyclerview_paddingBottom"/>
