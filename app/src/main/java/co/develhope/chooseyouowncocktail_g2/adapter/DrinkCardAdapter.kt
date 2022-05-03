@@ -15,23 +15,32 @@ class DrinkCardAdapter(
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      with(receiver = holder) {
-        with(beerListForAdapter[position]) {
-            binding.drinkName.text = this.name
-            binding.drinkCl.text = "${this.cl.toString()} cl"
-            binding.drinkShortDescription.text = this.shortDescription
-            binding.drinkImage.setImageResource(this.img)
-        }
-      }
-}
 
-override fun getItemCount(): Int {
-    return DrinkList.beerList().size
-}
+    // bind the items with each item
+    // of the list languageList
+    // which than will be
+    // shown in recycler view
+    // to keep it simple we are
+    // not setting any image data to view
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        with(receiver = holder) {
+            with(DrinkList.beerList()[position]) {
+                binding.drinkName.text = this.name
+                binding.drinkCl.text = this.cl.toString()
+                binding.drinkShortDescription.text = this.shortDescription
+                binding.drinkImage.setImageResource(this.img)
+            }
+        }
+    }
+
+    // return the size of languageList
+    override fun getItemCount(): Int {
+        return DrinkList.beerList().size
+    }
 }
