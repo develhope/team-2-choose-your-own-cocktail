@@ -4,16 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
-  
+    android:background="@color/BackgroundColor"
+    tools:context=".ui.home.HomeFragment"
+    android:layout_gravity="center_horizontal">
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drinkCardRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/drinkcard"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/recyclerview_paddingBottom"/>
+        android:paddingBottom="@dimen/recyclerview_paddingBottom"
+        android:paddingHorizontal="@dimen/recyclerview_horizontalPadding"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/drink_card"
+        />
 
 
 

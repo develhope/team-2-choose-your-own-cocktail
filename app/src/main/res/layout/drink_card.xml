@@ -5,27 +5,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/card_width"
+    android:layout_height="@dimen/card_height"
     android:layout_gravity="center"
-    android:layout_marginLeft="@dimen/cardview_lateralMargin"
-    android:layout_marginRight="@dimen/cardview_lateralMargin"
-    android:layout_marginBottom="@dimen/cardview_marginBottom"
-    android:clickable="true"
-    android:elevation="@dimen/cardview_marginElevation"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+   android:layout_marginBottom="12dp"
+    android:layout_marginTop="12dp"
+    android:layout_centerHorizontal="true"
+
+    app:cardCornerRadius="@dimen/corner_radius"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <!--Add image view, We will not set any data here.-->
         <ImageView
             android:id="@+id/drink_image"
             android:layout_width="@dimen/imageview_width"
             android:layout_height="@dimen/imageview_height"
-            android:layout_marginLeft="@dimen/imageview_marginLeft"
+            android:layout_marginStart="@dimen/imageview_marginLeft"
             android:layout_marginTop="@dimen/imageview_marginTop"
             android:layout_marginBottom="@dimen/imageview_marginBottom"
             android:alpha="1.0"
@@ -33,7 +32,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:src="@drawable/dreherprev" />
 
         <!--Text view for showing the language name-->
@@ -41,7 +39,7 @@
             android:id="@+id/drink_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/textdrink_marginLeft"
+            android:layout_marginStart="@dimen/textdrink_marginLeft"
             android:layout_marginTop="@dimen/textdrink_marginTop"
             android:text="Titolo"
             android:textAppearance="@style/drink_card_beerName"
@@ -55,17 +53,14 @@
         <Button
             android:id="@+id/button_go_to_detail"
             android:layout_width="@dimen/gotodetail_width"
-            android:layout_height="@dimen/gotodetail_height"
+            android:layout_height="@dimen/gototdetail_height"
             android:layout_marginTop="4dp"
-            android:layout_marginRight="@dimen/gotodetail_marginRight"
-            android:layout_marginBottom="@dimen/gotodetail_marginBottom"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/details"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@id/drink_short_description"
             app:layout_constraintTop_toBottomOf="@id/drink_short_description" />
 
@@ -73,7 +68,7 @@
             android:id="@+id/drink_favourite"
             android:layout_width="@dimen/favouritebutton_width"
             android:layout_height="@dimen/favouritebutton_height"
-            android:layout_marginLeft="@dimen/favouritebutton_marginLeft"
+            android:layout_marginStart="@dimen/favouritebutton_marginLeft"
             android:background="@drawable/ic_fav_off"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -86,6 +81,7 @@
             android:layout_height="@dimen/textcl_height"
             android:layout_marginTop="@dimen/textcl_marginTop"
             android:textAppearance="@style/drink_card_cl"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
             app:layout_constraintStart_toStartOf="@id/drink_name"
             app:layout_constraintTop_toBottomOf="@id/drink_name"
@@ -97,12 +93,9 @@
             android:layout_width="@dimen/shortdescription_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/shortdescription_marginTop"
-            android:layout_marginRight="@dimen/shortdescription_marginRight"
-
             android:textAppearance="@style/drink_card_beerDescription"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@id/drink_cl"
             app:layout_constraintTop_toBottomOf="@id/drink_cl"
             app:layout_constraintVertical_bias="0.0"
