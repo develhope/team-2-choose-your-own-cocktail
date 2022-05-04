@@ -5,64 +5,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
-    android:layout_width="@dimen/card_width"
-    android:layout_height="@dimen/card_height"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-   android:layout_marginBottom="12dp"
-    android:layout_marginTop="12dp"
-    android:layout_centerHorizontal="true"
-
+    android:layout_marginLeft="@dimen/cardview_lateralMargin"
+    android:layout_marginRight="@dimen/cardview_lateralMargin"
+    android:layout_marginTop="@dimen/cardview_marginTop"
+    android:layout_marginBottom="@dimen/cardview_marginBottom"
+    android:elevation="@dimen/cardview_marginElevation"
     app:cardCornerRadius="@dimen/corner_radius"
-    >
+    android:foreground="?android:attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <!--Add image view, We will not set any data here.-->
         <ImageView
             android:id="@+id/drink_image"
             android:layout_width="@dimen/imageview_width"
             android:layout_height="@dimen/imageview_height"
             android:layout_marginStart="@dimen/imageview_marginLeft"
             android:layout_marginTop="@dimen/imageview_marginTop"
+            android:layout_marginEnd="@dimen/imageview_marginRight"
             android:layout_marginBottom="@dimen/imageview_marginBottom"
             android:alpha="1.0"
             android:gravity="center_vertical|center_horizontal|top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/dreherprev" />
 
-        <!--Text view for showing the language name-->
         <TextView
             android:id="@+id/drink_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/textdrink_marginLeft"
-            android:layout_marginTop="@dimen/textdrink_marginTop"
+            android:layout_marginStart="@dimen/shortdescription_marginLeft"
+            android:layout_marginTop="16dp"
             android:text="Titolo"
             android:textAppearance="@style/drink_card_beerName"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/drink_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.048" />
-
-        <!--Text View for showing the exp-->
+            app:layout_constraintVertical_bias="0.032" />
 
         <Button
             android:id="@+id/button_go_to_detail"
             android:layout_width="@dimen/gotodetail_width"
-            android:layout_height="@dimen/gototdetail_height"
-            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gotodetail_marginLeft"
+            android:layout_marginTop="@dimen/gotodetail_marginTop"
+            android:layout_marginEnd="@dimen/gotodetail_marginRight"
+            android:layout_marginBottom="@dimen/gotodetail_marginBottom"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/details"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
-            app:layout_constraintStart_toStartOf="@id/drink_short_description"
-            app:layout_constraintTop_toBottomOf="@id/drink_short_description" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/drink_favourite"
@@ -77,27 +83,30 @@
 
         <TextView
             android:id="@+id/drink_cl"
-            android:layout_width="@dimen/textcl_width"
-            android:layout_height="@dimen/textcl_height"
-            android:layout_marginTop="@dimen/textcl_marginTop"
-            android:textAppearance="@style/drink_card_cl"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/drink_image"
-            app:layout_constraintStart_toStartOf="@id/drink_name"
-            app:layout_constraintTop_toBottomOf="@id/drink_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/shortdescription_marginLeft"
+            android:layout_marginEnd="@dimen/textcl_marginRight"
+            app:layout_constraintBottom_toTopOf="@+id/drink_short_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drink_name"
             app:layout_constraintVertical_bias="0.0"
             tools:text="33 cl" />
 
         <TextView
             android:id="@+id/drink_short_description"
             android:layout_width="@dimen/shortdescription_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/shortdescription_marginTop"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/shortdescription_marginLeft"
+            android:layout_marginTop="90dp"
             android:textAppearance="@style/drink_card_beerDescription"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
-            app:layout_constraintStart_toStartOf="@id/drink_cl"
-            app:layout_constraintTop_toBottomOf="@id/drink_cl"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:text="Descrizione" />
 

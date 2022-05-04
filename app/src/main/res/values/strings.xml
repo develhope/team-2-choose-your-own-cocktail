@@ -18,4 +18,5 @@
     <string name="log_out">log out</string>
     <string name="settings">settings</string>
     <string name="app_version">v.1.0.0</string>
+    <string name="homeFragTitle">Le Nostre Birre</string>
 </resources>

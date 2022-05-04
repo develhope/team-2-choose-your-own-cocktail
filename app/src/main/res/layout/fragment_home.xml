@@ -10,21 +10,22 @@
 
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drinkCardRecyclerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/recyclerview_paddingBottom"
         android:paddingHorizontal="@dimen/recyclerview_horizontalPadding"
+        android:paddingBottom="@dimen/recyclerview_paddingBottom"
+        android:paddingTop="@dimen/recyclerview_horizontalPadding"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/drink_card"
-        />
-
+    />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="detailpage_fragment_margin">16dp</dimen>
+    <dimen name="homeFragTitle_width">172dp</dimen>
+    <dimen name="homeFragTitle_height">24dp</dimen>
+    <dimen name="homeFragTitle_marginStart">29dp</dimen>
+    <dimen name="homeFragTitle_marginTop">32dp</dimen>
+    <dimen name="homeFragTitle_marginEnd">174dp</dimen>
+
 </resources>
