@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="cardview_lateralMargin">24dp</dimen>
+
     <dimen name="cardview_marginBottom">12dp</dimen>
     <dimen name="cardview_marginTop">16dp</dimen>
+
     <dimen name="cardview_marginElevation">24dp</dimen>
     <dimen name="card_width">327dp</dimen>
     <dimen name="card_height">229dp</dimen>
@@ -40,5 +42,6 @@
     <dimen name="recyclerview_paddingBottom">68dp</dimen>
     <dimen name="corner_radius">10dp</dimen>
     <dimen name="recyclerview_horizontalPadding">30dp</dimen>
+
 
 </resources>

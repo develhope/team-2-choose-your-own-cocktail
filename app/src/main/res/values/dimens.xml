@@ -8,5 +8,7 @@
     <dimen name="homeFragTitle_marginStart">29dp</dimen>
     <dimen name="homeFragTitle_marginTop">32dp</dimen>
     <dimen name="homeFragTitle_marginEnd">174dp</dimen>
-
+    <dimen name="margin_between_stuff">5dp</dimen>
+    <dimen name="clickable_default_dimension">48dp</dimen>
+    <dimen name="button_preferance_margin_top">194dp</dimen>
 </resources>
