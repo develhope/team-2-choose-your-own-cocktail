@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
+import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
+
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
