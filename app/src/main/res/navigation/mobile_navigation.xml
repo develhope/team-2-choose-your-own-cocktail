@@ -7,22 +7,21 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.chooseyouowncocktail_g2.ui.home.HomeFragment"
+        android:name="co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.chooseyouowncocktail_g2.ui.dashboard.DashboardFragment"
-        android:label="@string/search_navbar"
-        tools:layout="@layout/fragment_dashboard" />
-    <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.chooseyouowncocktail_g2.ui.profile.ProfileFragment"
+        android:name="co.develhope.chooseyouowncocktail_g2.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/detailDrinkFragment"
-        android:name="com.example.chooseyouowncocktail_g2.DetailDrinkFragment"
+        android:name="co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment"
         android:label="DetailDrinkFragment" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="co.develhope.chooseyouowncocktail_g2.ui.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>
