@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="cardview_lateralMargin">24dp</dimen>
-    <dimen name="cardview_marginBottom">16dp</dimen>
+
+    <dimen name="cardview_marginBottom">12dp</dimen>
+    <dimen name="cardview_marginTop">16dp</dimen>
+
     <dimen name="cardview_marginElevation">24dp</dimen>
     <dimen name="card_width">327dp</dimen>
     <dimen name="card_height">229dp</dimen>
@@ -10,26 +13,35 @@
     <dimen name="imageview_marginLeft">34dp</dimen>
     <dimen name="imageview_marginTop">22dp</dimen>
     <dimen name="imageview_marginBottom">68dp</dimen>
+    <dimen name="imageview_marginRight">205dp</dimen>
     <dimen name="textdrink_width">172dp</dimen>
     <dimen name="textdrink_marginLeft">14dp</dimen>
     <dimen name="textdrink_marginTop">16dp</dimen>
     <dimen name="gotodetail_width">155dp</dimen>
     <dimen name="gotodetail_height">40dp</dimen>
-    <dimen name="gotodetail_marginTop">12dp</dimen>
+    <dimen name="gotodetail_marginTop">173dp</dimen>
     <dimen name="gotodetail_marginBottom">16dp</dimen>
     <dimen name="gotodetail_marginRight">36dp</dimen>
+    <dimen name="gotodetail_marginLeft">136dp</dimen>
     <dimen name="favouritebutton_width">32.81dp</dimen>
     <dimen name="favouritebutton_height">31.48dp</dimen>
     <dimen name="favouritebutton_marginLeft">20.09dp</dimen>
     <dimen name="favouritebutton_marginTop">179.76dp</dimen>
     <dimen name="textcl_width">37dp</dimen>
     <dimen name="textcl_height">24dp</dimen>
-    <dimen name="textcl_marginTop">10dp</dimen>
-    <dimen name="shortdescription_width">172dp</dimen>
-    <dimen name="shortdescription_marginTop">10dp</dimen>
+    <dimen name="textcl_marginTop">74dp</dimen>
+    <dimen name="textcl_marginRight">154dp</dimen>
+    <dimen name="textcl_marginBottom">131dp</dimen>
+    <dimen name="textcl_marginLeft">14dp</dimen>
+    <dimen name="shortdescription_width">162dp</dimen>
     <dimen name="shortdescription_marginRight">19dp</dimen>
+    <dimen name="shortdescription_marginTop">100dp</dimen>
+    <dimen name="shortdescription_marginLeft">136dp</dimen>
     <dimen name="name_size">18sp</dimen>
     <dimen name="cl_size">16sp</dimen>
-    <dimen name="recyclerview_paddingBottom">48dp</dimen>
+    <dimen name="recyclerview_paddingBottom">68dp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
+    <dimen name="recyclerview_horizontalPadding">30dp</dimen>
+
 
 </resources>

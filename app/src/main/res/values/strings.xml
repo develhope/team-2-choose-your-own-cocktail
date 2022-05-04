@@ -18,7 +18,9 @@
     <string name="log_out">log out</string>
     <string name="settings">settings</string>
     <string name="app_version">v.1.0.0</string>
+    <string name="homeFragTitle">Le Nostre Birre</string>
     <string name="nome_birra" translatable="false">Nome Birra</string>
     <string name="_33_cl" translatable="false">33 cl</string>
     <string name="preferance_button" translatable="false">preferanceButton</string>
+
 </resources>

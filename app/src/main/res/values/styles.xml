@@ -56,6 +56,12 @@
         <item name="android:textColor">@color/grayHint</item>
     </style>
 
+    <style name="homeFrag_title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 
 
 

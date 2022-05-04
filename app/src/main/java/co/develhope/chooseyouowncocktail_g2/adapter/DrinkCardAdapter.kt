@@ -22,14 +22,10 @@ class DrinkCardAdapter(
         return ViewHolder(binding)
     }
 
-    // bind the items with each item
-    // of the list languageList
-    // which than will be
-    // shown in recycler view
-    // to keep it simple we are
-    // not setting any image data to view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         with(receiver = holder) {
+
             with(DrinkList.beerList()[position]) {
                 binding.drinkName.text = this.name
                 binding.drinkCl.text = this.cl.toString()
@@ -39,7 +35,6 @@ class DrinkCardAdapter(
         }
     }
 
-    // return the size of languageList
     override fun getItemCount(): Int {
         return DrinkList.beerList().size
     }
