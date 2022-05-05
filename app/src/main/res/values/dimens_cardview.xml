@@ -23,8 +23,8 @@
     <dimen name="gotodetail_marginBottom">16dp</dimen>
     <dimen name="gotodetail_marginRight">36dp</dimen>
     <dimen name="gotodetail_marginLeft">136dp</dimen>
-    <dimen name="favouritebutton_width">32.81dp</dimen>
-    <dimen name="favouritebutton_height">31.48dp</dimen>
+    <dimen name="favouritebutton_width">32dp</dimen>
+    <dimen name="favouritebutton_height">32dp</dimen>
     <dimen name="favouritebutton_marginLeft">20.09dp</dimen>
     <dimen name="favouritebutton_marginTop">179.76dp</dimen>
     <dimen name="textcl_width">37dp</dimen>
@@ -41,7 +41,7 @@
     <dimen name="cl_size">16sp</dimen>
     <dimen name="recyclerview_paddingBottom">68dp</dimen>
     <dimen name="corner_radius">10dp</dimen>
-    <dimen name="recyclerview_horizontalPadding">30dp</dimen>
+    <dimen name="recyclerview_horizontalPadding">24dp</dimen>
 
 
 </resources>
