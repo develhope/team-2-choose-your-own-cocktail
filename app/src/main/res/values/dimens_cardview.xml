@@ -10,7 +10,7 @@
     <dimen name="card_height">229dp</dimen>
     <dimen name="imageview_width">88dp</dimen>
     <dimen name="imageview_height">139dp</dimen>
-    <dimen name="imageview_marginLeft">34dp</dimen>
+    <dimen name="imageview_marginLeft">10dp</dimen>
     <dimen name="imageview_marginTop">22dp</dimen>
     <dimen name="imageview_marginBottom">68dp</dimen>
     <dimen name="imageview_marginRight">205dp</dimen>
@@ -33,11 +33,12 @@
     <dimen name="textcl_marginRight">154dp</dimen>
     <dimen name="textcl_marginBottom">131dp</dimen>
     <dimen name="textcl_marginLeft">14dp</dimen>
-    <dimen name="shortdescription_width">162dp</dimen>
+    <dimen name="shortdescription_width">182dp</dimen>
     <dimen name="shortdescription_marginRight">19dp</dimen>
-    <dimen name="shortdescription_marginTop">100dp</dimen>
+    <dimen name="shortdescription_marginTop">90dp</dimen>
     <dimen name="shortdescription_marginLeft">136dp</dimen>
     <dimen name="name_size">18sp</dimen>
+    <dimen name="name_marginTop">18sp</dimen>
     <dimen name="cl_size">16sp</dimen>
     <dimen name="recyclerview_paddingBottom">68dp</dimen>
     <dimen name="corner_radius">10dp</dimen>

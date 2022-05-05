@@ -28,7 +28,7 @@ class DrinkCardAdapter(
 
             with(DrinkList.beerList()[position]) {
                 binding.drinkName.text = this.name
-                binding.drinkCl.text = this.cl.toString()
+                binding.drinkCl.text = this.cl.toString() + " cl"
                 binding.drinkShortDescription.text = this.shortDescription
                 binding.drinkImage.setImageResource(this.img)
             }

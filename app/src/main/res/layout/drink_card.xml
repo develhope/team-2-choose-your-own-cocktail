@@ -23,78 +23,90 @@
             android:layout_marginTop="@dimen/imageview_marginTop"
             android:layout_marginEnd="@dimen/imageview_marginRight"
             android:layout_marginBottom="@dimen/imageview_marginBottom"
-            android:alpha="1.0"
-            android:gravity="center_vertical|center_horizontal|top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             tools:src="@drawable/dreherprev" />
+
+        <TextView
+            android:id="@+id/drink_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/shortdescription_marginLeft"
+            android:layout_marginTop="16dp"
+            android:text="Titolo"
+            android:ellipsize="end"
+            android:maxLength="18"
+            android:textAppearance="@style/drink_card_beerName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.032" />
 
         <Button
             android:id="@+id/button_go_to_detail"
             android:layout_width="@dimen/gotodetail_width"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/gotodetail_marginLeft"
+            android:layout_marginTop="@dimen/gotodetail_marginTop"
+            android:layout_marginEnd="@dimen/gotodetail_marginRight"
+            android:layout_marginBottom="@dimen/gotodetail_marginBottom"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/details"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/drink_image" />
+            app:layout_constraintLeft_toRightOf="@id/drink_image"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/drink_favourite"
             android:layout_width="@dimen/favouritebutton_width"
             android:layout_height="@dimen/favouritebutton_height"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/favouritebutton_marginLeft"
             android:background="@drawable/ic_fav_off"
-            app:layout_constraintBottom_toBottomOf="@+id/button_go_to_detail"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <TextView
-            android:id="@+id/drink_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/imageview_marginTop"
-            android:text="Titolo"
-            android:layout_marginStart="16dp"
-            android:textAppearance="@style/drink_card_beerName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/drink_image"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drink_image"
+            app:layout_constraintVertical_bias="0.695" />
 
         <TextView
             android:id="@+id/drink_cl"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textAppearance="@style/drink_card_beerDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/shortdescription_marginLeft"
+            android:layout_marginEnd="@dimen/textcl_marginRight"
             app:layout_constraintBottom_toTopOf="@+id/drink_short_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/drink_image"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drink_name"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="33 cl" />
 
         <TextView
             android:id="@+id/drink_short_description"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:ellipsize="end"
+            android:layout_width="@dimen/shortdescription_width"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/shortdescription_marginLeft"
+            android:layout_marginTop="90dp"
             android:textAppearance="@style/drink_card_beerDescription"
-            app:layout_constraintBottom_toTopOf="@+id/button_go_to_detail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/drink_image"
-            app:layout_constraintTop_toTopOf="@+id/drink_cl"
+            android:maxLines="4"
+            android:ellipsize="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/drink_image"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="Descrizione" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
