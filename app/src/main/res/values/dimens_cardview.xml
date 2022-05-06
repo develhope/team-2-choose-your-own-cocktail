@@ -2,7 +2,7 @@
 <resources>
     <dimen name="cardview_lateralMargin">24dp</dimen>
 
-    <dimen name="cardview_marginBottom">12dp</dimen>
+    <dimen name="cardview_marginBottom">24dp</dimen>
     <dimen name="cardview_marginTop">16dp</dimen>
 
     <dimen name="cardview_marginElevation">24dp</dimen>
@@ -15,7 +15,7 @@
     <dimen name="imageview_marginBottom">68dp</dimen>
     <dimen name="imageview_marginRight">205dp</dimen>
     <dimen name="textdrink_width">172dp</dimen>
-    <dimen name="textdrink_marginLeft">14dp</dimen>
+    <dimen name="textdrink_marginLeft">136dp</dimen>
     <dimen name="textdrink_marginTop">16dp</dimen>
     <dimen name="gotodetail_width">155dp</dimen>
     <dimen name="gotodetail_height">40dp</dimen>
