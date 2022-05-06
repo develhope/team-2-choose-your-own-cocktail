@@ -10,6 +10,7 @@
     <string name="home_navbar">home</string>
     <string name="details">Go to detail</string>
     <string name="results">results</string>
+    <string name="our_beers">Le nostre birre</string>
     <string name="hello_blank_fragment" tools:ignore="MissingTranslation">Hello blank fragment</string>
     <string name="Loreipsum" tools:ignore="MissingTranslation">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</string>

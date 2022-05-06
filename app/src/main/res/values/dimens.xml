@@ -11,4 +11,8 @@
     <dimen name="margin_between_stuff">5dp</dimen>
     <dimen name="clickable_default_dimension">48dp</dimen>
     <dimen name="button_preferance_margin_top">194dp</dimen>
+    <dimen name="header_marginTop">10dp</dimen>
+    <dimen name="header_marginBottom">24dp</dimen>
+
+
 </resources>
