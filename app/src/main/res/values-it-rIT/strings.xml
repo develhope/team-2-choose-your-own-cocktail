@@ -15,4 +15,5 @@
     <string name="settings">impostazioni</string>
     <string name="app_version">v.1.0.0</string>
     <string name="homeFragTitle">Le Nostre Birre</string>
+    <string name="searchFrag">Cerca</string>
 </resources>
