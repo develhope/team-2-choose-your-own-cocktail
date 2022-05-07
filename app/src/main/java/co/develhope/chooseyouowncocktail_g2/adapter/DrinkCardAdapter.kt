@@ -2,10 +2,12 @@ package co.develhope.chooseyouowncocktail_g2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
-import co.develhope.chooseyouowncocktail_g2.model.Beer
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
+import co.develhope.chooseyouowncocktail_g2.model.Beer
+
 
 class DrinkCardAdapter(
     val beerListForAdapter: List<Beer>,
@@ -13,7 +15,6 @@ class DrinkCardAdapter(
     private lateinit var binding: DrinkCardBinding
 
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,8 +26,7 @@ class DrinkCardAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(receiver = holder) {
-
-            with(DrinkList.beerList()[position]) {
+            with(beerListForAdapter[position]) {
                 binding.drinkName.text = this.name
                 binding.drinkCl.text = this.cl.toString() + " cl"
                 binding.drinkShortDescription.text = this.shortDescription
@@ -36,6 +36,7 @@ class DrinkCardAdapter(
     }
 
     override fun getItemCount(): Int {
-        return DrinkList.beerList().size
+        return beerListForAdapter.size
     }
+
 }
