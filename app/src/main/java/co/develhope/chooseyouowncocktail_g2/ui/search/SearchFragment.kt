@@ -1,6 +1,5 @@
 package co.develhope.chooseyouowncocktail_g2.ui.search
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,25 +7,24 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
+import co.develhope.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.R
+import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
 
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
     private val drinkList = DrinkList.beerList()
-    private val beerNameList = extractBeerName()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
-
     //private lateinit var viewModel: ProfileViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +34,10 @@ class SearchFragment : Fragment() {
         //val viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
+
+        // binding.searchResultRC.adapter = DrinkCardAdapter(DrinkList.beerList())
+
+
         return binding.root
     }
 
@@ -43,39 +45,52 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val adapter = activity?.let {
-            ArrayAdapter(
-                it,
-                R.layout.simple_list_item_1,
-                beerNameList
-            )
-        }
-
-        binding.listView.adapter = adapter
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
-                adapter?.filter?.filter(queryTyping)
-                return false
+                var filteredList = emptyList<Beer>()
+                if (queryTyping!!.isNotEmpty()) {
+                    filteredList = drinkList.filterList(queryTyping.toString())
+                    binding.resultPreview.visibility = View.VISIBLE
+                } else {
+                    filteredList = emptyList<Beer>()
+                    binding.resultPreview.visibility = View.GONE
+                }
+                binding.resultPreview.adapter = CustomListAdapter(
+                    requireActivity(),
+                    filteredList
+                )
+
+                return true
             }
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 binding.searchView.clearFocus()
-                if (beerNameList.contains(query)) {
-                    adapter?.filter?.filter(query)
+                binding.resultPreview.visibility = View.GONE
+
+                val filteredList = drinkList.filterList(query)
+
+                //Sostituire la stringa in hardcode
+                binding.resultCount.text =
+                    filteredList.size.toString() + " " +
+                            resources.getString(R.string.results)
+
+                if (filteredList.isNotEmpty()) {
+                    binding.searchResultRC.adapter = DrinkCardAdapter(filteredList)
                 } else {
-                    Toast.makeText(context, "nothing found", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
                 }
-                return false
+
+                return true
             }
         })
     }
 
-    private fun extractBeerName(): List<String> {
-        var listBeerName = arrayListOf<String>()
-        for (item in drinkList)
-            listBeerName.add(item.name)
-        return listBeerName
+    private fun List<Beer>.filterList(query: String): List<Beer> {
+        return this.filter {
+            it.name.contains(query, true) ||
+                    it.description.contains(query, true) ||
+                    it.shortDescription.contains(query, true)
+        }
     }
 
     override fun onDestroyView() {

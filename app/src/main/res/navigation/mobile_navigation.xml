@@ -19,9 +19,9 @@
     <fragment
         android:id="@+id/detailDrinkFragment"
         android:name="co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment"
-        android:label="DetailDrinkFragment" />
+        android:label="@string/details" />
     <fragment
         android:id="@+id/navigation_search"
         android:name="co.develhope.chooseyouowncocktail_g2.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="@string/searchFrag" />
 </navigation>
