@@ -10,10 +10,10 @@
 
     <android.widget.SearchView
         android:id="@+id/searchView"
-        android:layout_width="320dp"
-        android:layout_height="46dp"
+        android:layout_width="@dimen/searchBar_width"
+        android:layout_height="@dimen/searchBar_height"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="@dimen/searchBar_marginTop"
         android:autofillHints="creditCardExpirationDate"
         android:background="@drawable/searchbar"
         android:layoutDirection="rtl"
@@ -23,11 +23,11 @@
 
     <ListView
         android:id="@+id/resultPreview"
-        android:layout_width="320dp"
+        android:layout_width="@dimen/searchBar_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="@dimen/respreview_margin"
+        android:layout_marginRight="@dimen/respreview_margin"
         android:visibility="gone"
         />
 
@@ -35,8 +35,8 @@
         android:id="@+id/resultCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="@dimen/rescount_marginStart"
+        android:layout_marginTop="@dimen/rescount_marginTop"
         android:textAppearance="@style/search_result" />
 
     <androidx.recyclerview.widget.RecyclerView
