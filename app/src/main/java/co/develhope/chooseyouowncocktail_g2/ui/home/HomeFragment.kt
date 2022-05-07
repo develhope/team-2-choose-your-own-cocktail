@@ -39,7 +39,6 @@ class HomeFragment : Fragment() {
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
 
-
         val root: View = binding.root
 
         return root

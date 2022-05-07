@@ -1,12 +1,23 @@
 package co.develhope.chooseyouowncocktail_g2.adapter
 
+import android.app.Activity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment
+import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment
+
+sealed class DrinkAction{
+    object GotoDetail : DrinkAction()
+    object SetPref : DrinkAction()
+}
 
 
 class DrinkCardAdapter(
@@ -31,6 +42,10 @@ class DrinkCardAdapter(
                 binding.drinkCl.text = this.cl.toString() + " cl"
                 binding.drinkShortDescription.text = this.shortDescription
                 binding.drinkImage.setImageResource(this.img)
+                binding.buttonGoToDetail.setOnClickListener {
+                   it.findNavController().navigate(R.id.detailDrinkFragment)
+                }
+
             }
         }
     }
