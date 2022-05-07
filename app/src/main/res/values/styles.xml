@@ -19,6 +19,11 @@
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="recyclerview_header">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
     <style name="drink_card_cl">
         <item name="android:textSize">16sp</item>
