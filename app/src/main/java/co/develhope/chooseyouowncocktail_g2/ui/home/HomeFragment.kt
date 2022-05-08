@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
 
         val headerAdapter = HeaderAdapter()
 
-        val drinkCardAdapter = DrinkCardAdapter(DrinkList.beerList(), "Home")
+        val drinkCardAdapter = DrinkCardAdapter(requireActivity(),DrinkList.beerList(), "Home")
 
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 

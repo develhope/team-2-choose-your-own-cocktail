@@ -60,6 +60,21 @@ class DetailDrinkFragment : Fragment() {
             }
         }
 
+        var switch:Boolean= false
+        var bf=binding.buttonFavorite
+        val imOn= requireActivity().getResources().getIdentifier("ic_fav_off","drawable", requireContext().getPackageName())
+        val imOff= requireActivity().getResources().getIdentifier("ic_fav_on","drawable", requireContext().getPackageName())
+        bf.setOnClickListener {
+            if (!switch) {
+                bf.setBackgroundResource(imOn)
+                switch = true;
+            } else {
+                bf.setBackgroundResource(imOff)
+                switch = false
+            }
+        }
+
+
     }
 
 
