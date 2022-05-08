@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/detailDrinkFragment"
         android:name="co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment"
-        android:label="@string/details" >
+        android:label="@string/details_label" >
         <action
             android:id="@+id/action_detailDrinkFragment_to_navigation_home"
             app:destination="@id/navigation_home" />

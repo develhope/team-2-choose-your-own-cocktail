@@ -23,14 +23,16 @@ class CustomListAdapter(private val context: Activity, private val beer: List<Be
         val beerPreview = view.findViewById(R.id.img_preview) as ImageView
 
         view.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putString("name", beer[position].name)
-                bundle.putString("desc", beer[position].description)
-                bundle.putString("preview", beer[position].img.toString())
-                bundle.putString("cl", beer[position].cl.toString())
-                bundle.putString("currentPage", "Search")
-                it.findNavController().navigate(R.id.detailDrinkFragment,bundle)
+            val bundle = Bundle()
+            bundle.apply {
+                putString("name", beer[position].name)
+                putString("desc", beer[position].description)
+                putInt("preview", beer[position].img)
+                putString("cl", beer[position].cl.toString() + " cl")
+                putString("currentPage", "Search")
             }
+            it.findNavController().navigate(R.id.detailDrinkFragment, bundle)
+        }
 
 
         beerName.text = beer[position].name

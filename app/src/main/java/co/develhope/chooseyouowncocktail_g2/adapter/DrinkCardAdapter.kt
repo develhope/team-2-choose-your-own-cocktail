@@ -15,7 +15,7 @@ import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 import co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment
 
-sealed class DrinkAction{
+sealed class DrinkAction {
     object GotoDetail : DrinkAction()
     object SetPref : DrinkAction()
 }
@@ -23,7 +23,7 @@ sealed class DrinkAction{
 
 class DrinkCardAdapter(
     val beerListForAdapter: List<Beer>,
-    val currentPage : String
+    val currentPage: String
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
@@ -44,14 +44,19 @@ class DrinkCardAdapter(
                 binding.drinkCl.text = this.cl.toString() + " cl"
                 binding.drinkShortDescription.text = this.shortDescription
                 binding.drinkImage.setImageResource(this.img)
+
                 binding.buttonGoToDetail.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putString("name", this.name)
-                    bundle.putString("desc", this.description)
-                    bundle.putString("preview", this.img.toString())
-                    bundle.putString("cl", this.cl.toString() + " cl")
-                    bundle.putString("currentPage", currentPage)
-                   it.findNavController().navigate(R.id.detailDrinkFragment,bundle)
+                    val currentDrink = this
+                    bundle.apply {
+                        putString("name", currentDrink.name)
+                        putString("desc", currentDrink.description)
+                        putInt("preview", currentDrink.img)
+                        putString("cl", currentDrink.cl.toString() + " cl")
+                        putString("currentPage", currentPage)
+                    }
+
+                    it.findNavController().navigate(R.id.detailDrinkFragment, bundle)
                 }
 
             }

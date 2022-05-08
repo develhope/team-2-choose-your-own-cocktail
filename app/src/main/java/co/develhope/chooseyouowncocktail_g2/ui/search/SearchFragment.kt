@@ -34,10 +34,6 @@ class SearchFragment : Fragment() {
         //val viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-
-        // binding.searchResultRC.adapter = DrinkCardAdapter(DrinkList.beerList())
-
-
         return binding.root
     }
 
