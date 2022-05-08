@@ -83,4 +83,7 @@ class DrinkCardAdapter(private val context: Activity,
         return beerListForAdapter.size
     }
 
+
+
+
 }

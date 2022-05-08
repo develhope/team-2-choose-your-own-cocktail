@@ -71,7 +71,7 @@
         </TextView>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonFavorite"
             android:layout_width="@dimen/clickable_default_dimension"
             android:layout_height="@dimen/clickable_default_dimension"
             android:layout_marginStart="@dimen/detailpage_fragment_margin"
