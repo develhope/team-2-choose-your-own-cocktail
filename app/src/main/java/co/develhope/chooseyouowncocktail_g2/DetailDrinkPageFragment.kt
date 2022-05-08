@@ -59,7 +59,7 @@ class DetailDrinkFragment : Fragment() {
 
         binding.title.text= param1
         binding.description.text= param2
-        binding.preview.setImageResource(Integer.parseInt(param3))
+         binding.preview.setImageResource(Integer.parseInt(param3))
         binding.cl.text = param4
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
