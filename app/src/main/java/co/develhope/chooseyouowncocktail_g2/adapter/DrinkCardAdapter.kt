@@ -1,6 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.adapter
 
 import android.app.Activity
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ sealed class DrinkAction{
 
 class DrinkCardAdapter(
     val beerListForAdapter: List<Beer>,
+    val currentPage : String
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
@@ -43,7 +45,13 @@ class DrinkCardAdapter(
                 binding.drinkShortDescription.text = this.shortDescription
                 binding.drinkImage.setImageResource(this.img)
                 binding.buttonGoToDetail.setOnClickListener {
-                   it.findNavController().navigate(R.id.detailDrinkFragment)
+                    val bundle = Bundle()
+                    bundle.putString("name", this.name)
+                    bundle.putString("desc", this.description)
+                    bundle.putString("preview", this.img.toString())
+                    bundle.putString("cl", this.cl.toString() + " cl")
+                    bundle.putString("currentPage", currentPage)
+                   it.findNavController().navigate(R.id.detailDrinkFragment,bundle)
                 }
 
             }

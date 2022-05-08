@@ -13,6 +13,22 @@
         <action
             android:id="@+id/action_navigation_home_to_detailDrinkFragment"
             app:destination="@id/detailDrinkFragment" />
+        <argument
+            android:name="ARG_PARAM1"
+            app:argType="string"
+            android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
+        <argument
+        android:name="ARG_PARAM2"
+        app:argType="string"
+        android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
+        <argument
+            android:name="ARG_PARAM3"
+            app:argType="string"
+            android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
+        <argument
+            android:name="ARG_PARAM4"
+            app:argType="string"
+            android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
     </fragment>
 
     <fragment
@@ -27,9 +43,16 @@
         <action
             android:id="@+id/action_detailDrinkFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_detailDrinkFragment_to_navigation_search"
+            app:destination="@id/navigation_search" />
     </fragment>
     <fragment
         android:id="@+id/navigation_search"
         android:name="co.develhope.chooseyouowncocktail_g2.ui.search.SearchFragment"
-        android:label="@string/searchFrag" />
+        android:label="@string/searchFrag" >
+        <action
+            android:id="@+id/action_navigation_search_self"
+            app:destination="@id/navigation_search" />
+    </fragment>
 </navigation>

@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.R
+import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
-import co.develhope.chooseyouowncocktail_g2.R
-import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
 
 class SearchFragment : Fragment() {
 
@@ -40,6 +40,7 @@ class SearchFragment : Fragment() {
 
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,7 +76,7 @@ class SearchFragment : Fragment() {
                             resources.getString(R.string.results)
 
                 if (filteredList.isNotEmpty()) {
-                    binding.searchResultRC.adapter = DrinkCardAdapter(filteredList)
+                    binding.searchResultRC.adapter = DrinkCardAdapter(filteredList,"Search")
                 } else {
                     Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
                 }
