@@ -13,22 +13,6 @@
         <action
             android:id="@+id/action_navigation_home_to_detailDrinkFragment"
             app:destination="@id/detailDrinkFragment" />
-        <argument
-            android:name="ARG_PARAM1"
-            app:argType="string"
-            android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
-        <argument
-        android:name="ARG_PARAM2"
-        app:argType="string"
-        android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
-        <argument
-            android:name="ARG_PARAM3"
-            app:argType="string"
-            android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
-        <argument
-            android:name="ARG_PARAM4"
-            app:argType="string"
-            android:defaultValue="http://sohamerp.com/avo/avo_privacy_policy.html"/>
     </fragment>
 
     <fragment
