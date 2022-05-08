@@ -33,12 +33,11 @@ class HomeFragment : Fragment() {
 
         val headerAdapter = HeaderAdapter()
 
-        val drinkCardAdapter = DrinkCardAdapter(DrinkList.beerList())
+        val drinkCardAdapter = DrinkCardAdapter(requireActivity(),DrinkList.beerList())
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
-
 
         val root: View = binding.root
 

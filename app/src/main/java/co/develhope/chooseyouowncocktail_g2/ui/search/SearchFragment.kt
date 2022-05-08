@@ -75,7 +75,7 @@ class SearchFragment : Fragment() {
                             resources.getString(R.string.results)
 
                 if (filteredList.isNotEmpty()) {
-                    binding.searchResultRC.adapter = DrinkCardAdapter(filteredList)
+                    binding.searchResultRC.adapter = DrinkCardAdapter(requireActivity(),filteredList)
                 } else {
                     Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
                 }
