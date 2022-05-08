@@ -1,6 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.adapter
 
 import android.app.Activity
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,18 +17,16 @@ import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 import co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment
+
 import android.widget.*
 import kotlin.coroutines.coroutineContext
 import android.content.Context
 import java.security.AccessController.getContext
-sealed class DrinkAction{
-    object GotoDetail : DrinkAction()
-    object SetPref : DrinkAction()
-}
 
 
 class DrinkCardAdapter(private val context: Activity,
     val beerListForAdapter: List<Beer>,
+    val currentPage: String
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
@@ -48,8 +47,19 @@ class DrinkCardAdapter(private val context: Activity,
                 binding.drinkCl.text = this.cl.toString() + " cl"
                 binding.drinkShortDescription.text = this.shortDescription
                 binding.drinkImage.setImageResource(this.img)
+
                 binding.buttonGoToDetail.setOnClickListener {
-                   it.findNavController().navigate(R.id.detailDrinkFragment)
+                    val bundle = Bundle()
+                    val currentDrink = this
+                    bundle.apply {
+                        putString("name", currentDrink.name)
+                        putString("desc", currentDrink.description)
+                        putInt("preview", currentDrink.img)
+                        putString("cl", currentDrink.cl.toString() + " cl")
+                        putString("currentPage", currentPage)
+                    }
+
+                    it.findNavController().navigate(R.id.detailDrinkFragment, bundle)
                 }
                 var switch:Boolean= false
                 var bf=binding.drinkFavourite
@@ -66,13 +76,7 @@ class DrinkCardAdapter(private val context: Activity,
                 }
             }
         }}
-    
-
-
-
-
-
-
+  
 
 
     override fun getItemCount(): Int {

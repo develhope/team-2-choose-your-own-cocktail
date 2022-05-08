@@ -33,20 +33,15 @@ class HomeFragment : Fragment() {
 
         val headerAdapter = HeaderAdapter()
 
-        val drinkCardAdapter = DrinkCardAdapter(requireActivity(),DrinkList.beerList())
-        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
+        val drinkCardAdapter = DrinkCardAdapter(DrinkList.beerList(), "Home")
 
+        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
 
         val root: View = binding.root
 
         return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
 

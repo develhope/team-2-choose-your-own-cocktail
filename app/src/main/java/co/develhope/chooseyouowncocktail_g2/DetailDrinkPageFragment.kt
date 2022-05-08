@@ -1,20 +1,14 @@
 package co.develhope.chooseyouowncocktail_g2
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
-import co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment
 
-
-
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class DetailDrinkFragment : Fragment() {
 
@@ -22,16 +16,23 @@ class DetailDrinkFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private var param1: String? = null
-    private var param2: String? = null
+    private var param_name: String? = null
+    private var param_desc: String? = null
+    private var param_preview: Int = 0
+    private var param_cl: String? = null
+    private var param_currentPage: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            param_name = it.getString("name")
+            param_desc = it.getString("desc")
+            param_preview = it.getInt("preview")
+            param_cl = it.getString("cl")
+            param_currentPage = it.getString("currentPage")
         }
-        requireActivity().actionBar?.displayOptions
+        //  requireActivity().actionBar?.displayOptions
     }
 
     override fun onCreateView(
@@ -45,10 +46,22 @@ class DetailDrinkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.title.text = param_name
+        binding.description.text = param_desc
+        binding.preview.setImageResource(param_preview)
+        binding.cl.text = param_cl
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            view.findNavController().navigate(R.id.action_detailDrinkFragment_to_navigation_home)
+            when (param_currentPage) {
+                "Search" -> view.findNavController()
+                    .navigate(R.id.action_detailDrinkFragment_to_navigation_search)
+                "Home" -> view.findNavController()
+                    .navigate(R.id.action_detailDrinkFragment_to_navigation_home)
+            }
         }
+
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
