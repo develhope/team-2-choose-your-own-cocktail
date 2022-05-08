@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
         val headerAdapter = HeaderAdapter()
 
         val drinkCardAdapter = DrinkCardAdapter(DrinkList.beerList(), "Home")
+
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
         binding.drinkCardRecyclerView.adapter = concatAdapter

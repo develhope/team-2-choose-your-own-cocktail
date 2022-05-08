@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -15,13 +18,13 @@ import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 import co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment
 
-sealed class DrinkAction {
-    object GotoDetail : DrinkAction()
-    object SetPref : DrinkAction()
-}
+import android.widget.*
+import kotlin.coroutines.coroutineContext
+import android.content.Context
+import java.security.AccessController.getContext
 
 
-class DrinkCardAdapter(
+class DrinkCardAdapter(private val context: Activity,
     val beerListForAdapter: List<Beer>,
     val currentPage: String
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
@@ -58,10 +61,23 @@ class DrinkCardAdapter(
 
                     it.findNavController().navigate(R.id.detailDrinkFragment, bundle)
                 }
-
+                var switch:Boolean= false
+                var bf=binding.drinkFavourite
+                val imOn= context.getResources().getIdentifier("ic_fav_off","drawable",context.getPackageName())
+                val imOff= context.getResources().getIdentifier("ic_fav_on","drawable",context.getPackageName())
+                bf.setOnClickListener {
+                    if (!switch) {
+                        bf.setBackgroundResource(imOn)
+                        switch = true;
+                    } else {
+                        bf.setBackgroundResource(imOff)
+                        switch = false
+                    }
+                }
             }
-        }
-    }
+        }}
+  
+
 
     override fun getItemCount(): Int {
         return beerListForAdapter.size
