@@ -1,11 +1,17 @@
 package co.develhope.chooseyouowncocktail_g2
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
+import co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment
 
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +42,18 @@ class DetailDrinkFragment : Fragment() {
         _binding = FragmentDetailDrinkPageBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.title.text = arguments?.getString("drink name")
+        binding.cl.text = arguments?.getString("drinkCl")
+        binding.description.text = arguments?.getString("short description")
+        arguments?.getInt("set ImgRes")?.let { binding.preview.setImageResource(it) }
+
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

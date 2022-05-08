@@ -9,17 +9,21 @@
         android:id="@+id/navigation_home"
         android:name="co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="co.develhope.chooseyouowncocktail_g2.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/detailDrinkFragment"
         android:name="co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment"
-        android:label="@string/details" />
+        android:label="@string/details">
+    </fragment>
     <fragment
         android:id="@+id/navigation_search"
         android:name="co.develhope.chooseyouowncocktail_g2.ui.search.SearchFragment"

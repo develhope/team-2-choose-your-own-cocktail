@@ -4,7 +4,8 @@
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    android:tag="detailfrag">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,8 +14,8 @@
 
         <ImageView
             android:id="@+id/preview"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="153dp"
+            android:layout_height="242dp"
             android:layout_marginTop="@dimen/detailpage_fragment_margin"
             android:contentDescription="@android:string/ok"
             android:src="@drawable/ichnusaprev"
