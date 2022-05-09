@@ -15,10 +15,11 @@ object Action {
                     putString("desc", action.beer.description)
                     putInt("preview", action.beer.img)
                     putString("cl",action.beer.cl.toString() + " cl")
+                    putBoolean("favorite", action.beer.favourite)
                     putString("currentPage", "Home")
                 })
             }
-            DrinkAction.SetPref -> TODO()
+           // is DrinkAction.SetPref -> TODO()
         }
     }
 }

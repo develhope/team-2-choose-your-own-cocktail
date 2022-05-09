@@ -9,5 +9,5 @@ data class Beer(
     val shortDescription: String,
     val cl: Int,
     val img: Int,
-    val favourite: Boolean
+    var favourite: Boolean
 )

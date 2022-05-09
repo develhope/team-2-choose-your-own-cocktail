@@ -21,18 +21,21 @@ class DetailDrinkFragment : Fragment() {
     private var param_preview: Int = 0
     private var param_cl: String? = null
     private var param_currentPage: String? = null
+    private var param_favorite: Boolean? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //getting bundle param
         arguments?.let {
             param_name = it.getString("name")
             param_desc = it.getString("desc")
             param_preview = it.getInt("preview")
             param_cl = it.getString("cl")
             param_currentPage = it.getString("currentPage")
+            param_favorite = it.getBoolean("favorite")
         }
-        //  requireActivity().actionBar?.displayOptions
     }
 
     override fun onCreateView(
@@ -46,10 +49,21 @@ class DetailDrinkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val preferiteImageOn= requireActivity().resources.getIdentifier("ic_fav_on","drawable", requireContext().packageName)
+        val preferiteImageOff= requireActivity().resources.getIdentifier("ic_fav_off","drawable", requireContext().packageName)
+
         binding.title.text = param_name
         binding.description.text = param_desc
         binding.preview.setImageResource(param_preview)
         binding.cl.text = param_cl
+        if (param_favorite!!)
+            binding.buttonFavorite.setBackgroundResource(preferiteImageOn)
+        else
+            binding.buttonFavorite.setBackgroundResource(preferiteImageOff)
+
+        binding.buttonFavorite.setOnClickListener {
+            TODO()
+        }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             when (param_currentPage) {
@@ -59,22 +73,6 @@ class DetailDrinkFragment : Fragment() {
                     .navigate(R.id.action_detailDrinkFragment_to_navigation_home)
             }
         }
-
-        var switch:Boolean= false
-        var bf=binding.buttonFavorite
-        val imOn= requireActivity().getResources().getIdentifier("ic_fav_off","drawable", requireContext().getPackageName())
-        val imOff= requireActivity().getResources().getIdentifier("ic_fav_on","drawable", requireContext().getPackageName())
-        bf.setOnClickListener {
-            if (!switch) {
-                bf.setBackgroundResource(imOn)
-                switch = true;
-            } else {
-                bf.setBackgroundResource(imOff)
-                switch = false
-            }
-        }
-
-
     }
 
 
