@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
@@ -55,7 +56,7 @@ class SearchFragment : Fragment() {
                 binding.resultPreview.adapter = CustomListAdapter(
                     requireActivity(),
                     filteredList
-                )
+                ) { action -> makeActionDone(action, requireParentFragment()) }
 
                 return true
             }
@@ -73,7 +74,11 @@ class SearchFragment : Fragment() {
 
                 if (filteredList.isNotEmpty()) {
 
-                    binding.searchResultRC.adapter = DrinkCardAdapter(requireActivity(),filteredList,"Search")
+                    binding.searchResultRC.adapter = DrinkCardAdapter(
+                        requireActivity(),
+                        filteredList,
+                        "Search"
+                    ) { action -> makeActionDone(action, requireParentFragment()) }
 
                 } else {
                     Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()

@@ -7,7 +7,7 @@ import java.util.*
 object DrinkList {
 
     private var beers = listOf(
-        Beer(
+        Beer(1,
             "Ichnusa",
             "Una birra a bassa fermentazione con una gradazione alcolica di 4,7% vol." +
                     "Il colore è giallo tenue, quasi dorato, con una leggera effervescenza , limpida senza residui sul fondo." +
@@ -18,6 +18,7 @@ object DrinkList {
             false
         ),
         Beer(
+            2,
             "Dreher",
             "La Dreher è una birra a bassa fermentazione, quindi Lager." +
                     "Ha un colore giallo dorato, quando la versi nel bicchiere" +
@@ -29,6 +30,7 @@ object DrinkList {
             false
         ),
         Beer(
+            3,
             "Nastro Azzurro",
             "La Nastro Azzurro è una Pilsner con una gradazione di 5.1%." +
                     "Il gusto di luppolo è gradevolmente amara, con una nota agrumata che la rende inconfondibile." +
