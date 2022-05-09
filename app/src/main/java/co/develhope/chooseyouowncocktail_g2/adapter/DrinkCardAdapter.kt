@@ -66,12 +66,11 @@ class DrinkCardAdapter(private val context: Activity,
                 val imOn= context.getResources().getIdentifier("ic_fav_off","drawable",context.getPackageName())
                 val imOff= context.getResources().getIdentifier("ic_fav_on","drawable",context.getPackageName())
                 bf.setOnClickListener {
+                    switch = !switch
                     if (!switch) {
                         bf.setBackgroundResource(imOn)
-                        switch = true;
                     } else {
                         bf.setBackgroundResource(imOff)
-                        switch = false
                     }
                 }
             }
