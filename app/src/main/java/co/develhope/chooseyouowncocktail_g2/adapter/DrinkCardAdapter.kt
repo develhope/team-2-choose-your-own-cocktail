@@ -23,10 +23,14 @@ import kotlin.coroutines.coroutineContext
 import android.content.Context
 import java.security.AccessController.getContext
 
+sealed class DrinkAction{
+    data class GotoDetail(val beer : Beer,val currentPage: String) : DrinkAction()
+    object SetPref : DrinkAction()
+}
 
 class DrinkCardAdapter(private val context: Activity,
     val beerListForAdapter: List<Beer>,
-    val currentPage: String
+    val currentPage: String, val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
@@ -49,17 +53,11 @@ class DrinkCardAdapter(private val context: Activity,
                 binding.drinkImage.setImageResource(this.img)
 
                 binding.buttonGoToDetail.setOnClickListener {
-                    val bundle = Bundle()
-                    val currentDrink = this
-                    bundle.apply {
-                        putString("name", currentDrink.name)
-                        putString("desc", currentDrink.description)
-                        putInt("preview", currentDrink.img)
-                        putString("cl", currentDrink.cl.toString() + " cl")
-                        putString("currentPage", currentPage)
-                    }
 
-                    it.findNavController().navigate(R.id.detailDrinkFragment, bundle)
+
+                    action(DrinkAction.GotoDetail(this,currentPage))
+
+
                 }
                 var switch:Boolean= false
                 var bf=binding.drinkFavourite
