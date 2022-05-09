@@ -4,14 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
+import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.MainActivity
+import co.develhope.chooseyouowncocktail_g2.R
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
+import co.develhope.chooseyouowncocktail_g2.model.Beer
 
 class HomeFragment : Fragment() {
 
@@ -33,7 +40,11 @@ class HomeFragment : Fragment() {
 
         val headerAdapter = HeaderAdapter()
 
-        val drinkCardAdapter = DrinkCardAdapter(requireActivity(),DrinkList.beerList(), "Home")
+        val drinkCardAdapter = DrinkCardAdapter(
+            requireActivity(),
+            DrinkList.beerList(),
+            "Home"
+        ) { action -> makeActionDone(action,requireParentFragment()) }
 
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
@@ -43,6 +54,8 @@ class HomeFragment : Fragment() {
 
         return root
     }
+
+
 
 
     override fun onDestroyView() {

@@ -11,7 +11,9 @@ import android.widget.*
 import androidx.navigation.findNavController
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 
-class CustomListAdapter(private val context: Activity, private val beer: List<Beer>) :
+class CustomListAdapter(private val context: Activity,
+                        private val beer: List<Beer>,
+                        val action: (DrinkAction) -> Unit) :
     ArrayAdapter<Beer>(context, R.layout.list_item, beer) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
@@ -23,15 +25,7 @@ class CustomListAdapter(private val context: Activity, private val beer: List<Be
         val beerPreview = view.findViewById(R.id.img_preview) as ImageView
 
         view.setOnClickListener {
-            val bundle = Bundle()
-            bundle.apply {
-                putString("name", beer[position].name)
-                putString("desc", beer[position].description)
-                putInt("preview", beer[position].img)
-                putString("cl", beer[position].cl.toString() + " cl")
-                putString("currentPage", "Search")
-            }
-            it.findNavController().navigate(R.id.detailDrinkFragment, bundle)
+            action(DrinkAction.GotoDetail(beer[position],"search"))
         }
 
 
