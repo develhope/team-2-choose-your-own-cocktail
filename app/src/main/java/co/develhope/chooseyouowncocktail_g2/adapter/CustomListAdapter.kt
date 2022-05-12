@@ -4,12 +4,11 @@ import co.develhope.chooseyouowncocktail_g2.R
 
 
 import android.app.Activity
-import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.navigation.findNavController
 import co.develhope.chooseyouowncocktail_g2.model.Beer
+import com.squareup.picasso.Picasso
 
 class CustomListAdapter(private val context: Activity,
                         private val beer: List<Beer>,
@@ -31,7 +30,13 @@ class CustomListAdapter(private val context: Activity,
 
         beerName.text = beer[position].name
         beerCl.text = beer[position].cl.toString() + " cl"
-        beerPreview.setImageResource(beer[position].img)
+
+        Picasso.get()
+            .load("https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg")
+            .resize(60,60)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(beerPreview)
 
 
         return view
