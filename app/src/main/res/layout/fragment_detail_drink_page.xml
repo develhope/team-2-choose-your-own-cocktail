@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/preview"
-            android:layout_width="153dp"
-            android:layout_height="242dp"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
             android:contentDescription="@android:string/ok"
             android:src="@drawable/ichnusaprev"
             card_view:layout_constraintBottom_toBottomOf="parent"

@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
+import com.squareup.picasso.Picasso
 
 
 class DetailDrinkFragment : Fragment() {
@@ -48,7 +49,14 @@ class DetailDrinkFragment : Fragment() {
 
         binding.title.text = param_name
         binding.description.text = param_desc
-        binding.preview.setImageResource(param_preview)
+
+        Picasso.get()
+            .load("https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg")
+            .resize(200,200)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(binding.preview)
+
         binding.cl.text = param_cl
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -67,7 +75,7 @@ class DetailDrinkFragment : Fragment() {
         bf.setOnClickListener {
             if (!switch) {
                 bf.setBackgroundResource(imOn)
-                switch = true;
+                switch = true
             } else {
                 bf.setBackgroundResource(imOff)
                 switch = false
