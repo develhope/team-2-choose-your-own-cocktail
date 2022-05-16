@@ -1,4 +1,3 @@
-
 data class DrinkResult(
     val drinks: MutableList<DrinkDto>
 )

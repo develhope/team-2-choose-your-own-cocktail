@@ -5,12 +5,12 @@ import DrinkResultModel
 import co.develhope.chooseyouowncocktail_g2.mapper.DrinkMapper
 import co.develhope.chooseyouowncocktail_g2.network.DrinkDao
 import co.develhope.chooseyouowncocktail_g2.network.RestClient
-import java.lang.Exception
 import java.util.*
 
 enum class Alchool {
     Alcoholic, Non_Alcoholic
 }
+
 
 object DrinksDB {
 
@@ -25,7 +25,7 @@ object DrinksDB {
     }
 
 
-    suspend fun filterByAlcoholic(alchool: Alchool): List<DrinkResultModel>? {
+    suspend fun filterByAlcoholic(alchool: Alchool): List<DrinkResultModel> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
                 RestClient.getClient().create(DrinkDao::class.java)
@@ -34,7 +34,7 @@ object DrinksDB {
         )
     }
 
-    suspend fun filterByCategory(category: String): List<DrinkResultModel>? {
+    suspend fun filterByCategory(category: String): List<DrinkResultModel> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
                 RestClient.getClient().create(DrinkDao::class.java)
@@ -43,7 +43,7 @@ object DrinksDB {
         )
     }
 
-    suspend fun searchByFirstLetter(letter: Char): List<DrinkResultModel>? {
+    suspend fun searchByFirstLetter(letter: Char): List<DrinkResultModel> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
                 RestClient.getClient().create(DrinkDao::class.java)
@@ -52,7 +52,7 @@ object DrinksDB {
         )
     }
 
-    suspend fun searchByName(name: String): List<DrinkResultModel>? {
+    suspend fun searchByName(name: String): List<DrinkResultModel> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
                 RestClient.getClient().create(DrinkDao::class.java)
@@ -61,7 +61,7 @@ object DrinksDB {
         )
     }
 
-    suspend fun searchByIngredient(ingredient: String): List<DrinkResultModel>? {
+    suspend fun searchByIngredient(ingredient: String): List<DrinkResultModel> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
                 RestClient.getClient().create(DrinkDao::class.java)
@@ -70,14 +70,14 @@ object DrinksDB {
         )
     }
 
-    suspend fun getByID(id: Int): List<DrinkResultModel>? {
+    suspend fun getByID(id: Int): List<DrinkResultModel> {
         return DrinkMapper.listToDomainModel(
             RestClient.getClient().create(DrinkDao::class.java)
                 .getDrinkByID(id)
         )
     }
 
-    suspend fun getRandom(): List<DrinkResultModel>? {
+    suspend fun getRandom(): List<DrinkResultModel> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
                 RestClient.getClient().create(DrinkDao::class.java)
@@ -98,14 +98,14 @@ object DrinksDB {
 
     suspend fun getListAlphabetically(): List<DrinkResultModel> {
         val genList = mutableListOf<DrinkResultModel>()
-        var char = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
+        val char = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
         char.forEach {
             try {
                 val letterList = searchByFirstLetter(it)
                 if (!letterList.isNullOrEmpty()) {
                     letterList.forEach {
                         genList.add(it)
-                        println(it.name)
+                        // println(it.name)
                     }
                 }
             } catch (e: Exception) {

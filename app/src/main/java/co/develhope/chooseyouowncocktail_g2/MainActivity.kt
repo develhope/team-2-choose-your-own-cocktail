@@ -1,14 +1,11 @@
 package co.develhope.chooseyouowncocktail_g2
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import co.develhope.chooseyouowncocktail_g2.DrinksDB.setList
 import co.develhope.chooseyouowncocktail_g2.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -16,9 +13,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    val mainViewModelFactory = MainViewModel(DrinksDB)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -36,19 +36,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
-        lifecycleScope.launchWhenResumed {
-            try {
-
-                DrinksDB.getListAlphabetically().setList()
-                println(DrinksDB.drinkList().size)
-
-
-
-            } catch (e: Exception) {
-                Log.e("MainActivity", "error retrieving List: $e")
-            }
-        }
 
     }
 }

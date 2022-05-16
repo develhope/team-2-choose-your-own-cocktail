@@ -54,17 +54,8 @@ object DrinkMapper {
         )
     }
 
-    fun listToDomainModel(dtoList: DrinkResult): List<DrinkResultModel>? {
-        val domainList = mutableListOf<DrinkResultModel>()
-        dtoList.drinks.forEach {
-            try {
-                domainList.add(it.mapToDomainModel())
-            } catch (e: Exception) {
-                Log.e("listToDomainModel", "error mapping List: $e")
-                return null
-            }
-        }
-        return domainList
+    fun listToDomainModel(dtoList: DrinkResult): List<DrinkResultModel> {
+        return dtoList.drinks.map { it.mapToDomainModel() }
     }
 
 }
