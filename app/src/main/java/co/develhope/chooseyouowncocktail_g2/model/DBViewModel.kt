@@ -38,13 +38,11 @@ class DBViewModel(private val DBProvider: DrinksDB) : ViewModel() {
 
     private fun retrieveDB(list: List<DrinkResultModel>) {
         Log.d("MainViewModel", "Retrieving from thecocktaildb.com")
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                _result.value = DBResult.Result(list)
-            } catch (e: Exception) {
-                _result.value =
-                    DBResult.Error("error retrieving from DB: ${e.localizedMessage}")
-            }
+        try {
+            _result.value = DBResult.Result(list)
+        } catch (e: Exception) {
+            _result.value =
+                DBResult.Error("error retrieving from DB: ${e.localizedMessage}")
         }
     }
 }
