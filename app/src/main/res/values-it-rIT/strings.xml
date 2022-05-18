@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scegli la tua birra</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profilo</string>
+    <string name="title_search">Ricerca</string>
+    <string name="search_bar">Cerca…</string>
+    <string name="search_navbar">cerca</string>
+    <string name="profile_navbar">profilo</string>
+    <string name="home_navbar">home</string>
+    <string name="details">Vai ai dettagli</string>
+    <string name="results">risultati</string>
+    <string name="contactus">contattaci</string>
+    <string name="log_out">log out</string>
+    <string name="settings">impostazioni</string>
+    <string name="app_version">v.1.0.0</string>
+    <string name="homeFragTitle">Le Nostre Birre</string>
+    <string name="searchFrag">Cerca</string>
+    <string name="details_label">Dettagli</string>
+</resources>
