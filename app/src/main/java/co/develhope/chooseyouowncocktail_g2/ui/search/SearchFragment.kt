@@ -8,11 +8,14 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
+
+const val searchFragment = "SearchFragment"
 
 class SearchFragment : Fragment() {
 
@@ -56,7 +59,7 @@ class SearchFragment : Fragment() {
                 binding.resultPreview.adapter = CustomListAdapter(
                     requireActivity(),
                     filteredList
-                ) { action -> makeActionDone(action, requireParentFragment()) }
+                ) { action -> makeActionDone(action, searchFragment, activity as MainActivity) }
 
                 return true
             }
@@ -76,9 +79,8 @@ class SearchFragment : Fragment() {
 
                     binding.searchResultRC.adapter = DrinkCardAdapter(
                         requireActivity(),
-                        filteredList,
-                        "Search"
-                    ) { action -> makeActionDone(action, requireParentFragment()) }
+                        filteredList
+                    ) { action -> makeActionDone(action, searchFragment,activity as MainActivity) }
 
                 } else {
                     Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()

@@ -7,6 +7,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import co.develhope.chooseyouowncocktail_g2.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 import com.squareup.picasso.Picasso
 
@@ -24,7 +25,7 @@ class CustomListAdapter(private val context: Activity,
         val beerPreview = view.findViewById(R.id.img_preview) as ImageView
 
         view.setOnClickListener {
-            action(DrinkAction.GotoDetail(beer[position],"search"))
+            action(DrinkAction.GotoDetail(beer[position],beer[position].id))
         }
 
 

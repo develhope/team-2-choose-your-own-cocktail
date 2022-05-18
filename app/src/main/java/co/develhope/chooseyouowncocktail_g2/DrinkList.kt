@@ -47,6 +47,10 @@ object DrinkList {
         return beers
     }
 
+    fun getByID(id : Int) : Beer? {
+        return beerList().find { it.id==id }
+    }
+
     fun setFavorite(beer: Beer, bool: Boolean) {
         Collections.replaceAll(
             beers,

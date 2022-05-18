@@ -1,16 +1,17 @@
 package co.develhope.chooseyouowncocktail_g2
 
-import android.media.Image
+
 import android.os.Bundle
-import android.widget.ImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.ActivityMainBinding
+import co.develhope.chooseyouowncocktail_g2.ui.home.HomeFragment
+import co.develhope.chooseyouowncocktail_g2.ui.home.homeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         val navView: BottomNavigationView = binding.navView
 
@@ -37,4 +37,15 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+    fun goTo(
+        fragment : Fragment,
+        previousFrag :String,
+        tag : String
+    ) {
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(previousFrag)
+            .add(R.id.container, fragment,tag).commit()
+    }
+
 }

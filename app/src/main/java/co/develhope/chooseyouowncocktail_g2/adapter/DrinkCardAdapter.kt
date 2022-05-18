@@ -4,20 +4,19 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import co.develhope.chooseyouowncocktail_g2.DrinkAction
+import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 import com.squareup.picasso.Picasso
 
-sealed class DrinkAction {
-    data class GotoDetail(val beer: Beer, val currentPage: String) : DrinkAction()
-    object SetPref : DrinkAction()
-}
+
 
 class DrinkCardAdapter(
-    private val context: Activity,
+    val context: Activity,
     val beerListForAdapter: List<Beer>,
-    val currentPage: String, val action: (DrinkAction) -> Unit
+    val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
@@ -47,7 +46,7 @@ class DrinkCardAdapter(
 
 
                 binding.buttonGoToDetail.setOnClickListener {
-                    action(DrinkAction.GotoDetail(this, currentPage))
+                    action(DrinkAction.GotoDetail(this, this.id))
                 }
 
 

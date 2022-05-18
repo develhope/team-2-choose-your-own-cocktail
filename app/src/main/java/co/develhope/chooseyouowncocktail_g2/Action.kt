@@ -1,24 +1,29 @@
 package co.develhope.chooseyouowncocktail_g2
+import co.develhope.chooseyouowncocktail_g2.model.Beer
 
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
-import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
+
+sealed class DrinkAction {
+    data class GotoDetail(val beer: Beer, val id : Int) : DrinkAction()
+    object SetPref : DrinkAction()
+}
 
 object Action {
-    fun makeActionDone(action: DrinkAction, frag: Fragment) {
+    fun makeActionDone(action: DrinkAction, previousFrag: String, activity: MainActivity) {
         when(action){
             is DrinkAction.GotoDetail -> {
-                findNavController(frag).navigate(R.id.detailDrinkFragment, bundleOf().apply {
-                    putString("name", action.beer.name)
-                    putString("desc", action.beer.description)
-                    putInt("preview", action.beer.img)
-                    putString("cl",action.beer.cl.toString() + " cl")
-                    putString("currentPage", "Home")
-                })
+               activity.goTo( DetailDrinkFragment.newInstance(action.id),
+                   "DetailDrinkFragment", previousFrag)
             }
             DrinkAction.SetPref -> TODO()
         }
     }
+
+
+
+
+
+
+
+
+
 }
