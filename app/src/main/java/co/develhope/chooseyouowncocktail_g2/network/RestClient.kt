@@ -4,6 +4,8 @@ import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+const val thecocktaildb= "https://www.thecocktaildb.com/api.php/"
+
 object RestClient {
 
     private val gsonBuilder = GsonBuilder()
@@ -11,7 +13,7 @@ object RestClient {
         .create()
 
     private val retrofit =
-        Retrofit.Builder().baseUrl("https://www.thecocktaildb.com/api.php/").addConverterFactory(
+        Retrofit.Builder().baseUrl(thecocktaildb).addConverterFactory(
             GsonConverterFactory.create(gsonBuilder)
         ).build()
 

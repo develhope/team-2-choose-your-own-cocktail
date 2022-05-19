@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    val mainViewModelFactory = MainViewModel(DrinksDB)
+    val mainViewModelFactory = MainViewModel(DrinksProvider)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

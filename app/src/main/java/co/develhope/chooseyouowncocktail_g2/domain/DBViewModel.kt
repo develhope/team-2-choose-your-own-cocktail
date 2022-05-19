@@ -1,11 +1,11 @@
 package co.develhope.chooseyouowncocktail_g2.model
 
-import DrinkResultModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.develhope.chooseyouowncocktail_g2.DrinksDB
+import co.develhope.chooseyouowncocktail_g2.DrinksProvider
+import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,11 +16,11 @@ sealed class DBEvent {
 }
 
 sealed class DBResult {
-    data class Result(val db: List<DrinkResultModel>) : DBResult()
+    data class Result(val db: List<Drink>) : DBResult()
     data class Error(val message: String) : DBResult()
 }
 
-class DBViewModel(private val DBProvider: DrinksDB) : ViewModel() {
+class DBViewModel(private val DBProvider: DrinksProvider) : ViewModel() {
 
 
     private var _result = MutableLiveData<DBResult>()
@@ -36,7 +36,7 @@ class DBViewModel(private val DBProvider: DrinksDB) : ViewModel() {
             }
         }
 
-    private fun retrieveDB(list: List<DrinkResultModel>) {
+    private fun retrieveDB(list: List<Drink>) {
         Log.d("MainViewModel", "Retrieving from thecocktaildb.com")
         try {
             _result.value = DBResult.Result(list)

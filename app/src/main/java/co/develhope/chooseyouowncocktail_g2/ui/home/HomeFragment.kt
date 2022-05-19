@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
 import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
@@ -49,9 +51,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textHome.setOnClickListener {
-            findNavController().navigate(R.id.detailDrinkFragment, null)
-        }
+
     }
 
 
@@ -63,7 +63,8 @@ class HomeFragment : Fragment() {
     private fun observer() {
         viewModel.result.observe(viewLifecycleOwner) {
             when (it) {
-                is DBResult.Result -> it.db.forEach { println(it.name) }
+                is DBResult.Result -> {it.db.setList()
+                DrinkList.drinkList().forEach { println(it.name) }}
                 is DBResult.Error -> Snackbar.make(
                     binding.root,
                     "Error retrieving Drinks: $it",

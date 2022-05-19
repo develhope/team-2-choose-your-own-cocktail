@@ -1,4 +1,8 @@
-data class DrinkResultModel(
+package co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks
+
+import android.graphics.drawable.Drawable
+
+data class Drink(
     val id: Int,
     val name: String?,
     val description: String?,

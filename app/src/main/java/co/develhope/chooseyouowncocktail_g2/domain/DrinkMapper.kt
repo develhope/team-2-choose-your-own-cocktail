@@ -1,11 +1,8 @@
-package co.develhope.chooseyouowncocktail_g2.mapper
+package co.develhope.chooseyouowncocktail_g2.domain
 
 import DrinkDto
 import DrinkResult
-import DrinkResultModel
-import android.util.Log
-import co.develhope.chooseyouowncocktail_g2.DrinksDB
-import co.develhope.chooseyouowncocktail_g2.DrinksDB.setList
+import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
 import java.util.*
 
 object DrinkMapper {
@@ -22,7 +19,7 @@ object DrinkMapper {
         }
     }
 
-    fun DrinkDto.mapToDomainModel(): DrinkResultModel {
+    fun DrinkDto.mapToDomainModel(): Drink {
 
         val ingrList = listOf(
             this.strIngredient1,
@@ -42,7 +39,7 @@ object DrinkMapper {
             this.strIngredient15,
         )
 
-        return DrinkResultModel(
+        return Drink(
             Integer.parseInt(idDrink),
             strDrink,
             setByCurrentLanguage(),
@@ -54,7 +51,7 @@ object DrinkMapper {
         )
     }
 
-    fun listToDomainModel(dtoList: DrinkResult): List<DrinkResultModel> {
+    fun listToDomainModel(dtoList: DrinkResult): List<Drink> {
         return dtoList.drinks.map { it.mapToDomainModel() }
     }
 

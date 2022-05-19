@@ -1,9 +1,9 @@
 package co.develhope.chooseyouowncocktail_g2
 
 import DrinkResult
-import DrinkResultModel
-import co.develhope.chooseyouowncocktail_g2.mapper.DrinkMapper
-import co.develhope.chooseyouowncocktail_g2.network.DrinkDao
+import co.develhope.chooseyouowncocktail_g2.domain.DrinkMapper
+import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
+import co.develhope.chooseyouowncocktail_g2.network.DrinkService
 import co.develhope.chooseyouowncocktail_g2.network.RestClient
 import java.util.*
 
@@ -12,75 +12,65 @@ enum class Alchool {
 }
 
 
-object DrinksDB {
-
-    private var drinks = listOf<DrinkResultModel>()
-
-    fun drinkList(): List<DrinkResultModel> {
-        return drinks
-    }
-
-    fun List<DrinkResultModel>.setList() {
-        drinks = this
-    }
+object DrinksProvider {
 
 
-    suspend fun filterByAlcoholic(alchool: Alchool): List<DrinkResultModel> {
+    suspend fun filterByAlcoholic(alchool: Alchool): List<Drink> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
-                RestClient.getClient().create(DrinkDao::class.java)
+                RestClient.getClient().create(DrinkService::class.java)
                     .getDrinksByAlcoholic(alchool.toString())
             )
         )
     }
 
-    suspend fun filterByCategory(category: String): List<DrinkResultModel> {
+    suspend fun filterByCategory(category: String): List<Drink> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
-                RestClient.getClient().create(DrinkDao::class.java)
+                RestClient.getClient().create(DrinkService::class.java)
                     .getDrinkByCategory(category)
             )
         )
     }
 
-    suspend fun searchByFirstLetter(letter: Char): List<DrinkResultModel> {
+    suspend fun searchByFirstLetter(letter: Char): List<Drink> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
-                RestClient.getClient().create(DrinkDao::class.java)
+                RestClient.getClient().create(DrinkService::class.java)
                     .getDrinkByFirstLetter(letter)
             )
         )
     }
 
-    suspend fun searchByName(name: String): List<DrinkResultModel> {
+    suspend fun searchByName(name: String): List<Drink> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
-                RestClient.getClient().create(DrinkDao::class.java)
+                RestClient.getClient().create(DrinkService::class.java)
                     .getDrinkByName(name)
             )
         )
     }
 
-    suspend fun searchByIngredient(ingredient: String): List<DrinkResultModel> {
+    suspend fun searchByIngredient(ingredient: String): List<Drink> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
-                RestClient.getClient().create(DrinkDao::class.java)
+                RestClient.getClient().create(DrinkService::class.java)
                     .getDrinkByIngredients(ingredient)
             )
         )
     }
 
-    suspend fun getByID(id: Int): List<DrinkResultModel> {
+    suspend fun getByID(id: Int): List<Drink> {
         return DrinkMapper.listToDomainModel(
-            RestClient.getClient().create(DrinkDao::class.java)
+            RestClient.getClient().create(DrinkService::class.java)
                 .getDrinkByID(id)
         )
     }
 
-    suspend fun getRandom(): List<DrinkResultModel> {
+    suspend fun getRandom(): List<Drink> {
         return DrinkMapper.listToDomainModel(
             getByIDList(
-                RestClient.getClient().create(DrinkDao::class.java)
+                RestClient.getClient().create(DrinkService::class.java)
                     .getDrinkRandom()
             )
         )
@@ -89,15 +79,15 @@ object DrinksDB {
     suspend fun getByIDList(idList: DrinkResult): DrinkResult {
         val genList = DrinkResult(mutableListOf())
         idList.drinks.forEach {
-            val result = RestClient.getClient().create(DrinkDao::class.java)
+            val result = RestClient.getClient().create(DrinkService::class.java)
                 .getDrinkByID(Integer.parseInt(it.idDrink))
             genList.drinks.add(result.drinks[0])
         }
         return genList
     }
 
-    suspend fun getListAlphabetically(): List<DrinkResultModel> {
-        val genList = mutableListOf<DrinkResultModel>()
+    suspend fun getListAlphabetically(): List<Drink> {
+        val genList = mutableListOf<Drink>()
         val char = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
         char.forEach {
             try {
@@ -113,14 +103,6 @@ object DrinksDB {
             }
         }
         return genList
-    }
-
-    fun setFavorite(Drink: DrinkResultModel, bool: Boolean) {
-        Collections.replaceAll(
-            drinks,
-            Drink,
-            Drink.copy(favourite = bool)
-        )
     }
 
 }
