@@ -20,11 +20,9 @@
     <dimen name="rescount_marginStart">45dp</dimen>
     <dimen name="rescount_marginTop">29dp</dimen>
     <dimen name="activity_height">0dp</dimen>
-    <dimen name="drinkName_MaxLenght">18dp</dimen>
     <dimen name="drinkName_horizontalBias">0.0</dimen>
     <dimen name="drinkName_verticalBias">0.032</dimen>
     <dimen name="drinkfavourite_verticalBias">0.695</dimen>
-    <dimen name="shortdescription_maxLines">4</dimen>
     <dimen name="shortdescription_verticalBias">0.0</dimen>
     <dimen name="fragmentprofileImageview_height">100dp</dimen>
     <dimen name="fragmentprofileImageview_marginStart">16dp</dimen>
