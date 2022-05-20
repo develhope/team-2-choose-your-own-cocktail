@@ -8,8 +8,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
 import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.R
-import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
@@ -41,39 +39,15 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
-                var filteredList = emptyList<Beer>()
-                if (queryTyping!!.isNotEmpty()) {
-                    filteredList = drinkList.filterList(queryTyping.toString())
-                    binding.resultPreview.visibility = View.VISIBLE
-                } else {
-                    filteredList = emptyList<Beer>()
-                    binding.resultPreview.visibility = View.GONE
-                }
-                binding.resultPreview.adapter = CustomListAdapter(
-                    requireActivity(),
-                    filteredList
-                ) { action -> makeActionDone(action, requireParentFragment()) }
-
                 return true
             }
-
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.searchView.clearFocus()
-                binding.resultPreview.visibility = View.GONE
-
                 val filteredList = drinkList.filterList(query)
-
                 //Sostituire la stringa in hardcode
-                binding.resultCount.text =
-                    filteredList.size.toString() + " " +
-                            resources.getString(R.string.results)
-
                 if (filteredList.isNotEmpty()) {
-
                     binding.searchResultRC.adapter = DrinkCardAdapter(
                         requireActivity(),
                         filteredList,
