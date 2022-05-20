@@ -14,15 +14,15 @@
 
         <ImageView
             android:id="@+id/preview"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="@dimen/preview_width"
+            android:layout_height="@dimen/preview_height"
             android:contentDescription="@android:string/ok"
             android:src="@drawable/ichnusaprev"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.064" />
+            card_view:layout_constraintVertical_bias="@dimen/preview_verticalBias" />
 
         <TextView
             android:id="@+id/description"
@@ -81,10 +81,10 @@
             android:contentDescription="@string/preferance_button"
             card_view:layout_constraintBottom_toTopOf="@+id/title"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintHorizontal_bias="@dimen/buttonfavourite_horizontalBias"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.562" />
+            card_view:layout_constraintVertical_bias="@dimen/buttonfavourite_verticalBias" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

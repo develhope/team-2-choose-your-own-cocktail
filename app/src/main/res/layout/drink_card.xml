@@ -36,16 +36,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/textdrink_marginLeft"
             android:layout_marginTop="@dimen/textdrink_marginTop"
-            android:text="Titolo"
+            android:text="@string/drinkname_text"
             android:ellipsize="end"
-            android:maxLength="18"
+            android:maxLength="@dimen/drinkName_MaxLenght"
             android:textAppearance="@style/drink_card_beerName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="@dimen/drinkName_horizontalBias"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.032" />
+            app:layout_constraintVertical_bias="@dimen/drinkName_verticalBias" />
 
         <Button
             android:id="@+id/button_go_to_detail"
@@ -72,7 +72,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drink_image"
-            app:layout_constraintVertical_bias="0.695" />
+            app:layout_constraintVertical_bias="@dimen/drinkfavourite_verticalBias" />
 
         <TextView
             android:id="@+id/drink_cl"
@@ -82,11 +82,11 @@
             android:layout_marginEnd="@dimen/textcl_marginRight"
             app:layout_constraintBottom_toTopOf="@+id/drink_short_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="@dimen/drinkcl_horizontalBias"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drink_name"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="33 cl" />
+            app:layout_constraintVertical_bias="@dimen/drinkcl_verticalBias"
+            tools:text="@string/drinkcl_text" />
 
         <TextView
             android:id="@+id/drink_short_description"
@@ -95,15 +95,15 @@
             android:layout_marginStart="@dimen/shortdescription_marginLeft"
             android:layout_marginTop="@dimen/shortdescription_marginTop"
             android:textAppearance="@style/drink_card_beerDescription"
-            android:maxLines="4"
+            android:maxLines="@dimen/shortdescription_maxLines"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/drink_image"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Descrizione" />
+            app:layout_constraintVertical_bias="@dimen/shortdescription_verticalBias"
+            tools:text="@string/drinkshortdescription_text"  />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

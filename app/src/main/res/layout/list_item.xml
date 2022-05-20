@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="@dimen/listitem_height">
 
     <ImageView
         android:id="@+id/img_preview"
@@ -11,22 +11,22 @@
         android:layout_height="@dimen/imgview_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="@dimen/imgpreview_horizontalBias"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="@dimen/imgpreview_verticalBias"
         android:alpha="1.0"/>
 
     <TextView
         android:id="@+id/beerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/beername_marginStart"
         android:text="@string/nome_birra"
         android:textAppearance="@style/detail_beerName"
-        android:textSize="20sp"
+        android:textSize="@dimen/beername_textsize"
         app:layout_constraintStart_toEndOf="@+id/img_preview"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="@dimen/beername_absolutey"/>
 
     <TextView
         android:id="@+id/beer_cl"
@@ -34,12 +34,12 @@
         android:layout_height="wrap_content"
         android:text="@string/_33_cl"
         android:textAppearance="@style/detail_cl"
-        android:textSize="10sp"
+        android:textSize="@dimen/beercl_textsize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintHorizontal_bias="@dimen/beercl_horizontalBias"
         app:layout_constraintStart_toEndOf="@+id/img_preview"
         app:layout_constraintTop_toBottomOf="@+id/beerName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="@dimen/beercl_verticalBias" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
