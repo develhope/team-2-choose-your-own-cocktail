@@ -32,6 +32,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'co.develhope.chooseyouowncocktail_g2'
 }
 
 dependencies {

@@ -9,21 +9,45 @@
     tools:context=".ui.home.HomeFragment"
     android:layout_gravity="center_horizontal">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/drinkCardRecyclerView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        tools:listitem="@layout/drink_card"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/recyclerview_horizontalPadding"
-        android:paddingBottom="@dimen/recyclerview_paddingBottom"
-        android:paddingTop="@dimen/recyclerview_horizontalPadding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        >
 
+        <TextView
+            android:id="@+id/header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header_marginTop"
+            android:layout_marginBottom="@dimen/header_marginBottom"
+            android:text="@string/our_beers"
+            android:textAppearance="@style/recyclerview_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/drinkCardRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/recyclerview_horizontalPadding"
+            android:paddingTop="@dimen/recyclerview_horizontalPadding"
+            android:paddingBottom="@dimen/recyclerview_paddingBottom"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:listitem="@layout/drink_card">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

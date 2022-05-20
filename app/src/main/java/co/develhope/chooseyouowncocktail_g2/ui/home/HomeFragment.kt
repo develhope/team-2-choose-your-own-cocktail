@@ -7,18 +7,12 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ConcatAdapter
-import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
+import androidx.navigation.fragment.NavHostFragment
 import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
-import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
-import co.develhope.chooseyouowncocktail_g2.model.Beer
 
 class HomeFragment : Fragment() {
 
@@ -37,26 +31,35 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        val headerAdapter = HeaderAdapter()
-
+        val context = requireActivity()
+        val imOn =
+            context.resources.getIdentifier("ic_fav_off", "drawable", context.packageName)
+        val imOff =
+            context.resources.getIdentifier("ic_fav_on", "drawable", context.packageName)
         val drinkCardAdapter = DrinkCardAdapter(
-            requireActivity(),
+            imOn,imOff,
             DrinkList.beerList(),
-            "Home"
-        ) { action -> makeActionDone(action,requireParentFragment()) }
+        ) { action -> makeAction(action) }
 
-        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
-
-        binding.drinkCardRecyclerView.adapter = concatAdapter
+        binding.drinkCardRecyclerView.adapter = drinkCardAdapter
 
         val root: View = binding.root
 
         return root
     }
 
-
-
+    private fun makeAction(action: DrinkAction) {
+        if (action is DrinkAction.GotoDetail) {
+            NavHostFragment.findNavController(requireParentFragment())
+                .navigate(R.id.detailDrinkFragment, bundleOf().apply {
+                    putString("name", action.beer.name)
+                    putString("desc", action.beer.description)
+                    putInt("preview", action.beer.img)
+                    putString("cl", action.beer.cl.toString() + " cl")
+                    putString("currentPage", "Home")
+                })
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

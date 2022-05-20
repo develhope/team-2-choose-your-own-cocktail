@@ -24,7 +24,7 @@ class CustomListAdapter(private val context: Activity,
         val beerPreview = view.findViewById(R.id.img_preview) as ImageView
 
         view.setOnClickListener {
-            action(DrinkAction.GotoDetail(beer[position],"search"))
+            action(DrinkAction.GotoDetail(beer[position]))
         }
 
 

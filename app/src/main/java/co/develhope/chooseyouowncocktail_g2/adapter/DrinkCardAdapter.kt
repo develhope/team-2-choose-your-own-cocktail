@@ -10,14 +10,15 @@ import co.develhope.chooseyouowncocktail_g2.model.Beer
 import com.squareup.picasso.Picasso
 
 sealed class DrinkAction {
-    data class GotoDetail(val beer: Beer, val currentPage: String) : DrinkAction()
+    data class GotoDetail(val beer: Beer) : DrinkAction()
     object SetPref : DrinkAction()
 }
 
 class DrinkCardAdapter(
-    private val context: Activity,
+    val imOn: Int,
+    val imOff: Int,
     val beerListForAdapter: List<Beer>,
-    val currentPage: String, val action: (DrinkAction) -> Unit
+    val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
@@ -47,16 +48,11 @@ class DrinkCardAdapter(
 
 
                 binding.buttonGoToDetail.setOnClickListener {
-                    action(DrinkAction.GotoDetail(this, currentPage))
+                    action(DrinkAction.GotoDetail(this))
                 }
-
 
                 var switch = false
                 val bf = binding.drinkFavourite
-                val imOn =
-                    context.resources.getIdentifier("ic_fav_off", "drawable", context.packageName)
-                val imOff =
-                    context.resources.getIdentifier("ic_fav_on", "drawable", context.packageName)
                 bf.setOnClickListener {
                     if (!switch) {
                         bf.setBackgroundResource(imOn)
