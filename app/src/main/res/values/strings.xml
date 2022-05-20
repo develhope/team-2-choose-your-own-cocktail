@@ -29,6 +29,8 @@
     <string name="drinkname_text">Titolo</string>
     <string name="drinkcl_text">33 cl</string>
     <string name="drinkshortdescription_text">Descrizione</string>
+    <string name="shortdescription_maxLines">4</string>
+    <string name="drinkName_MaxLenght">18dp</string>
 
 
 
