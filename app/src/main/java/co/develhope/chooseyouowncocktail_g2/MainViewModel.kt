@@ -2,7 +2,7 @@ package co.develhope.chooseyouowncocktail_g2
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import co.develhope.chooseyouowncocktail_g2.model.DBViewModel
+import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
 
 
 class MainViewModel(private val DbProvider: DrinksProvider) : ViewModelProvider.Factory {

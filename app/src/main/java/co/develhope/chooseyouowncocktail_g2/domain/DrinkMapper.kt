@@ -1,7 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.domain
 
-import DrinkDto
-import DrinkResult
+import co.develhope.chooseyouowncocktail_g2.network.dto.DrinkDto
+import co.develhope.chooseyouowncocktail_g2.network.dto.DrinksResult
 import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
 import java.util.*
 
@@ -51,7 +51,7 @@ object DrinkMapper {
         )
     }
 
-    fun listToDomainModel(dtoList: DrinkResult): List<Drink> {
+    fun listToDomainModel(dtoList: DrinksResult): List<Drink> {
         return dtoList.drinks.map { it.mapToDomainModel() }
     }
 

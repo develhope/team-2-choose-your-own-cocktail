@@ -4,17 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
 import co.develhope.chooseyouowncocktail_g2.MainActivity
-import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
-import co.develhope.chooseyouowncocktail_g2.model.DBEvent
-import co.develhope.chooseyouowncocktail_g2.model.DBResult
-import co.develhope.chooseyouowncocktail_g2.model.DBViewModel
+import co.develhope.chooseyouowncocktail_g2.domain.DBEvent
+import co.develhope.chooseyouowncocktail_g2.domain.DBResult
+import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
 import com.google.android.material.snackbar.Snackbar
+
+
+import androidx.recyclerview.widget.ConcatAdapter
+import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
+
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
+import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 
 
 class HomeFragment : Fragment() {
@@ -22,6 +29,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: DBViewModel
 
     private var _binding: FragmentHomeBinding? = null
+
+    val currentLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,11 +48,21 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-
-        viewModel.send(DBEvent.RetrieveDrinksRandom)
-
+        viewModel.send(DBEvent.RetrieveDrinksByFirstLetter(currentLetter[0]))
 
         observer()
+
+        val headerAdapter = HeaderAdapter()
+
+        val drinkCardAdapter = DrinkCardAdapter(
+            requireActivity(),
+            DrinkList.drinkList(),
+            "Home"
+        ) { action -> makeActionDone(action, requireParentFragment()) }
+
+        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
+
+        binding.drinkCardRecyclerView.adapter = concatAdapter
 
 
         return binding.root
@@ -54,7 +73,6 @@ class HomeFragment : Fragment() {
 
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -64,13 +82,14 @@ class HomeFragment : Fragment() {
         viewModel.result.observe(viewLifecycleOwner) {
             when (it) {
                 is DBResult.Result -> {it.db.setList()
+                    println(DrinkList.drinkList().size)
                 DrinkList.drinkList().forEach { println(it.name) }}
                 is DBResult.Error -> Snackbar.make(
                     binding.root,
                     "Error retrieving Drinks: $it",
                     Snackbar.LENGTH_INDEFINITE
                 )
-                    .setAction("Retry") { viewModel.send(DBEvent.RetrieveDrinksRandom) }
+                    .setAction("Retry") { viewModel.send(DBEvent.RetrieveDrinksByFirstLetter(currentLetter[0])) }
                     .show()
             }
         }

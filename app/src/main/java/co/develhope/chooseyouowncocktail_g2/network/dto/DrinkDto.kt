@@ -1,6 +1,5 @@
-data class DrinkResult(
-    val drinks: MutableList<DrinkDto>
-)
+package co.develhope.chooseyouowncocktail_g2.network.dto
+
 
 data class DrinkDto(
     val dateModified: String,

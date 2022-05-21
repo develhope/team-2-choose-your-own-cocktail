@@ -1,4 +1,4 @@
-package co.develhope.chooseyouowncocktail_g2.model
+package co.develhope.chooseyouowncocktail_g2.domain
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -11,8 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 sealed class DBEvent {
-    object RetrieveDrinksAlphabetically : DBEvent()
-    object RetrieveDrinksRandom : DBEvent()
+    data class RetrieveDrinksByFirstLetter(val letter: Char) : DBEvent()
 }
 
 sealed class DBResult {
@@ -31,8 +30,11 @@ class DBViewModel(private val DBProvider: DrinksProvider) : ViewModel() {
     fun send(event: DBEvent) =
         CoroutineScope(Dispatchers.Main).launch {
             when (event) {
-                is DBEvent.RetrieveDrinksAlphabetically -> retrieveDB(DBProvider.getListAlphabetically())
-                is DBEvent.RetrieveDrinksRandom -> retrieveDB(DBProvider.getRandom())
+                is DBEvent.RetrieveDrinksByFirstLetter -> retrieveDB(
+                    DBProvider.searchByFirstLetter(
+                        event.letter
+                    )
+                )
             }
         }
 

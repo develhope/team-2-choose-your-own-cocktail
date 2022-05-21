@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundColor"
+    android:orientation="vertical"
+    tools:context="co.develhope.chooseyouowncocktail_g2.ui.search.SearchFragment">
+
+    <android.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="@dimen/searchBar_width"
+        android:layout_height="@dimen/searchBar_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/searchBar_marginTop"
+        android:autofillHints="creditCardExpirationDate"
+        android:background="@drawable/searchbar"
+        android:layoutDirection="rtl"
+        android:queryHint="@string/search_bar"
+        android:searchHintIcon="@drawable/ic_searchbarbutton"
+        android:searchIcon="@drawable/ic_searchbarbutton" />
+
+    <ListView
+        android:id="@+id/resultPreview"
+        android:layout_width="@dimen/searchBar_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/respreview_margin"
+        android:layout_marginRight="@dimen/respreview_margin"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/resultCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rescount_marginStart"
+        android:layout_marginTop="@dimen/rescount_marginTop"
+        android:textAppearance="@style/search_result" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultRC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:clipToPadding="false"
+
+        android:paddingHorizontal="@dimen/recyclerview_horizontalPadding"
+        android:paddingTop="@dimen/recyclerview_horizontalPadding"
+        android:paddingBottom="@dimen/recyclerview_paddingBottom"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/drink_card" />
+
+
+</LinearLayout>
