@@ -7,7 +7,8 @@ import java.util.*
 object DrinkList {
 
     private var beers = listOf(
-        Beer(1,
+        Beer(
+            1,
             "Ichnusa",
             "Una birra a bassa fermentazione con una gradazione alcolica di 4,7% vol." +
                     "Il colore è giallo tenue, quasi dorato, con una leggera effervescenza , limpida senza residui sul fondo." +
@@ -47,8 +48,8 @@ object DrinkList {
         return beers
     }
 
-    fun getByID(id : Int) : Beer? {
-        return beerList().find { it.id==id }
+    fun getByID(id: Int): Beer? {
+        return beerList().find { it.id == id }
     }
 
     fun setFavorite(beer: Beer, bool: Boolean) {

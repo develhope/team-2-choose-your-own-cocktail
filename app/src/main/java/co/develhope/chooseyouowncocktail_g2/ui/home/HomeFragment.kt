@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ConcatAdapter
@@ -15,7 +14,6 @@ import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 
-const val homeFragment = "HomeFragment"
 
 class HomeFragment : Fragment() {
 
@@ -31,7 +29,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -40,18 +38,14 @@ class HomeFragment : Fragment() {
         val drinkCardAdapter = DrinkCardAdapter(
             requireActivity(),
             DrinkList.beerList(),
-        ) { action -> makeActionDone(action, homeFragment, activity as MainActivity) }
+        ) { action -> makeActionDone(action) }
 
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
 
-        val root: View = binding.root
-
-        return root
+        return binding.root
     }
-
-
 
 
     override fun onDestroyView() {
