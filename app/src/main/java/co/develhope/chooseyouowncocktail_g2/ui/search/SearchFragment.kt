@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
-import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.MainActivity
-import co.develhope.chooseyouowncocktail_g2.R
+import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
@@ -94,6 +91,19 @@ class SearchFragment : Fragment() {
             it.name.contains(query, true) ||
                     it.description.contains(query, true) ||
                     it.shortDescription.contains(query, true)
+        }
+    }
+
+    private fun makeActionDone(action: DrinkAction) {
+        when (action) {
+            is DrinkAction.GotoDetail -> {
+                action.beer.let{
+                    (activity as MainActivity).goToFragment(
+                        DetailDrinkFragment.newInstance(it)
+                    )
+                }
+            }
+            DrinkAction.SetPref -> TODO()
         }
     }
 

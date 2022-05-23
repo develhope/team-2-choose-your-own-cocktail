@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ConcatAdapter
-import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
+import co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment
+import co.develhope.chooseyouowncocktail_g2.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
@@ -48,8 +50,22 @@ class HomeFragment : Fragment() {
     }
 
 
+    private fun makeActionDone(action: DrinkAction) {
+        when (action) {
+            is DrinkAction.GotoDetail -> {
+                action.beer.let {
+                    (activity as MainActivity).goToFragment(
+                        DetailDrinkFragment.newInstance(it)
+                    )
+                }
+            }
+            DrinkAction.SetPref -> TODO()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+

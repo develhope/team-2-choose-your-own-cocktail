@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.adapter.setImageByUrl
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
@@ -21,13 +22,11 @@ class DetailDrinkFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(drink: Beer?) = DetailDrinkFragment().apply {
+        fun newInstance(drink: Beer) = DetailDrinkFragment().apply {
             val fragmentTag = DetailDrinkFragment::class.java.canonicalName
                 ?: "DetailDrinkFragment"
             arguments = Bundle().apply {
-                if (drink != null) {
-                    putInt(param_drink_ID, drink.id)
-                }
+                putInt(param_drink_ID, drink.id)
             }
             return this
         }
@@ -52,15 +51,15 @@ class DetailDrinkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val beer = DrinkList.getByID(it.getInt(param_drink_ID))
-            if (beer != null) {
-                binding.title.text = beer.name
-                binding.description.text = beer.description
-                binding.cl.text = beer.cl.toString()
+            DrinkList.getByID(it.getInt(param_drink_ID)).let {
+                binding.title.text = it!!.name
+                binding.description.text = it.description
+                binding.cl.text = it.cl.toString()
                 binding.preview.setImageByUrl(
                     "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
-                200,
-                    200)
+                    200,
+                    200
+                )
             }
         }
 
@@ -80,8 +79,6 @@ class DetailDrinkFragment : Fragment() {
                 switch = false
             }
         }
-
-
     }
 
 
