@@ -12,6 +12,7 @@ import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 import com.squareup.picasso.Picasso
 
 class DrinkCardAdapter(
@@ -75,12 +76,4 @@ class DrinkCardAdapter(
 
 }
 
-fun ImageView.setImageByUrl(url: String, width : Int, height : Int) {
-    Picasso.get()
-        .load(url)
-        .resize(width,height)
-        .placeholder(R.drawable.placeholder)
-        .error(R.drawable.placeholder)
-        .into(this)
 
-}
