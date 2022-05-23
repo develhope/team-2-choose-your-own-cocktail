@@ -3,7 +3,7 @@ package co.develhope.chooseyouowncocktail_g2.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 
 class HomeViewModel : ViewModel() {
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
-import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import com.squareup.picasso.Picasso
 
 sealed class DrinkAction {
@@ -16,8 +16,9 @@ sealed class DrinkAction {
 
 class DrinkCardAdapter(
     private val context: Activity,
-    val beerListForAdapter: List<Drink>,
-    val currentPage: String, val action: (DrinkAction) -> Unit
+
+    private val beerListForAdapter: List<Drink>,
+    private val currentPage: String, val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
@@ -35,7 +36,9 @@ class DrinkCardAdapter(
         with(receiver = holder) {
             with(beerListForAdapter[position]) {
                 binding.drinkName.text = this.name
-                // binding.drinkCl.text = this.cl.toString() + " cl"
+
+               // binding.drinkCl.text = this.cl.toString() + " cl"
+
                 binding.drinkShortDescription.text = this.shortDescription
 
                 Picasso.get()

@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.develhope.chooseyouowncocktail_g2.DrinksProvider
-import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
+import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

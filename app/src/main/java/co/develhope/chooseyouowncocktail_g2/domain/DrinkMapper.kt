@@ -2,12 +2,12 @@ package co.develhope.chooseyouowncocktail_g2.domain
 
 import co.develhope.chooseyouowncocktail_g2.network.dto.DrinkDto
 import co.develhope.chooseyouowncocktail_g2.network.dto.DrinksResult
-import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import java.util.*
 
 object DrinkMapper {
 
-    fun DrinkDto.setByCurrentLanguage(): String {
+    private fun DrinkDto.setByCurrentLanguage(): String {
         return when (Locale.getDefault().displayLanguage) {
             "English" -> this.strInstructions
             "Italian" -> this.strInstructionsIT
@@ -19,7 +19,7 @@ object DrinkMapper {
         }
     }
 
-    fun DrinkDto.mapToDomainModel(): Drink {
+    private fun DrinkDto.mapToDomainModel(): Drink {
 
         val ingrList = listOf(
             this.strIngredient1,

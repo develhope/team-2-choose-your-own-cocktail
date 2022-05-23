@@ -15,14 +15,11 @@ import co.develhope.chooseyouowncocktail_g2.domain.DBEvent
 import co.develhope.chooseyouowncocktail_g2.domain.DBResult
 import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
 import com.google.android.material.snackbar.Snackbar
-
-
 import androidx.recyclerview.widget.ConcatAdapter
 import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
 
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
-
 
 class HomeFragment : Fragment() {
 
@@ -30,11 +27,13 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    val currentLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
+    private val currentLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var drinkCardAdapter : DrinkCardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,13 +47,14 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+
         viewModel.send(DBEvent.RetrieveDrinksByFirstLetter(currentLetter[0]))
 
         observer()
 
         val headerAdapter = HeaderAdapter()
 
-        val drinkCardAdapter = DrinkCardAdapter(
+         drinkCardAdapter = DrinkCardAdapter(
             requireActivity(),
             DrinkList.drinkList(),
             "Home"
@@ -63,6 +63,8 @@ class HomeFragment : Fragment() {
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
+
+        println(drinkCardAdapter.itemCount)
 
 
         return binding.root
@@ -83,7 +85,11 @@ class HomeFragment : Fragment() {
             when (it) {
                 is DBResult.Result -> {it.db.setList()
                     println(DrinkList.drinkList().size)
-                DrinkList.drinkList().forEach { println(it.name) }}
+                DrinkList.drinkList().forEach {
+                    println(it.name) }
+
+                    println(drinkCardAdapter.itemCount)
+                }
                 is DBResult.Error -> Snackbar.make(
                     binding.root,
                     "Error retrieving Drinks: $it",

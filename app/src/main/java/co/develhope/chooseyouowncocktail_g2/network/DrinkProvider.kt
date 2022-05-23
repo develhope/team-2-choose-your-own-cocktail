@@ -1,9 +1,7 @@
-package co.develhope.chooseyouowncocktail_g2
+package co.develhope.chooseyouowncocktail_g2.network
 
 import co.develhope.chooseyouowncocktail_g2.domain.DrinkMapper
-import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
-import co.develhope.chooseyouowncocktail_g2.network.DrinkService
-import co.develhope.chooseyouowncocktail_g2.network.RestClient
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 
 
 object DrinksProvider {

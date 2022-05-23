@@ -7,13 +7,14 @@ import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 
 object Action {
     fun makeActionDone(action: DrinkAction, frag: Fragment) {
-        when(action){
+        when (action) {
             is DrinkAction.GotoDetail -> {
                 findNavController(frag).navigate(R.id.detailDrinkFragment, bundleOf().apply {
                     putString("name", action.drink.name)
                     putString("desc", action.drink.description)
                     putString("preview", action.drink.img)
                     //putString("cl",action.drink.cl.toString() + " cl")
+
                     putString("currentPage", "Home")
                 })
             }

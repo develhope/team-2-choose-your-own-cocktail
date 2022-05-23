@@ -1,11 +1,10 @@
 package co.develhope.chooseyouowncocktail_g2
 
-import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import java.util.*
 
 
 object DrinkList {
-
 
     private var drinks = listOf<Drink>()
 

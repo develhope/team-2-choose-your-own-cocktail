@@ -12,13 +12,16 @@ import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
-import co.develhope.chooseyouowncocktail_g2.model.domainmodel.drinks.Drink
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+
 
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
+
     private val drinkList = DrinkList.drinkList()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,12 +48,15 @@ class SearchFragment : Fragment() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
+
                 var filteredList = emptyList<Drink>()
+
                 if (queryTyping!!.isNotEmpty()) {
                     filteredList = drinkList.filterList(queryTyping.toString())
                     binding.resultPreview.visibility = View.VISIBLE
                 } else {
                     filteredList = emptyList<Drink>()
+
                     binding.resultPreview.visibility = View.GONE
                 }
                 binding.resultPreview.adapter = CustomListAdapter(
