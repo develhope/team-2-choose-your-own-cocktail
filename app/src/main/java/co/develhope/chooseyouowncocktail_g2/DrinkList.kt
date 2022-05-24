@@ -49,7 +49,7 @@ object DrinkList {
     }
 
     fun getByID(id: Int): Beer? {
-        return beerList().find { it.id == id }
+        return beerList().firstOrNull() { it.id == id }
     }
 
     fun setFavorite(beer: Beer, bool: Boolean) {

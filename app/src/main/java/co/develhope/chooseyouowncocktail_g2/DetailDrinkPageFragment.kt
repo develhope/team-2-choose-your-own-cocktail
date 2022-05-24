@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import co.develhope.chooseyouowncocktail_g2.adapter.setImageByUrl
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 
@@ -22,11 +21,11 @@ class DetailDrinkFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(drink: Beer) = DetailDrinkFragment().apply {
-            val fragmentTag = DetailDrinkFragment::class.java.canonicalName
-                ?: "DetailDrinkFragment"
+        val fragmentTag = DetailDrinkFragment::class.java.canonicalName
+            ?: "DetailDrinkFragment"
+        fun newInstance(drinkID: Int) = DetailDrinkFragment().apply {
             arguments = Bundle().apply {
-                putInt(param_drink_ID, drink.id)
+                putInt(param_drink_ID, drinkID)
             }
             return this
         }
@@ -51,8 +50,8 @@ class DetailDrinkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            DrinkList.getByID(it.getInt(param_drink_ID)).let {
-                binding.title.text = it!!.name
+            DrinkList.getByID(it.getInt(param_drink_ID))?.let {
+                binding.title.text = it.name
                 binding.description.text = it.description
                 binding.cl.text = it.cl.toString()
                 binding.preview.setImageByUrl(
@@ -60,6 +59,9 @@ class DetailDrinkFragment : Fragment() {
                     200,
                     200
                 )
+            }?: run {
+                Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
+                (activity as MainActivity).remove(this)
             }
         }
 

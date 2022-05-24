@@ -46,7 +46,7 @@ class DrinkCardAdapter(
 
 
                 binding.buttonGoToDetail.setOnClickListener {
-                    action(DrinkAction.GotoDetail(this))
+                    action(DrinkAction.GotoDetail(this.id))
                 }
 
 

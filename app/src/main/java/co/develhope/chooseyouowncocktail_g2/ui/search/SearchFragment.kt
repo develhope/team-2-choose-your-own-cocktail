@@ -97,9 +97,11 @@ class SearchFragment : Fragment() {
     private fun makeActionDone(action: DrinkAction) {
         when (action) {
             is DrinkAction.GotoDetail -> {
-                action.beer.let{
+                action.drinkID.let {
+                    val detailDrinkFragment = DetailDrinkFragment
                     (activity as MainActivity).goToFragment(
-                        DetailDrinkFragment.newInstance(it)
+                        detailDrinkFragment.newInstance(it),
+                        detailDrinkFragment.fragmentTag
                     )
                 }
             }

@@ -8,10 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ConcatAdapter
-import co.develhope.chooseyouowncocktail_g2.DetailDrinkFragment
-import co.develhope.chooseyouowncocktail_g2.DrinkAction
-import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.MainActivity
+import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
@@ -53,9 +50,11 @@ class HomeFragment : Fragment() {
     private fun makeActionDone(action: DrinkAction) {
         when (action) {
             is DrinkAction.GotoDetail -> {
-                action.beer.let {
+                action.drinkID.let {
+                    val detailDrinkFragment = DetailDrinkFragment
                     (activity as MainActivity).goToFragment(
-                        DetailDrinkFragment.newInstance(it)
+                        detailDrinkFragment.newInstance(it),
+                        detailDrinkFragment.fragmentTag
                     )
                 }
             }

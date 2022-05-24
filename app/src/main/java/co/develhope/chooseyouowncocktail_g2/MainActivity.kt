@@ -2,6 +2,8 @@ package co.develhope.chooseyouowncocktail_g2
 
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -43,27 +45,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToFragment(
-        fragment: Fragment
+        fragment: Fragment,
+        tag : String
     ) {
-        fragment.add()
+        fragment.add(tag)
         //se l'utente cambia fragment dalla bottom navigation bar, chiude il fragment
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (fragment.isVisible) {
-                fragment.remove()
+                //SOLUZIONE TEMPORANEA!!!!!!
+                Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
+                    override fun run() {
+                        remove(fragment)
+                    }
+                },200)
+                ////////////////////////////
             }
         }
     }
 
-    private fun Fragment.remove() {
+    fun remove(fragment: Fragment) {
         fragManager.beginTransaction()
-            .remove(this)
+            .remove(fragment)
             .commit()
     }
 
-    private fun Fragment.add() {
+    private fun Fragment.add(tag: String) {
         fragManager.beginTransaction()
             .addToBackStack(null)
-            .add(R.id.container, this, this.tag).commit()
+            .add(R.id.container, this, tag).commit()
     }
 
 
