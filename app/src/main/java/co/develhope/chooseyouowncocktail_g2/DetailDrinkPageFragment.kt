@@ -51,14 +51,7 @@ class DetailDrinkFragment : Fragment() {
 
         arguments?.let {
             DrinkList.getByID(it.getInt(param_drink_ID))?.let {
-                binding.title.text = it.name
-                binding.description.text = it.description
-                binding.cl.text = it.cl.toString()
-                binding.preview.setImageByUrl(
-                    "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
-                    200,
-                    200
-                )
+               inflateUI(it)
             }?: run {
                 Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
                 (activity as MainActivity).remove(this)
@@ -83,6 +76,17 @@ class DetailDrinkFragment : Fragment() {
         }
     }
 
+
+    private fun inflateUI(drink : Beer){
+        binding.title.text = drink.name
+        binding.description.text = drink.description
+        binding.cl.text = drink.cl.toString()
+        binding.preview.setImageByUrl(
+            "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
+            200,
+            200
+        )
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
