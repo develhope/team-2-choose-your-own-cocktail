@@ -11,10 +11,8 @@
         android:layout_height="@dimen/imgview_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="@dimen/imgpreview_horizontalBias"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="@dimen/imgpreview_verticalBias"
         android:alpha="1.0"/>
 
     <TextView
@@ -37,9 +35,7 @@
         android:textSize="@dimen/beercl_textsize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="@dimen/beercl_horizontalBias"
         app:layout_constraintStart_toEndOf="@+id/img_preview"
-        app:layout_constraintTop_toBottomOf="@+id/beerName"
-        app:layout_constraintVertical_bias="@dimen/beercl_verticalBias" />
+        app:layout_constraintTop_toBottomOf="@+id/beerName"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
