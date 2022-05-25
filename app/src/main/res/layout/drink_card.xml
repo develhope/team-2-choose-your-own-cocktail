@@ -42,7 +42,6 @@
             android:textAppearance="@style/drink_card_beerName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="@dimen/drinkName_horizontalBias"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +79,6 @@
             android:layout_marginEnd="@dimen/textcl_marginRight"
             app:layout_constraintBottom_toTopOf="@+id/drink_short_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="@dimen/drinkcl_horizontalBias"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drink_name"
  
