@@ -16,11 +16,9 @@
     <dimen name="imageview_marginRight">205dp</dimen>
     <dimen name="textdrink_width">172dp</dimen>
     <dimen name="textdrink_marginLeft">136dp</dimen>
-    <dimen name="textdrink_marginTop">16dp</dimen>
     <dimen name="gotodetail_width">155dp</dimen>
     <dimen name="gotodetail_height">40dp</dimen>
     <dimen name="gotodetail_marginTop">173dp</dimen>
-    <dimen name="gotodetail_marginBottom">16dp</dimen>
     <dimen name="gotodetail_marginRight">36dp</dimen>
     <dimen name="gotodetail_marginLeft">136dp</dimen>
     <dimen name="favouritebutton_width">32dp</dimen>
