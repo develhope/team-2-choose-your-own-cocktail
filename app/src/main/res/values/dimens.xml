@@ -20,10 +20,6 @@
     <dimen name="rescount_marginStart">45dp</dimen>
     <dimen name="rescount_marginTop">29dp</dimen>
     <dimen name="activity_height">0dp</dimen>
-    <dimen name="drinkName_horizontalBias">0.0</dimen>
-    <dimen name="drinkName_verticalBias">0.032</dimen>
-    <dimen name="drinkfavourite_verticalBias">0.695</dimen>
-    <dimen name="shortdescription_verticalBias">0.0</dimen>
     <dimen name="fragmentprofileImageview_height">100dp</dimen>
     <dimen name="fragmentprofileImageview_marginStart">16dp</dimen>
     <dimen name="fragmentprofileImageview_marginTop">16dp</dimen>
@@ -33,7 +29,6 @@
     <dimen name="fragmentprofileTextview_marginStart">16dp</dimen>
     <dimen name="fragmentprofileTextview_marginTop">5dp</dimen>
     <dimen name="fragmentprofileTextview_marginEnd">16dp</dimen>
-    <dimen name="fragmentprofileTextview_horizontalBias">1.0</dimen>
     <dimen name="contactUs_height">50dp</dimen>
     <dimen name="contactUs_marginStart">16dp</dimen>
     <dimen name="contactUs_marginTop">5dp</dimen>
@@ -42,12 +37,8 @@
     <dimen name="textversion_marginStart">16dp</dimen>
     <dimen name="textversion_marginTop">5dp</dimen>
     <dimen name="textversion_marginEnd">16dp</dimen>
-    <dimen name="textversion_horizontalBias">1.0</dimen>
     <dimen name="preview_height">230dp</dimen>
     <dimen name="preview_width">230dp</dimen>
-    <dimen name="preview_verticalBias">0.064</dimen>
-    <dimen name="buttonfavourite_verticalBias">0.562</dimen>
-    <dimen name="buttonfavourite_horizontalBias">0.0</dimen>
     <dimen name="settings_marginStart">16dp</dimen>
     <dimen name="setting_height">50dp</dimen>
     <dimen name="setting_marginBottom">5dp</dimen>
@@ -56,17 +47,12 @@
     <dimen name="logout_height">50dp</dimen>
     <dimen name="logout_marginTop">5dp</dimen>
     <dimen name="logout_marginEnd">16dp</dimen>
-    <dimen name="imgpreview_horizontalBias">0.0</dimen>
-    <dimen name="imgpreview_verticalBias">0.0</dimen>
     <dimen name="listitem_height">50dp</dimen>
     <dimen name="beername_marginStart">16dp</dimen>
     <dimen name="beername_textsize">20sp</dimen>
     <dimen name="beername_absoluteY">0dp</dimen>
     <dimen name="beercl_textsize">10sp</dimen>
-    <dimen name="beercl_horizontalBias">0.029</dimen>
-    <dimen name="beercl_verticalBias">0.0</dimen>
-    <dimen name="drinkcl_horizontalBias">0.029</dimen>
-    <dimen name="drinkcl_verticalBias">0.0</dimen>
+    
 
 
 
