@@ -1,4 +1,5 @@
 package co.develhope.chooseyouowncocktail_g2.adapter
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -6,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.develhope.chooseyouowncocktail_g2.R
 
 
-class HeaderAdapter:RecyclerView.Adapter<HeaderAdapter.HeaderViewHolder>() {
+class HeaderAdapter : RecyclerView.Adapter<HeaderAdapter.HeaderViewHolder>() {
     class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     }

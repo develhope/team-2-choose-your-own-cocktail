@@ -4,21 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
-import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
-import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.MainActivity
-import co.develhope.chooseyouowncocktail_g2.R
-import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
+import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
-import co.develhope.chooseyouowncocktail_g2.model.Beer
+
 
 class HomeFragment : Fragment() {
 
@@ -34,7 +28,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -43,23 +37,34 @@ class HomeFragment : Fragment() {
         val drinkCardAdapter = DrinkCardAdapter(
             requireActivity(),
             DrinkList.beerList(),
-            "Home"
-        ) { action -> makeActionDone(action,requireParentFragment()) }
+        ) { action -> makeActionDone(action) }
 
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
 
-        val root: View = binding.root
-
-        return root
+        return binding.root
     }
 
 
-
+    private fun makeActionDone(action: DrinkAction) {
+        when (action) {
+            is DrinkAction.GotoDetail -> {
+                action.drinkID.let {
+                    val detailDrinkFragment = DetailDrinkFragment
+                    (activity as MainActivity).goToFragment(
+                        detailDrinkFragment.newInstance(it),
+                        detailDrinkFragment.fragmentTag
+                    )
+                }
+            }
+            DrinkAction.SetPref -> TODO()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+

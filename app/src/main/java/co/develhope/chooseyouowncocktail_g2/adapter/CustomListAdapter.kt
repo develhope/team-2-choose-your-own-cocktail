@@ -7,12 +7,15 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import co.develhope.chooseyouowncocktail_g2.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.model.Beer
 import com.squareup.picasso.Picasso
 
-class CustomListAdapter(private val context: Activity,
-                        private val beer: List<Beer>,
-                        val action: (DrinkAction) -> Unit) :
+class CustomListAdapter(
+    private val context: Activity,
+    private val beer: List<Beer>,
+    val action: (DrinkAction) -> Unit
+) :
     ArrayAdapter<Beer>(context, R.layout.list_item, beer) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
@@ -24,7 +27,7 @@ class CustomListAdapter(private val context: Activity,
         val beerPreview = view.findViewById(R.id.img_preview) as ImageView
 
         view.setOnClickListener {
-            action(DrinkAction.GotoDetail(beer[position],"search"))
+            action(DrinkAction.GotoDetail(beer[position].id))
         }
 
 
@@ -33,7 +36,7 @@ class CustomListAdapter(private val context: Activity,
 
         Picasso.get()
             .load("https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg")
-            .resize(60,60)
+            .resize(60, 60)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(beerPreview)
