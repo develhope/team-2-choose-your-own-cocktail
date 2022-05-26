@@ -14,14 +14,15 @@
 
         <ImageView
             android:id="@+id/preview"
-            android:layout_width="@dimen/preview_width"
-            android:layout_height="@dimen/preview_height"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
             android:contentDescription="@android:string/ok"
             android:src="@drawable/ichnusaprev"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"/>
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.064" />
 
         <TextView
             android:id="@+id/description"
@@ -44,9 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/medium_margin"
-            android:layout_marginTop="@dimen/margin_between_stuff"
+            android:layout_marginTop="@dimen/margin_5"
             android:layout_marginEnd="@dimen/medium_margin"
-            android:layout_marginBottom="@dimen/margin_between_stuff"
+            android:layout_marginBottom="@dimen/margin_5"
             android:text="@string/nome_birra"
             android:textAppearance="@style/detail_beerName"
             card_view:layout_constraintBottom_toTopOf="@+id/cl"
@@ -74,14 +75,16 @@
             android:layout_width="@dimen/clickable_default_dimension"
             android:layout_height="@dimen/clickable_default_dimension"
             android:layout_marginStart="@dimen/medium_margin"
-            android:layout_marginTop="@dimen/button_preferance_margin_top"
-            android:layout_marginBottom="@dimen/margin_between_stuff"
+            android:layout_marginTop="@dimen/button_preference_margin_top"
+            android:layout_marginBottom="@dimen/margin_5"
             android:background="@drawable/ic_fav_off"
             android:contentDescription="@string/preferance_button"
             card_view:layout_constraintBottom_toTopOf="@+id/title"
             card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.562" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
