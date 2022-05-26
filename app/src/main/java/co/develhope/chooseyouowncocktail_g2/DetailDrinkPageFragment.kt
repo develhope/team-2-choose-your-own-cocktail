@@ -80,7 +80,6 @@ class DetailDrinkFragment : Fragment() {
     private fun inflateUI(drink : Beer){
         binding.title.text = drink.name
         binding.description.text = drink.description
-        binding.cl.text = drink.cl.toString()
         binding.preview.setImageByUrl(
             "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
             200,

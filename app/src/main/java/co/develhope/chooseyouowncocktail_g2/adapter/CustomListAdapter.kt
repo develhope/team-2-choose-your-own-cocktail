@@ -32,7 +32,6 @@ class CustomListAdapter(
 
 
         beerName.text = beer[position].name
-        beerCl.text = beer[position].cl.toString() + " cl"
 
         Picasso.get()
             .load("https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg")
