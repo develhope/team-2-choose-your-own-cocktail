@@ -47,6 +47,9 @@ class SearchFragment : Fragment() {
                 binding.searchView.clearFocus()
                 val filteredList = drinkList.filterList(query)
                 //Sostituire la stringa in hardcode
+                binding.resultCount.text =
+                    filteredList.size.toString() + " " +
+                            resources.getString(R.string.results)
                 if (filteredList.isNotEmpty()) {
                     binding.searchResultRC.adapter = DrinkCardAdapter(
                         requireActivity(),
