@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+<<<<<<< HEAD
+import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
+import co.develhope.chooseyouowncocktail_g2.DrinkList
+=======
 import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
+>>>>>>> develop
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
@@ -40,10 +45,10 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
+<<<<<<< HEAD
+=======
                 val filteredList: List<Beer>
                 if (queryTyping!!.isNotEmpty()) {
                     filteredList = drinkList.filterList(queryTyping.toString())
@@ -57,22 +62,17 @@ class SearchFragment : Fragment() {
                     filteredList
                 ) { action -> makeActionDone(action) }
 
+>>>>>>> develop
                 return true
             }
-
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.searchView.clearFocus()
-                binding.resultPreview.visibility = View.GONE
-
                 val filteredList = drinkList.filterList(query)
-
                 //Sostituire la stringa in hardcode
                 binding.resultCount.text =
                     filteredList.size.toString() + " " +
                             resources.getString(R.string.results)
-
                 if (filteredList.isNotEmpty()) {
-
                     binding.searchResultRC.adapter = DrinkCardAdapter(
                         requireActivity(),
                         filteredList

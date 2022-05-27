@@ -21,15 +21,6 @@
         android:searchHintIcon="@drawable/ic_searchbarbutton"
         android:searchIcon="@drawable/ic_searchbarbutton" />
 
-    <ListView
-        android:id="@+id/resultPreview"
-        android:layout_width="@dimen/searchBar_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="@dimen/respreview_margin"
-        android:layout_marginRight="@dimen/respreview_margin"
-        android:visibility="gone"
-        />
 
     <TextView
         android:id="@+id/resultCount"
