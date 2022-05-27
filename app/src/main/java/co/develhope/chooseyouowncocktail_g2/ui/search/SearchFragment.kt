@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+<<<<<<< HEAD
 import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+=======
+import co.develhope.chooseyouowncocktail_g2.*
+import co.develhope.chooseyouowncocktail_g2.adapter.CustomListAdapter
+>>>>>>> develop
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
+
 
 class SearchFragment : Fragment() {
 
@@ -41,6 +47,22 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
+<<<<<<< HEAD
+=======
+                val filteredList: List<Beer>
+                if (queryTyping!!.isNotEmpty()) {
+                    filteredList = drinkList.filterList(queryTyping.toString())
+                    binding.resultPreview.visibility = View.VISIBLE
+                } else {
+                    filteredList = emptyList()
+                    binding.resultPreview.visibility = View.GONE
+                }
+                binding.resultPreview.adapter = CustomListAdapter(
+                    requireActivity(),
+                    filteredList
+                ) { action -> makeActionDone(action) }
+
+>>>>>>> develop
                 return true
             }
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -53,10 +75,8 @@ class SearchFragment : Fragment() {
                 if (filteredList.isNotEmpty()) {
                     binding.searchResultRC.adapter = DrinkCardAdapter(
                         requireActivity(),
-                        filteredList,
-                        "Search"
-                    ) { action -> makeActionDone(action, requireParentFragment()) }
-
+                        filteredList
+                    ) { action -> makeActionDone(action) }
                 } else {
                     Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
                 }
@@ -71,6 +91,21 @@ class SearchFragment : Fragment() {
             it.name.contains(query, true) ||
                     it.description.contains(query, true) ||
                     it.shortDescription.contains(query, true)
+        }
+    }
+
+    private fun makeActionDone(action: DrinkAction) {
+        when (action) {
+            is DrinkAction.GotoDetail -> {
+                action.drinkID.let {
+                    val detailDrinkFragment = DetailDrinkFragment
+                    (activity as MainActivity).goToFragment(
+                        detailDrinkFragment.newInstance(it),
+                        detailDrinkFragment.fragmentTag
+                    )
+                }
+            }
+            DrinkAction.SetPref -> TODO()
         }
     }
 
