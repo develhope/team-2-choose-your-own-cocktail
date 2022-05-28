@@ -21,16 +21,15 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.064" />
+            card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginEnd="@dimen/detailpage_fragment_margin"
-            android:layout_marginBottom="@dimen/detailpage_fragment_margin"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
             android:text="@string/Loreipsum"
             android:textAlignment="viewStart"
             android:textAppearance="@style/detail_beerDescription"
@@ -44,10 +43,10 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginTop="@dimen/margin_between_stuff"
-            android:layout_marginEnd="@dimen/detailpage_fragment_margin"
-            android:layout_marginBottom="@dimen/margin_between_stuff"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/margin_5"
             android:text="@string/nome_birra"
             android:textAppearance="@style/detail_beerName"
             card_view:layout_constraintBottom_toTopOf="@+id/cl"
@@ -61,8 +60,8 @@
             android:id="@+id/cl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginBottom="@dimen/detailpage_fragment_margin"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
             android:text="@string/_33_cl"
             android:textAppearance="@style/detail_cl"
             card_view:layout_constraintBottom_toTopOf="@+id/description"
@@ -74,17 +73,16 @@
             android:id="@+id/buttonFavorite"
             android:layout_width="@dimen/clickable_default_dimension"
             android:layout_height="@dimen/clickable_default_dimension"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginTop="@dimen/button_preferance_margin_top"
-            android:layout_marginBottom="@dimen/margin_between_stuff"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/button_preference_margin_top"
+            android:layout_marginBottom="@dimen/margin_5"
             android:background="@drawable/ic_fav_off"
             android:contentDescription="@string/preferance_button"
             card_view:layout_constraintBottom_toTopOf="@+id/title"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.562" />
+            card_view:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
