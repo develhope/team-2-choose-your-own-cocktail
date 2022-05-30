@@ -49,6 +49,7 @@ class DrinkCardAdapter(
             with(beerListForAdapter[position]) {
                 binding.drinkName.text = this.name
                 binding.drinkShortDescription.text = this.shortDescription
+                binding.drinkCl.text = this.sizeInCl.toString() + " cl"
 
                 binding.drinkImage.setImageByUrl(
                     "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
