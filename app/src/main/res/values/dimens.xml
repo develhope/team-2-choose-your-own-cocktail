@@ -1,20 +1,57 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="medium_margin">16dp</dimen>
+    <dimen name="medium_margin">20dp</dimen>
     <dimen name="dimens_172">172dp</dimen>
     <dimen name="medium_long_margin">24dp</dimen>
     <dimen name="margin_29">29dp</dimen>
     <dimen name="long_margin">32dp</dimen>
     <dimen name="home_FragTitle_marginEnd">174dp</dimen>
-    <dimen name="margin_5">5dp</dimen>
-    <dimen name="clickable_default_dimension">48dp</dimen>
-    <dimen name="button_preference_margin_top">194dp</dimen>
+    <dimen name="detailpage_margin_top_title">56dp</dimen>
+    <dimen name="clickable_default_dimension">43dp</dimen>
+    <dimen name="button_preference_margin_top">250dp</dimen>
     <dimen name="short_margin">10dp</dimen>
     <dimen name="searchBar_width">320dp</dimen>
     <dimen name="searchBar_height">46dp</dimen>
     <dimen name="searchBar_marginTop">70dp</dimen>
     <dimen name="rescount_marginStart">45dp</dimen>
     <dimen name="margin_8">8dp</dimen>
-
+    <dimen name="card_width">340dp</dimen>
+    <dimen name="card_height">229dp</dimen>
+    <dimen name="imageview_width">88dp</dimen>
+    <dimen name="imageview_height">139dp</dimen>
+    <dimen name="imageview_marginTop">22dp</dimen>
+    <dimen name="margin_68">68dp</dimen>
+    <dimen name="imageview_marginRight">205dp</dimen>
+    <dimen name="go_to_detail_width">155dp</dimen>
+    <dimen name="go_to_detail_height">40dp</dimen>
+    <dimen name="go_to_detail_marginTop">173dp</dimen>
+    <dimen name="go_to_detail_marginRight">36dp</dimen>
+    <dimen name="margin_136">136dp</dimen>
+    <dimen name="favourite_button_marginLeft">20.09dp</dimen>
+    <dimen name="favourite_button_marginTop">179.76dp</dimen>
+    <dimen name="text_cl_width">37dp</dimen>
+    <dimen name="text_cl_marginTop">74dp</dimen>
+    <dimen name="text_cl_marginRight">175dp</dimen>
+    <dimen name="text_cl_marginBottom">136dp</dimen>
+    <dimen name="text_cl_marginLeft">136dp</dimen>
+    <dimen name="short_description_width">182dp</dimen>
+    <dimen name="short_description_marginRight">19dp</dimen>
+    <dimen name="short_description_marginTop">100dp</dimen>
+    <dimen name="name_size">18sp</dimen>
+    <dimen name="name_marginTop">18sp</dimen>
+    <dimen name="cl_size">16sp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
+    <dimen name="title_marginEnd">19dp</dimen>
+    <dimen name="title_marginBottom">165dp</dimen>
+    <dimen name="title_width">172dp</dimen>
+    <dimen name="title_height">48dp</dimen>
+    <dimen name="short_description_marginBottom">68dp</dimen>
+    <dimen name="detail_page_preview_size">230dp</dimen>
+    <dimen name="detail_page_preview_marginbottom">250dp</dimen>
+    <dimen name="detail_page_favbutton_marginend">350dp</dimen>
+    <dimen name="detailpage_cl_marginbottom">30dp</dimen>
+    <dimen name="detailpage_margin_top_cl">370dp</dimen>
+    <dimen name="detailpage_description_width">373dp</dimen>
+    <dimen name="detailpage_margin_start_title">120dp</dimen>
 
 </resources>
