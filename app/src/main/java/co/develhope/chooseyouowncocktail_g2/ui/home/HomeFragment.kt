@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.fragment.app.Fragment
 
 import co.develhope.chooseyouowncocktail_g2.DrinkList
@@ -16,10 +15,11 @@ import co.develhope.chooseyouowncocktail_g2.domain.DBResult
 import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
 import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.ConcatAdapter
-import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
+import co.develhope.chooseyouowncocktail_g2.DrinkAction
 
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
+import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
 
 class HomeFragment : Fragment() {
 
@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
         viewModel =
             (activity as MainActivity).mainViewModelFactory.create(DBViewModel::class.java)
 
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
@@ -57,8 +58,8 @@ class HomeFragment : Fragment() {
          drinkCardAdapter = DrinkCardAdapter(
             requireActivity(),
             DrinkList.drinkList(),
-            "Home"
-        ) { action -> makeActionDone(action, requireParentFragment()) }
+        ) { action -> makeActionDone(action) }
+
 
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
@@ -75,10 +76,26 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun makeActionDone(action: DrinkAction) {
+        when (action) {
+            is DrinkAction.GotoDetail -> {
+                action.drinkID.let {
+                    val detailDrinkFragment = DetailDrinkFragment
+                    (activity as MainActivity).goToFragment(
+                        detailDrinkFragment.newInstance(it),
+                        detailDrinkFragment.fragmentTag
+                    )
+                }
+            }
+            DrinkAction.SetPref -> TODO()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 
     private fun observer() {
         viewModel.result.observe(viewLifecycleOwner) {
@@ -102,3 +119,5 @@ class HomeFragment : Fragment() {
     }
 
 }
+
+

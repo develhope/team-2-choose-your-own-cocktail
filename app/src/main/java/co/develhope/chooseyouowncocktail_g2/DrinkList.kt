@@ -9,19 +9,27 @@ object DrinkList {
     private var drinks = listOf<Drink>()
 
 
+
+
     fun drinkList(): List<Drink> {
         return drinks
     }
 
+
     fun List<Drink>.setList() {
         drinks = this
     }
-    
-    fun setFavorite(Drink: Drink, bool: Boolean) {
+
+
+    fun getByID(id: Int): Drink? {
+        return drinkList().firstOrNull() { it.id == id }
+    }
+
+    fun setFavorite(drink: Drink, bool: Boolean) {
         Collections.replaceAll(
             drinks,
-            Drink,
-            Drink.copy(favourite = bool)
+            drink,
+            drink.copy(favourite = bool)
         )
     }
 

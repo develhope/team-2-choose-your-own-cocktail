@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BackgroundColor"
+    android:background="@color/white_detailpage"
     android:scrollbars="vertical">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/preview"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="@dimen/detail_page_preview_size"
+            android:layout_height="@dimen/detail_page_preview_size"
+            android:layout_marginBottom="@dimen/detail_page_preview_marginbottom"
             android:contentDescription="@android:string/ok"
             android:src="@drawable/ichnusaprev"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.064" />
+            card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/detailpage_description_width"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginEnd="@dimen/detailpage_fragment_margin"
-            android:layout_marginBottom="@dimen/detailpage_fragment_margin"
             android:text="@string/Loreipsum"
             android:textAlignment="viewStart"
             android:textAppearance="@style/detail_beerDescription"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
+
             card_view:layout_constraintStart_toStartOf="parent">
 
         </TextView>
@@ -44,10 +43,9 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginTop="@dimen/margin_between_stuff"
-            android:layout_marginEnd="@dimen/detailpage_fragment_margin"
-            android:layout_marginBottom="@dimen/margin_between_stuff"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/detailpage_margin_top_title"
+            android:layout_marginEnd="@dimen/medium_margin"
             android:text="@string/nome_birra"
             android:textAppearance="@style/detail_beerName"
             card_view:layout_constraintBottom_toTopOf="@+id/cl"
@@ -61,12 +59,14 @@
             android:id="@+id/cl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginBottom="@dimen/detailpage_fragment_margin"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/detailpage_margin_top_cl"
+            android:layout_marginBottom="@dimen/detailpage_cl_marginbottom"
             android:text="@string/_33_cl"
             android:textAppearance="@style/detail_cl"
             card_view:layout_constraintBottom_toTopOf="@+id/description"
-            card_view:layout_constraintStart_toStartOf="parent">
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent">
 
         </TextView>
 
@@ -74,17 +74,15 @@
             android:id="@+id/buttonFavorite"
             android:layout_width="@dimen/clickable_default_dimension"
             android:layout_height="@dimen/clickable_default_dimension"
-            android:layout_marginStart="@dimen/detailpage_fragment_margin"
-            android:layout_marginTop="@dimen/button_preferance_margin_top"
-            android:layout_marginBottom="@dimen/margin_between_stuff"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/button_preference_margin_top"
+            android:layout_marginEnd="@dimen/detail_page_favbutton_marginend"
             android:background="@drawable/ic_fav_off"
             android:contentDescription="@string/preferance_button"
             card_view:layout_constraintBottom_toTopOf="@+id/title"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.562" />
+            card_view:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
