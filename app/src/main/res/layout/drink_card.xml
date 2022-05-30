@@ -35,7 +35,7 @@
             android:layout_width="@dimen/title_width"
             android:layout_height="@dimen/title_height"
 
-            android:layout_marginStart="125dp"
+            android:layout_marginStart="@dimen/detailpage_margin_start_title"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_marginEnd="@dimen/title_marginEnd"
             android:layout_marginBottom="@dimen/title_marginBottom"
@@ -76,8 +76,8 @@
 
         <TextView
             android:id="@+id/drink_cl"
-            android:layout_width="37dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/text_cl_width"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_cl_marginLeft"
             android:layout_marginTop="@dimen/text_cl_marginTop"
             android:layout_marginEnd="@dimen/text_cl_marginRight"
@@ -87,7 +87,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.428"
             tools:text="33 cl" />
 
         <TextView

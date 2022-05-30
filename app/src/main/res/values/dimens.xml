@@ -52,5 +52,6 @@
     <dimen name="detailpage_cl_marginbottom">30dp</dimen>
     <dimen name="detailpage_margin_top_cl">370dp</dimen>
     <dimen name="detailpage_description_width">373dp</dimen>
+    <dimen name="detailpage_margin_start_title">120dp</dimen>
 
 </resources>
