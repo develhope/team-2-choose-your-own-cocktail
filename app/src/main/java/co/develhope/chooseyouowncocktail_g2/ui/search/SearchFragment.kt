@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-
-import co.develhope.chooseyouowncocktail_g2.Action.makeActionDone
-import co.develhope.chooseyouowncocktail_g2.DrinkList
-
+import androidx.recyclerview.widget.RecyclerView
+import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
 import co.develhope.chooseyouowncocktail_g2.model.Beer
@@ -42,6 +40,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.empty.visibility=View.GONE
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
 
@@ -49,18 +48,27 @@ class SearchFragment : Fragment() {
             }
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.searchView.clearFocus()
-                val filteredList = drinkList.filterList(query)
+                val filteredList = drinkList.filterList(binding.searchView.query.toString())
                 //Sostituire la stringa in hardcode
-                binding.resultCount.text =
-                    filteredList.size.toString() + " " +
-                            resources.getString(R.string.results)
+
+
                 if (filteredList.isNotEmpty()) {
+                    binding.resultCount.text =
+                        filteredList.size.toString() + " " +
+                                resources.getString(R.string.results)
+
+
+                    binding.searchResultRC.visibility=View.VISIBLE
+                    binding.empty.visibility=View.GONE
                     binding.searchResultRC.adapter = DrinkCardAdapter(
-                        requireActivity(),
+                        //requireActivity(),
                         filteredList
                     ) { action -> makeActionDone(action) }
+
                 } else {
-                    Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
+                    binding.searchResultRC.visibility=View.GONE
+                    binding.empty.visibility=View.VISIBLE
+                    binding.resultCount.visibility=View.GONE
                 }
 
                 return true
@@ -68,9 +76,13 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun List<Beer>.filterList(query: String): List<Beer> {
+
+
+
+
+      private fun List<Beer>.filterList(query: String): List<Beer> {
         return this.filter {
-            it.name.contains(query, true) ||
+            it.name.contains(query,true) ||
                     it.description.contains(query, true) ||
                     it.shortDescription.contains(query, true)
         }
@@ -88,8 +100,8 @@ class SearchFragment : Fragment() {
                 }
             }
             DrinkAction.SetPref -> TODO()
-        }
-    }
+        }}
+
 
     override fun onDestroyView() {
         super.onDestroyView()

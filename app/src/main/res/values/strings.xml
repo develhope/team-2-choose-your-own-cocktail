@@ -31,6 +31,7 @@
     <string name="drinkshortdescription_text">Descrizione</string>
     <string name="shortdescription_maxLines">4</string>
     <string name="drinkName_MaxLenght">18dp</string>
+    <string name= "nothing_found">Nothing found!</string>
 
 
 
