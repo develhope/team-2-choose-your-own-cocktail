@@ -11,7 +11,7 @@ import co.develhope.chooseyouowncocktail_g2.DrinkList
 
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
-import co.develhope.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 import java.security.AccessController.getContext
 import kotlinx.coroutines.NonDisposableHandle.parent
@@ -22,7 +22,9 @@ import androidx.core.content.ContextCompat
 
 
 class DrinkCardAdapter(
-    private val beerListForAdapter: List<Beer>,
+
+    private val beerListForAdapter: List<Drink>,
+
     val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
@@ -48,8 +50,8 @@ class DrinkCardAdapter(
         with(receiver = holder) {
             with(beerListForAdapter[position]) {
                 binding.drinkName.text = this.name
+
                 binding.drinkShortDescription.text = this.shortDescription
-                binding.drinkCl.text = this.sizeInCl.toString() + " cl"
 
                 binding.drinkImage.setImageByUrl(
                     "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
