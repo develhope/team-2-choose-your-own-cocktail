@@ -89,7 +89,9 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-            DrinkAction.SetPref -> TODO()
+            is DrinkAction.SetPref -> {
+                DrinkList.setFavorite(action.drink, action.drinkPref)
+            }
         }
     }
 

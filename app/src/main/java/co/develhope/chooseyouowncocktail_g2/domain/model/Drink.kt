@@ -8,5 +8,5 @@ data class Drink(
     val category: String?,
     val ingredients: List<String?>,
     val img: String?,
-    val favourite: Boolean
+    var favourite: Boolean
 )
