@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.MainActivity
+import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
@@ -27,6 +28,7 @@ class DetailDrinkFragment : Fragment() {
         @JvmStatic
         val fragmentTag = DetailDrinkFragment::class.java.canonicalName
             ?: "DetailDrinkFragment"
+
         fun newInstance(drinkID: Int) = DetailDrinkFragment().apply {
             arguments = Bundle().apply {
                 putInt(param_drink_ID, drinkID)
@@ -55,37 +57,34 @@ class DetailDrinkFragment : Fragment() {
 
         arguments?.let {
             DrinkList.getByID(it.getInt(param_drink_ID))?.let {
-               inflateUI(it)
-            }?: run {
+                inflateUI(it)
+            } ?: run {
                 Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
                 (activity as MainActivity).remove(this)
             }
         }
 
+        var switch = false
+        val bf = binding.buttonFavorite
 
-        var switch: Boolean = false
-        var bf = binding.buttonFavorite
-        val imOn = requireActivity().getResources()
-            .getIdentifier("ic_fav_off", "drawable", requireContext().getPackageName())
-        val imOff = requireActivity().getResources()
-            .getIdentifier("ic_fav_on", "drawable", requireContext().getPackageName())
         bf.setOnClickListener {
-            if (!switch) {
-                bf.setBackgroundResource(imOn)
-                switch = true
+            switch = if (!switch) {
+                bf.setBackgroundResource(R.drawable.ic_fav_on)
+                true
             } else {
-                bf.setBackgroundResource(imOff)
-                switch = false
+                bf.setBackgroundResource(R.drawable.ic_fav_off)
+                false
             }
         }
     }
 
 
-    private fun inflateUI(drink : Drink){
+    private fun inflateUI(drink: Drink) {
         binding.title.text = drink.name
         binding.description.text = drink.description
+        binding.cl.text = drink.category
         binding.preview.setImageByUrl(
-            "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
+            drink.img,
             200,
             200
         )

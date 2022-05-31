@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.squareup.picasso.Picasso
 
 
-fun ImageView.setImageByUrl(url: String, width : Int, height : Int) {
+fun ImageView.setImageByUrl(url: String?, width: Int, height: Int) {
     Picasso.get()
         .load(url)
         .resize(width,height)

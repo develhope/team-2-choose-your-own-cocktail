@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var drinkCardAdapter : DrinkCardAdapter
+    private lateinit var drinkCardAdapter: DrinkCardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,22 +52,6 @@ class HomeFragment : Fragment() {
         viewModel.send(DBEvent.RetrieveDrinksByFirstLetter(currentLetter[0]))
 
         observer()
-
-        val headerAdapter = HeaderAdapter()
-
-
-        val drinkCardAdapter = DrinkCardAdapter(
-
-            DrinkList.drinkList(),
-
-        ) { action -> makeActionDone(action) }
-
-
-        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
-
-        binding.drinkCardRecyclerView.adapter = concatAdapter
-
-        println(drinkCardAdapter.itemCount)
 
 
         return binding.root
@@ -98,15 +82,30 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    private fun inflateDrinkList() {
+        val headerAdapter = HeaderAdapter()
+
+        val drinkCardAdapter = DrinkCardAdapter(
+            DrinkList.drinkList(),
+        ) { action -> makeActionDone(action) }
+
+        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
+
+        binding.drinkCardRecyclerView.adapter = concatAdapter
+
+    }
+
 
     private fun observer() {
         viewModel.result.observe(viewLifecycleOwner) {
             when (it) {
-                is DBResult.Result -> {it.db.setList()
+                is DBResult.Result -> {
+                    it.db.setList()
                     println(DrinkList.drinkList().size)
-                DrinkList.drinkList().forEach {
-                    println(it.name) }
-
+                    DrinkList.drinkList().forEach {
+                        println(it.name)
+                    }
+                    inflateDrinkList()
                     println(drinkCardAdapter.itemCount)
                 }
                 is DBResult.Error -> Snackbar.make(
@@ -114,7 +113,13 @@ class HomeFragment : Fragment() {
                     "Error retrieving Drinks: $it",
                     Snackbar.LENGTH_INDEFINITE
                 )
-                    .setAction("Retry") { viewModel.send(DBEvent.RetrieveDrinksByFirstLetter(currentLetter[0])) }
+                    .setAction("Retry") {
+                        viewModel.send(
+                            DBEvent.RetrieveDrinksByFirstLetter(
+                                currentLetter[0]
+                            )
+                        )
+                    }
                     .show()
             }
         }

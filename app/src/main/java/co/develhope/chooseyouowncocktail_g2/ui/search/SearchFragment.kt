@@ -42,13 +42,14 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.empty.visibility=View.GONE
+        binding.empty.visibility = View.GONE
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
 
 
                 return true
             }
+
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.searchView.clearFocus()
                 val filteredList = drinkList.filterList(binding.searchView.query.toString())
@@ -61,17 +62,16 @@ class SearchFragment : Fragment() {
                                 resources.getString(R.string.results)
 
 
-                    binding.searchResultRC.visibility=View.VISIBLE
-                    binding.empty.visibility=View.GONE
+                    binding.searchResultRC.visibility = View.VISIBLE
+                    binding.empty.visibility = View.GONE
                     binding.searchResultRC.adapter = DrinkCardAdapter(
-                        //requireActivity(),
                         filteredList
                     ) { action -> makeActionDone(action) }
 
                 } else {
-                    binding.searchResultRC.visibility=View.GONE
-                    binding.empty.visibility=View.VISIBLE
-                    binding.resultCount.visibility=View.GONE
+                    binding.searchResultRC.visibility = View.GONE
+                    binding.empty.visibility = View.VISIBLE
+                    binding.resultCount.visibility = View.GONE
                 }
 
                 return true
@@ -101,7 +101,8 @@ class SearchFragment : Fragment() {
                 }
             }
             DrinkAction.SetPref -> TODO()
-        }}
+        }
+    }
 
 
     override fun onDestroyView() {
