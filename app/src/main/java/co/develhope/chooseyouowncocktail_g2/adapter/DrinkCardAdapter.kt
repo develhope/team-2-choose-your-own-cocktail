@@ -13,25 +13,39 @@ import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
+import java.security.AccessController.getContext
+import kotlinx.coroutines.NonDisposableHandle.parent
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.NonDisposableHandle
+import android.content.Context
+import androidx.core.content.ContextCompat
+
 
 class DrinkCardAdapter(
-    val context: Activity,
+
     private val beerListForAdapter: List<Drink>,
+
     val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
 
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
+    private lateinit var context:Context
+
+
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        context= parent.getContext()
+
+
 
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int,) {
 
         with(receiver = holder) {
             with(beerListForAdapter[position]) {
@@ -41,17 +55,20 @@ class DrinkCardAdapter(
 
                 binding.drinkImage.setImageByUrl(
                     "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
-                60,
-                    60)
+                    60,
+                    60
+                )
 
 
                 binding.buttonGoToDetail.setOnClickListener {
                     action(DrinkAction.GotoDetail(this.id))
                 }
+                // context.resources.getIdentifier("ic_fav_on", "drawable", context.packageName)
 
 
                 var switch = false
                 val bf = binding.drinkFavourite
+
                 val imOn =
                     context.resources.getIdentifier("ic_fav_off", "drawable", context.packageName)
                 val imOff =
@@ -66,8 +83,10 @@ class DrinkCardAdapter(
                     }
                 }
             }
-        }
-    }
+
+
+        }}
+
 
 
     override fun getItemCount(): Int {

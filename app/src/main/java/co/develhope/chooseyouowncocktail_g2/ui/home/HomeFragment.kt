@@ -55,9 +55,11 @@ class HomeFragment : Fragment() {
 
         val headerAdapter = HeaderAdapter()
 
-         drinkCardAdapter = DrinkCardAdapter(
-            requireActivity(),
+
+        val drinkCardAdapter = DrinkCardAdapter(
+
             DrinkList.drinkList(),
+
         ) { action -> makeActionDone(action) }
 
 
