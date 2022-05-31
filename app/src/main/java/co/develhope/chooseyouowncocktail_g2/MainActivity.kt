@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -13,6 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import co.develhope.chooseyouowncocktail_g2.databinding.ActivityMainBinding
+import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,8 +25,13 @@ class MainActivity : AppCompatActivity() {
     private val fragManager = supportFragmentManager
 
 
+    val mainViewModelFactory = MainViewModel(DrinksProvider)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

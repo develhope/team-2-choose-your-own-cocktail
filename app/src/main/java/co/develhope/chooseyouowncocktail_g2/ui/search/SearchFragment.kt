@@ -9,14 +9,17 @@ import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
-import co.develhope.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
 
 
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
-    private val drinkList = DrinkList.beerList()
+
+    private val drinkList = DrinkList.drinkList()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -42,6 +45,7 @@ class SearchFragment : Fragment() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
 
+
                 return true
             }
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -65,11 +69,11 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun List<Beer>.filterList(query: String): List<Beer> {
+    private fun List<Drink>.filterList(query: String): List<Drink> {
         return this.filter {
-            it.name.contains(query, true) ||
-                    it.description.contains(query, true) ||
-                    it.shortDescription.contains(query, true)
+            it.name!!.contains(query, true) ||
+                    it.description!!.contains(query, true) ||
+                    it.shortDescription!!.contains(query, true)
         }
     }
 

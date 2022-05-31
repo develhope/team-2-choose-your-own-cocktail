@@ -1,13 +1,17 @@
-package co.develhope.chooseyouowncocktail_g2
+package co.develhope.chooseyouowncocktail_g2.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
-import co.develhope.chooseyouowncocktail_g2.model.Beer
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 
 
 const val param_drink_ID = "drink_ID"
@@ -77,7 +81,7 @@ class DetailDrinkFragment : Fragment() {
     }
 
 
-    private fun inflateUI(drink : Beer){
+    private fun inflateUI(drink : Drink){
         binding.title.text = drink.name
         binding.description.text = drink.description
         binding.preview.setImageByUrl(
