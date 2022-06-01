@@ -1,6 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +57,7 @@ class HomeFragment : Fragment() {
         val headerAdapter = HeaderAdapter()
 
 
-        val drinkCardAdapter = DrinkCardAdapter(
+        var drinkCardAdapter = DrinkCardAdapter(
 
             DrinkList.drinkList(),
 
@@ -91,6 +92,7 @@ class HomeFragment : Fragment() {
             }
             is DrinkAction.SetPref -> {
                 DrinkList.setFavorite(action.drink, action.drinkPref)
+                DrinkList.booleanSortDrinkList()
             }
         }
     }

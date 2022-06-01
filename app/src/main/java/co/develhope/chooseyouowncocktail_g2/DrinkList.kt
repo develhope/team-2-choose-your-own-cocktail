@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2
 
+import android.util.Log
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import java.util.*
 
@@ -31,6 +32,13 @@ object DrinkList {
             drink,
             drink.copy(favourite = bool)
         )
+
+    }
+
+    fun booleanSortDrinkList(){
+        drinks = this.drinks.sortedBy { it.favourite }
+        drinks.forEach{ Log.d("debug", "${it.name} and ${it.favourite}") }
+
     }
 
 }

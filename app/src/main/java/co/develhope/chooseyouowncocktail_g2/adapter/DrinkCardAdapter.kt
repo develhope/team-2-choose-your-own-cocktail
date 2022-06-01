@@ -53,6 +53,8 @@ class DrinkCardAdapter( private val beerListForAdapter: List<Drink>,
                    this.favourite = !this.favourite
                    action(DrinkAction.SetPref(this, this.favourite))
                    showPreferiteRecycleView(this, holder)
+                   beerListForAdapter.sortedBy { it.favourite }
+
 
                }
             }
@@ -63,10 +65,10 @@ class DrinkCardAdapter( private val beerListForAdapter: List<Drink>,
 
     private fun showPreferiteRecycleView(drinkCard: Drink, holder: ViewHolder){
         if (drinkCard.favourite){
-            binding.drinkFavourite.setBackgroundResource(holder.imagePreferiteBackgroundOn)
+            holder.binding.drinkFavourite.setBackgroundResource(holder.imagePreferiteBackgroundOn)
 
         }else{
-            binding.drinkFavourite.setBackgroundResource(holder.imagePreferiteBackgroundOff)
+            holder.binding.drinkFavourite.setBackgroundResource(holder.imagePreferiteBackgroundOff)
         }
     }
 

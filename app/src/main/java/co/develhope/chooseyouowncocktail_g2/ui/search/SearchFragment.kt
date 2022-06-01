@@ -1,6 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,8 +103,13 @@ class SearchFragment : Fragment() {
             }
             is DrinkAction.SetPref -> {
                 DrinkList.setFavorite(action.drink, action.drinkPref)
+                DrinkList.booleanSortDrinkList()
+
+                DrinkList.drinkList().forEach{Log.d("debug", "${it.name} and ${it.favourite}") }
+
+            }
         }
-        }}
+    }
 
 
     override fun onDestroyView() {
