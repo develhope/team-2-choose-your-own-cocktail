@@ -1,69 +1,64 @@
-package co.develhope.chooseyouowncocktail_g2.adapter
+package co.develhope.chooseyouowncocktail_g2.ui.home
 
-import android.app.Activity
-import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.R
-import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
-import co.develhope.chooseyouowncocktail_g2.model.Beer
-import com.squareup.picasso.Picasso
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
+import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 
-sealed class DrinkAction {
-    data class GotoDetail(val beer: Beer) : DrinkAction()
-    object SetPref : DrinkAction()
-}
+class HomeFragment : Fragment() {
 
-class DrinkCardAdapter(
-    val beerListForAdapter: List<Beer>,
-    val action: (DrinkAction) -> Unit
-) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
-    private lateinit var binding: DrinkCardBinding
+    private var _binding: FragmentHomeBinding? = null
 
-    inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val homeViewModel =
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val context = requireActivity()
+            context.resources.getIdentifier("ic_fav_on", "drawable", context.packageName)
+        val drinkCardAdapter = DrinkCardAdapter(
+            DrinkList.beerList(),
+        ) { action -> makeAction(action) }
+
+        binding.drinkCardRecyclerView.adapter = drinkCardAdapter
+
+        val root: View = binding.root
+
+        return root
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        with(receiver = holder) {
-            with(beerListForAdapter[position]) {
-                binding.drinkName.text = this.name
-                binding.drinkCl.text = this.cl.toString() + " cl"
-                binding.drinkShortDescription.text = this.shortDescription
-
-                Picasso.get()
-                    .load("https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg")
-                    .resize(60, 60)
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.placeholder)
-                    .into(binding.drinkImage)
-
-                binding.buttonGoToDetail.setOnClickListener {
-                    action(DrinkAction.GotoDetail(this))
-                }
-
-                var switch = false
-                val bf = binding.drinkFavourite
-                bf.setOnClickListener {
-                    if (!switch) {
-                        bf.setBackgroundResource(R.drawable.ic_fav_on)
-                        switch = true
-                    } else {
-                        bf.setBackgroundResource(R.drawable.ic_fav_off)
-                        switch = false
-                    }
-                }
-            }
+    private fun makeAction(action: DrinkAction) {
+        if (action is DrinkAction.GotoDetail) {
+            NavHostFragment.findNavController(requireParentFragment())
+                .navigate(R.id.detailDrinkFragment, bundleOf().apply {
+                    putString("name", action.beer.name)
+                    putString("desc", action.beer.description)
+                    putInt("preview", action.beer.img)
+                    putString("cl", action.beer.cl.toString() + " cl")
+                    putString("currentPage", "Home")
+                })
         }
     }
 
-    override fun getItemCount(): Int {
-        return beerListForAdapter.size
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
