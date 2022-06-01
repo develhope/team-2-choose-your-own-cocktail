@@ -101,7 +101,6 @@ class SearchFragment : Fragment() {
                             context.packageName
                         )
                     binding.searchResultRC.adapter = DrinkCardAdapter(
-                        imOn, imOff,
                         filteredList,
                     ) { action -> makeAction(action)}
 
