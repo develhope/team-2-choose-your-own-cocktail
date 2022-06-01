@@ -1,8 +1,10 @@
 package co.develhope.chooseyouowncocktail_g2.adapter
 
 import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
@@ -15,8 +17,6 @@ sealed class DrinkAction {
 }
 
 class DrinkCardAdapter(
-    val imOn: Int,
-    val imOff: Int,
     val beerListForAdapter: List<Beer>,
     val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
@@ -24,10 +24,8 @@ class DrinkCardAdapter(
 
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         return ViewHolder(binding)
     }
 
@@ -46,7 +44,6 @@ class DrinkCardAdapter(
                     .error(R.drawable.placeholder)
                     .into(binding.drinkImage)
 
-
                 binding.buttonGoToDetail.setOnClickListener {
                     action(DrinkAction.GotoDetail(this))
                 }
@@ -55,10 +52,10 @@ class DrinkCardAdapter(
                 val bf = binding.drinkFavourite
                 bf.setOnClickListener {
                     if (!switch) {
-                        bf.setBackgroundResource(imOn)
+                        bf.setBackgroundResource(R.drawable.ic_fav_on)
                         switch = true
                     } else {
-                        bf.setBackgroundResource(imOff)
+                        bf.setBackgroundResource(R.drawable.ic_fav_off)
                         switch = false
                     }
                 }
@@ -66,10 +63,7 @@ class DrinkCardAdapter(
         }
     }
 
-
     override fun getItemCount(): Int {
         return beerListForAdapter.size
     }
-
-
 }
