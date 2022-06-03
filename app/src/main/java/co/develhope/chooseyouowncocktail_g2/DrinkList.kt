@@ -36,7 +36,7 @@ object DrinkList {
     }
 
     fun booleanSortDrinkList(){
-        drinks = this.drinks.sortedBy { it.favourite }
+        drinks = this.drinks.sortedBy { it.favourite }.reversed()
         drinks.forEach{ Log.d("debug", "${it.name} and ${it.favourite}") }
 
     }
