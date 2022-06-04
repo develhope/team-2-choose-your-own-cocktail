@@ -17,9 +17,9 @@ import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
+    private lateinit var adapter: DrinkCardAdapter
 
-
-    private val drinkList = DrinkList.drinkList()
+    //private val drinkList = DrinkList.drinkList()
 
 
     // This property is only valid between onCreateView and
@@ -44,6 +44,9 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.empty.visibility=View.GONE
+
+        binding.searchResultRC.adapter = preferiteDrinkAdapter()
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
 
@@ -52,28 +55,21 @@ class SearchFragment : Fragment() {
             }
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.searchView.clearFocus()
-                val filteredList = drinkList.filterList(binding.searchView.query.toString())
+                DrinkList.drinkList().forEach{ Log.d("debug", "${it.name} and ${it.favourite}") }
+                val filteredList = DrinkList.drinkList().filterList(binding.searchView.query.toString())
                 //Sostituire la stringa in hardcode
-
 
                 if (filteredList.isNotEmpty()) {
                     binding.resultCount.text =
                         filteredList.size.toString() + " " +
                                 resources.getString(R.string.results)
-
-
-                    binding.searchResultRC.visibility=View.VISIBLE
-                    binding.empty.visibility=View.GONE
-                    binding.searchResultRC.adapter = DrinkCardAdapter(
-                        //requireActivity(),
-                        filteredList
-                    ) { action -> makeActionDone(action) }
-
-                } else {
-                    binding.searchResultRC.visibility=View.GONE
-                    binding.empty.visibility=View.VISIBLE
-                    binding.resultCount.visibility=View.GONE
+                    adapter = AllSearchedDrinkAdapter(filteredList)
                 }
+                else {
+                    adapter = preferiteDrinkAdapter()
+                }
+                binding.searchResultRC.visibility=View.VISIBLE
+                binding.searchResultRC.adapter = adapter
 
                 return true
             }
@@ -104,13 +100,22 @@ class SearchFragment : Fragment() {
             is DrinkAction.SetPref -> {
                 DrinkList.setFavorite(action.drink, action.drinkPref)
                 DrinkList.booleanSortDrinkList()
-
                 DrinkList.drinkList().forEach{Log.d("debug", "${it.name} and ${it.favourite}") }
 
             }
         }
     }
 
+    private fun preferiteDrinkAdapter(): DrinkCardAdapter{
+        return DrinkCardAdapter(
+            DrinkList.returnOnlyPreferiteSelectedDrink()
+        ) { action -> makeActionDone(action) }
+    }
+
+    private fun AllSearchedDrinkAdapter(drinkList: List<Drink>): DrinkCardAdapter{
+        return DrinkCardAdapter(drinkList
+        ) { action -> makeActionDone(action) }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

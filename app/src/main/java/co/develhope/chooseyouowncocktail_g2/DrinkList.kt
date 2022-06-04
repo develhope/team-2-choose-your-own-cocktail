@@ -3,6 +3,7 @@ package co.develhope.chooseyouowncocktail_g2
 import android.util.Log
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 object DrinkList {
@@ -36,9 +37,27 @@ object DrinkList {
     }
 
     fun booleanSortDrinkList(){
-        drinks = this.drinks.sortedBy { it.favourite }.reversed()
+        drinks = this.drinks.sortedBy { it.favourite }
         drinks.forEach{ Log.d("debug", "${it.name} and ${it.favourite}") }
 
     }
+
+    fun returnOnlyPreferiteSelectedDrink(): List<Drink> {
+        return drinks.filter { it.favourite == true }
+    }
+
+    fun repleacePreferiteOnSelfTop(preferiteList: List<Drink>): Unit {
+        for(prefDrink in preferiteList){
+            (drinks as MutableList<Drink>).remove(prefDrink)
+        }
+        drinks.forEach { Log.d("debug remo met", "${it.name} and ${it.favourite}")}
+
+        var tmpDrinkList = ArrayList<Drink>()
+        tmpDrinkList.addAll(preferiteList)
+        tmpDrinkList.addAll(drinks)
+        drinks = tmpDrinkList
+        drinks.forEach { Log.d("debug refac list", "${it.name} and ${it.favourite}")}
+    }
+
 
 }

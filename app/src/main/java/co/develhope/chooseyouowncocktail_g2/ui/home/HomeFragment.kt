@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
 
         observer()
 
-        val headerAdapter = HeaderAdapter()
+        var headerAdapter = HeaderAdapter()
 
 
         var drinkCardAdapter = DrinkCardAdapter(
@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
         ) { action -> makeActionDone(action) }
 
 
-        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
+        var concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
 
@@ -93,7 +93,15 @@ class HomeFragment : Fragment() {
             is DrinkAction.SetPref -> {
                 DrinkList.setFavorite(action.drink, action.drinkPref)
                 DrinkList.booleanSortDrinkList()
+                drinkCardAdapter = DrinkCardAdapter(DrinkList.drinkList())
+                                    { action -> makeActionDone(action) }
+
+                val headerAdapter = HeaderAdapter()
+                val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
+                binding.drinkCardRecyclerView.adapter = concatAdapter
+
             }
+
         }
     }
 
