@@ -48,8 +48,8 @@ class DrinkCardAdapter(
 
                 binding.drinkImage.setImageByUrl(
                     this.img,
-                    60,
-                    60
+                    100,
+                    100
                 )
 
                 binding.buttonGoToDetail.setOnClickListener {

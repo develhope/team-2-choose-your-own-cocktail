@@ -85,8 +85,8 @@ class DetailDrinkFragment : Fragment() {
         binding.cl.text = drink.category
         binding.preview.setImageByUrl(
             drink.img,
-            200,
-            200
+            300,
+            300
         )
     }
 
