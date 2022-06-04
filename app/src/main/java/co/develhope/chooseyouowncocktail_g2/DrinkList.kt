@@ -46,17 +46,18 @@ object DrinkList {
         return drinks.filter { it.favourite == true }
     }
 
-    fun repleacePreferiteOnSelfTop(preferiteList: List<Drink>): Unit {
+    fun repleacePreferiteOnSelfTop(preferiteList: List<Drink>){
+        drinks = drinks.toMutableList()
         for(prefDrink in preferiteList){
             (drinks as MutableList<Drink>).remove(prefDrink)
         }
-        drinks.forEach { Log.d("debug remo met", "${it.name} and ${it.favourite}")}
+        drinks.forEach { Log.d("debug2", "${it.name} and ${it.favourite}")}
 
-        var tmpDrinkList = ArrayList<Drink>()
+        val tmpDrinkList = ArrayList<Drink>()
         tmpDrinkList.addAll(preferiteList)
         tmpDrinkList.addAll(drinks)
         drinks = tmpDrinkList
-        drinks.forEach { Log.d("debug refac list", "${it.name} and ${it.favourite}")}
+        //drinks.forEach { Log.d("debug refac list", "${it.name} and ${it.favourite}")}
     }
 
 
