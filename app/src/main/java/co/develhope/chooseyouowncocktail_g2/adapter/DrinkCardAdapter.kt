@@ -7,14 +7,18 @@ import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 import android.content.Context
+import android.util.Log
+import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.R
+import kotlin.collections.indexOf as indexOf
 
 
-
-class DrinkCardAdapter( private val beerListForAdapter: List<Drink>,
-                            private val action: (DrinkAction) -> Unit
+class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
+                       private val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
     private lateinit var context:Context
+
 
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root){
         val imagePreferiteBackgroundOn =
@@ -33,11 +37,11 @@ class DrinkCardAdapter( private val beerListForAdapter: List<Drink>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int,) {
 
         with(receiver = holder) {
-            with(beerListForAdapter[position]) {
+            with(drinkListForAdapter[position]) {
                 binding.drinkName.text = this.name
 
                 binding.drinkShortDescription.text = this.shortDescription
-                showPreferiteRecycleView(this, holder)
+                showPreferiteRecycleView(this)
 
                 binding.drinkImage.setImageByUrl(
                     "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
@@ -51,10 +55,12 @@ class DrinkCardAdapter( private val beerListForAdapter: List<Drink>,
 
                binding.drinkFavourite.setOnClickListener {
                    this.favourite = !this.favourite
+                   showPreferiteRecycleView(this)
                    action(DrinkAction.SetPref(this, this.favourite))
-                   showPreferiteRecycleView(this, holder)
-                   beerListForAdapter.sortedBy { it.favourite }
-
+                   if(this.favourite)
+                       changeUnderlingAdapterListSetSaves(position, 0)
+                   else
+                       changeUnderlingAdapterListUnSetSaves(position)
 
                }
             }
@@ -62,18 +68,33 @@ class DrinkCardAdapter( private val beerListForAdapter: List<Drink>,
 
         }}
 
+    private fun changeUnderlingAdapterListSetSaves(toReomve: Int, toInsert: Int){
+        val drink =(drinkListForAdapter as ArrayList<Drink>).get(toReomve)
+        (drinkListForAdapter as ArrayList<Drink>).remove(drink)
+        (drinkListForAdapter as ArrayList<Drink>).add(toInsert, drink)
+        this.notifyDataSetChanged()
+    }
 
-    private fun showPreferiteRecycleView(drinkCard: Drink, holder: ViewHolder){
+    private fun changeUnderlingAdapterListUnSetSaves(positionToRemove: Int){
+        val drink = (drinkListForAdapter as ArrayList<Drink>)[positionToRemove]
+        val originIndexToInsert = DrinkList.drinkList().indexOf(DrinkList.drinkList().filter { it.name == drink.name }.get(0))
+        (drinkListForAdapter as MutableList<Drink>).remove(drink)
+        (drinkListForAdapter as MutableList<Drink>).add(originIndexToInsert, drink)
+        this.notifyDataSetChanged()
+
+    }
+
+    private fun showPreferiteRecycleView(drinkCard: Drink){
         if (drinkCard.favourite){
-            holder.binding.drinkFavourite.setBackgroundResource(holder.imagePreferiteBackgroundOn)
+            binding.drinkFavourite.setBackgroundResource(R.drawable.ic_fav_on)
 
         }else{
-            holder.binding.drinkFavourite.setBackgroundResource(holder.imagePreferiteBackgroundOff)
+           binding.drinkFavourite.setBackgroundResource(R.drawable.ic_fav_off)
         }
     }
 
     override fun getItemCount(): Int {
-        return beerListForAdapter.size
+        return drinkListForAdapter.size
     }
 }
 

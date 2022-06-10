@@ -55,19 +55,19 @@ class SearchFragment : Fragment() {
             }
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.searchView.clearFocus()
-                DrinkList.drinkList().forEach{ Log.d("debug", "${it.name} and ${it.favourite}") }
                 val filteredList = DrinkList.drinkList().filterList(binding.searchView.query.toString())
                 //Sostituire la stringa in hardcode
 
                 if (filteredList.isNotEmpty()) {
-                    binding.resultCount.text =
-                        filteredList.size.toString() + " " +
-                                resources.getString(R.string.results)
+
                     adapter = AllSearchedDrinkAdapter(filteredList)
                 }
                 else {
                     adapter = preferiteDrinkAdapter()
                 }
+                binding.resultCount.text =
+                    filteredList.size.toString() + " " +
+                            resources.getString(R.string.results)
                 binding.searchResultRC.visibility=View.VISIBLE
                 binding.searchResultRC.adapter = adapter
 
@@ -98,9 +98,8 @@ class SearchFragment : Fragment() {
                 }
             }
             is DrinkAction.SetPref -> {
-                DrinkList.setFavorite(action.drink, action.drinkPref)
-                DrinkList.booleanSortDrinkList()
-                DrinkList.drinkList().forEach{Log.d("debug", "${it.name} and ${it.favourite}") }
+                DrinkList.setSaves(action.drink, action.drinkPref)
+
 
             }
         }

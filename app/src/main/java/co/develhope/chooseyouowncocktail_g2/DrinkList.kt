@@ -27,37 +27,18 @@ object DrinkList {
         return drinkList().firstOrNull() { it.id == id }
     }
 
-    fun setFavorite(drink: Drink, bool: Boolean) {
-        Collections.replaceAll(
+    fun setSaves(drink: Drink, bool: Boolean) {
+         Collections.replaceAll(
             drinks,
             drink,
             drink.copy(favourite = bool)
         )
-
-    }
-
-    fun booleanSortDrinkList(){
-        drinks = this.drinks.sortedBy { it.favourite }
-        drinks.forEach{ Log.d("debug", "${it.name} and ${it.favourite}") }
-
+        drinks.forEach { Log.d("debugSaves", "${it.name} and ${it.favourite}")}
     }
 
     fun returnOnlyPreferiteSelectedDrink(): List<Drink> {
+        drinks.forEach { Log.d("debugONly Saves", "${it.name} and ${it.favourite}")}
         return drinks.filter { it.favourite == true }
-    }
-
-    fun repleacePreferiteOnSelfTop(preferiteList: List<Drink>){
-        drinks = drinks.toMutableList()
-        for(prefDrink in preferiteList){
-            (drinks as MutableList<Drink>).remove(prefDrink)
-        }
-        drinks.forEach { Log.d("debug2", "${it.name} and ${it.favourite}")}
-
-        val tmpDrinkList = ArrayList<Drink>()
-        tmpDrinkList.addAll(preferiteList)
-        tmpDrinkList.addAll(drinks)
-        drinks = tmpDrinkList
-        //drinks.forEach { Log.d("debug refac list", "${it.name} and ${it.favourite}")}
     }
 
 
