@@ -19,7 +19,6 @@ import co.develhope.chooseyouowncocktail_g2.DrinkAction
 
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
 
 class HomeFragment : Fragment() {

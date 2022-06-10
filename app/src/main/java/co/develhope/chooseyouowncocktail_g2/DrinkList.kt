@@ -3,7 +3,6 @@ package co.develhope.chooseyouowncocktail_g2
 import android.util.Log
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 object DrinkList {

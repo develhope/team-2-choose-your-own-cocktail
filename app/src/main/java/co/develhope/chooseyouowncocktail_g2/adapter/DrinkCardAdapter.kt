@@ -7,11 +7,9 @@ import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 import android.content.Context
-import android.util.Log
-import android.view.View
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.R
-import kotlin.collections.indexOf as indexOf
+
 
 
 class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
