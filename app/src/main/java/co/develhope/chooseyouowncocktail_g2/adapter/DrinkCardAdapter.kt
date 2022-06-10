@@ -21,16 +21,11 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
     private lateinit var context:Context
 
 
-    inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root){
-        val imagePreferiteBackgroundOn =
-            context.resources.getIdentifier("ic_fav_on", "drawable", context.packageName)
-        val imagePreferiteBackgroundOff =
-            context.resources.getIdentifier("ic_fav_off", "drawable", context.packageName)
-    }
+    inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        context= parent.getContext()
+        context= parent.context
 
         return ViewHolder(binding)
     }
