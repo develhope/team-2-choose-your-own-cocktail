@@ -76,9 +76,10 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
     private fun unPreferDrink(toRemove: Int){
         val drink = (drinkListForAdapter as ArrayList<Drink>).removeAt(toRemove)
         var i = 0
+
         val drinkfalse = drinkListForAdapter.filter{!it.favourite}
         val drinktrue = drinkListForAdapter.filter{it.favourite}
-        Log.d("unsavingDrink", "${drinkfalse.toString()}")
+
         if (drinkfalse.isNotEmpty()){
             drinkfalse.forEach{ if (it.sortingPosition < drink.sortingPosition) i += 1}
             i+=drinktrue.size

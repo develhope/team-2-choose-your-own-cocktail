@@ -26,17 +26,16 @@ object DrinkList {
         return drinkList().firstOrNull() { it.id == id }
     }
 
-    fun setSaves(drink: Drink, bool: Boolean) {
-         Collections.replaceAll(
-            drinks,
-            drink,
-            drink.copy(favourite = bool)
-        )
-        drinks.forEach { Log.d("debugSaves", "${it.name} and ${it.favourite} and id is ${it.id}")}
+    fun setPrefer(drink: Drink, bool: Boolean) {
+
+        for (drinkthis in drinks){
+            if (drinkthis.name == drink.name){
+                drinkthis.favourite = bool
+            }
+        }
     }
 
     fun returnOnlyPreferiteSelectedDrink(): List<Drink> {
-        drinks.forEach { Log.d("debugONly Saves", "${it.name} and ${it.favourite}")}
         return drinks.filter { it.favourite == true }
     }
 
