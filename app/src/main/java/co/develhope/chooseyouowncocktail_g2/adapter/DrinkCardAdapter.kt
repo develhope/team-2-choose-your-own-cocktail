@@ -7,6 +7,8 @@ import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 import android.content.Context
+import android.util.Log
+import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.R
 import kotlin.collections.ArrayList
 
@@ -73,7 +75,15 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
     private fun unsavingDrink(toRemove: Int){
         val drink = (drinkListForAdapter as ArrayList<Drink>).removeAt(toRemove)
         var i = 0
-        drinkListForAdapter.forEach{ it -> if (it.sortingPosition < drink.sortingPosition) i += 1}
+        val drinkfalse = drinkListForAdapter.filter{!it.favourite}
+        val drinktrue = drinkListForAdapter.filter{it.favourite}
+        Log.d("unsavingDrink", "${drinkfalse.toString()}")
+        if (drinkfalse.isNotEmpty()){
+            drinkfalse.forEach{ if (it.sortingPosition < drink.sortingPosition) i += 1}
+            i+=drinktrue.size
+        }
+        else
+            i = drinkListForAdapter.size
         notifyDataSetChanged()
         (drinkListForAdapter as ArrayList<Drink>).add(i, drink)
         notifyDataSetChanged()
