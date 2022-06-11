@@ -16,7 +16,6 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
     private lateinit var context:Context
-    private var SavesSelectionCount: Int = 0
 
 
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
