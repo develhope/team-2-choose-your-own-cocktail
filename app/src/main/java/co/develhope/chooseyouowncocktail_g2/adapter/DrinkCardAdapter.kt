@@ -21,6 +21,8 @@ class DrinkCardAdapter(
 
     private val beerListForAdapter: List<Drink>,
 
+
+
     val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
@@ -28,6 +30,8 @@ class DrinkCardAdapter(
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     private lateinit var context: Context
+
+    private var currentPos=0
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,8 +42,11 @@ class DrinkCardAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        currentPos=holder.absoluteAdapterPosition
+
         with(receiver = holder) {
             with(beerListForAdapter[position]) {
+
                 binding.drinkName.text = this.name
 
                 binding.drinkCl.text = this.category
@@ -70,11 +77,12 @@ class DrinkCardAdapter(
                 }
             }
 
-
         }
     }
 
-
+    fun getCurrentPosition(): Int{
+        return currentPos
+    }
 
 
     override fun getItemCount(): Int {

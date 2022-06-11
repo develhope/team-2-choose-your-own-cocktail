@@ -20,6 +20,13 @@ object DrinkList {
         drinks = this
     }
 
+    fun addToDrinkList(drinks : List<Drink>){
+        var newList = drinkList().toMutableList()
+        newList.addAll(drinks)
+        newList.setList()
+        println("add to drink list")
+    }
+
 
     fun getByID(id: Int): Drink? {
         return drinkList().firstOrNull() { it.id == id }
