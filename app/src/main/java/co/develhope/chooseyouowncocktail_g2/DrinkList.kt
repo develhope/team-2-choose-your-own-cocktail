@@ -32,7 +32,7 @@ object DrinkList {
             drink,
             drink.copy(favourite = bool)
         )
-        drinks.forEach { Log.d("debugSaves", "${it.name} and ${it.favourite}")}
+        drinks.forEach { Log.d("debugSaves", "${it.name} and ${it.favourite} and id is ${it.id}")}
     }
 
     fun returnOnlyPreferiteSelectedDrink(): List<Drink> {

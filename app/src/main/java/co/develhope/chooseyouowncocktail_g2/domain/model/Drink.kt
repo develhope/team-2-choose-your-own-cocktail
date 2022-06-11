@@ -8,5 +8,6 @@ data class Drink(
     val category: String?,
     val ingredients: List<String?>,
     val img: String?,
-    var favourite: Boolean
+    var favourite: Boolean,
+    val sortingPosition: Int
 )

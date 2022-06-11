@@ -7,9 +7,8 @@ import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 import android.content.Context
-import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.R
-
+import kotlin.collections.ArrayList
 
 
 class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
@@ -17,6 +16,7 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
     private lateinit var context:Context
+    private var SavesSelectionCount: Int = 0
 
 
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
@@ -52,9 +52,9 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
                    showPreferiteRecycleView(this, holder)
                    action(DrinkAction.SetPref(this, this.favourite))
                    if(this.favourite)
-                       changeUnderlingAdapterListSetSaves(position, 0)
+                       savingDrink(position, 0)
                    else
-                       changeUnderlingAdapterListUnSetSaves(position)
+                       unsavingDrink(position)
 
                }
             }
@@ -62,21 +62,22 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
 
         }}
 
-    private fun changeUnderlingAdapterListSetSaves(toReomve: Int, toInsert: Int){
-        val drink =(drinkListForAdapter as ArrayList<Drink>).get(toReomve)
-        (drinkListForAdapter as ArrayList<Drink>).remove(drink)
-        this.notifyItemRemoved(toReomve)
+    private fun savingDrink(toRemove: Int, toInsert: Int) {
+
+        val drink = (drinkListForAdapter as ArrayList<Drink>).removeAt(toRemove)
+        notifyDataSetChanged()
         (drinkListForAdapter as ArrayList<Drink>).add(toInsert, drink)
-        this.notifyItemInserted(toInsert)
+        notifyDataSetChanged()
+
     }
 
-    private fun changeUnderlingAdapterListUnSetSaves(positionToRemove: Int){
-        val drink = (drinkListForAdapter as ArrayList<Drink>)[positionToRemove]
-        val originIndexToInsert = DrinkList.drinkList().indexOf(DrinkList.drinkList().filter { it.name == drink.name }.get(0))
-        (drinkListForAdapter as MutableList<Drink>).remove(drink)
-        this.notifyItemRemoved(positionToRemove)
-        (drinkListForAdapter as MutableList<Drink>).add(originIndexToInsert, drink)
-        this.notifyItemInserted(originIndexToInsert)
+    private fun unsavingDrink(toRemove: Int){
+        val drink = (drinkListForAdapter as ArrayList<Drink>).removeAt(toRemove)
+        var i = 0
+        drinkListForAdapter.forEach{ it -> if (it.sortingPosition < drink.sortingPosition) i += 1}
+        notifyDataSetChanged()
+        (drinkListForAdapter as ArrayList<Drink>).add(i, drink)
+        notifyDataSetChanged()
     }
 
     private fun showPreferiteRecycleView(drink: Drink, holder: ViewHolder){
@@ -91,6 +92,7 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
     override fun getItemCount(): Int {
         return drinkListForAdapter.size
     }
+
 }
 
 

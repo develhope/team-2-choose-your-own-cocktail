@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
                 is DBResult.Result -> {it.db.setList()
                     println(DrinkList.drinkList().size)
                 DrinkList.drinkList().forEach {
-                    println(it.name) }
+                    println("${it.name} and ${it.sortingPosition}") }
 
                     println(drinkCardAdapter.itemCount)
                 }

@@ -7,6 +7,7 @@ import java.util.*
 
 object DrinkMapper {
 
+    var sortPos: Int = 0
     private fun DrinkDto.setByCurrentLanguage(): String {
         return when (Locale.getDefault().displayLanguage) {
             "English" -> this.strInstructions
@@ -47,7 +48,8 @@ object DrinkMapper {
             strCategory,
             ingrList,
             strDrinkThumb,
-            false
+            false,
+            incSortId()
         )
     }
 
@@ -55,4 +57,10 @@ object DrinkMapper {
         return dtoList.drinks.map { it.mapToDomainModel() }
     }
 
+    fun incSortId():Int {
+        val id = sortPos
+        sortPos += 1
+        return id
+
+    }
 }
