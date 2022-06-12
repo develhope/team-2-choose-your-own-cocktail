@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,9 @@ import co.develhope.chooseyouowncocktail_g2.domain.DBEvent
 import co.develhope.chooseyouowncocktail_g2.domain.DBResult
 import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
 import com.google.android.material.snackbar.Snackbar
-import androidx.recyclerview.widget.ConcatAdapter
 import co.develhope.chooseyouowncocktail_g2.DrinkAction
 
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
-import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
 
 class HomeFragment : Fragment() {
@@ -83,15 +82,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun inflateDrinkList() {
-        val headerAdapter = HeaderAdapter()
+        
 
         val drinkCardAdapter = DrinkCardAdapter(
             DrinkList.drinkList(),
         ) { action -> makeActionDone(action) }
+        //binding.cciao.visibility=Visibility(View.VISIBLE)
 
-        val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
-
-        binding.drinkCardRecyclerView.adapter = concatAdapter
+        binding.drinkCardRecyclerView.adapter = drinkCardAdapter
 
     }
 
