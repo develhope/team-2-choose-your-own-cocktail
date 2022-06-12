@@ -52,6 +52,7 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
                    this.favourite = !this.favourite
                    showPreferiteRecycleView(this, holder)
                    action(DrinkAction.SetPref(this, this.favourite))
+
                    if(this.favourite)
                        preferDrink(position, 0)
                    else
@@ -68,9 +69,11 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
         val drink = (drinkListForAdapter as ArrayList<Drink>).removeAt(toRemove)
         notifyItemRemoved(toRemove)
         notifyItemChanged(toRemove)
+
         (drinkListForAdapter as ArrayList<Drink>).add(toInsert, drink)
         notifyItemInserted(toInsert)
         notifyItemChanged(toInsert)
+
         notifyItemRangeChanged(toInsert+1, drinkListForAdapter.size)
 
     }
@@ -80,6 +83,7 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
         val drink = (drinkListForAdapter as ArrayList<Drink>).removeAt(toRemove)
         notifyItemRemoved(toRemove)
         notifyItemChanged(toRemove)
+
         var i = 0
         val drinkfalse = drinkListForAdapter.filter{!it.favourite}
         val drinktrue = drinkListForAdapter.filter{it.favourite}
@@ -90,6 +94,7 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
         }
         else
             i = drinkListForAdapter.size
+
         (drinkListForAdapter as ArrayList<Drink>).add(i, drink)
         notifyItemInserted(i, )
         notifyItemRangeChanged(toRemove, i)
