@@ -66,9 +66,10 @@ class DrinkCardAdapter(private var drinkListForAdapter: List<Drink>,
     private fun preferDrink(toRemove: Int, toInsert: Int) {
 
         val drink = (drinkListForAdapter as ArrayList<Drink>).removeAt(toRemove)
-        notifyDataSetChanged()
+        notifyItemRemoved(toRemove)
         (drinkListForAdapter as ArrayList<Drink>).add(toInsert, drink)
-        notifyDataSetChanged()
+        notifyItemInserted(toInsert)
+        notifyItemChanged(toInsert, drink)
 
     }
 
