@@ -65,7 +65,6 @@ class SearchFragment : Fragment() {
                     binding.searchResultRC.visibility = View.VISIBLE
                     binding.empty.visibility = View.GONE
                     binding.searchResultRC.adapter = DrinkCardAdapter(
-                        filteredList
                     ) { action -> makeActionDone(action) }
 
                 } else {
@@ -80,13 +79,13 @@ class SearchFragment : Fragment() {
     }
 
 
-    private fun List<Drink>.filterList(query: String): List<Drink> {
+    private fun List<Drink?>.filterList(query: String): List<Drink> {
         return this.filter {
-            it.name!!.contains(query, true) ||
+            it?.name!!.contains(query, true) ||
                     it.description!!.contains(query, true) ||
                     it.shortDescription!!.contains(query, true)
 
-        }
+        } as List<Drink>
     }
 
     private fun makeActionDone(action: DrinkAction) {

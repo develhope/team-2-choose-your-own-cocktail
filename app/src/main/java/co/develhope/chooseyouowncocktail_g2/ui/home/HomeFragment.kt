@@ -1,38 +1,32 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.chooseyouowncocktail_g2.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.addToDrinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
+
 import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
-import co.develhope.chooseyouowncocktail_g2.domain.DBEvent
-import co.develhope.chooseyouowncocktail_g2.domain.DBResult
+
 import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
 import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
-import com.google.android.material.snackbar.Snackbar
 
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: DBViewModel
-
     private var _binding: FragmentHomeBinding? = null
 
-    private val currentLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
-    private var letterIndex = 0
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var drinkCardAdapter: DrinkCardAdapter
@@ -43,20 +37,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
-        viewModel =
-            (activity as MainActivity).mainViewModelFactory.create(DBViewModel::class.java)
-
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-
-        if (DrinkList.drinkList().isEmpty()) {
-            retrieveFromDB()
-        } else {
-            inflateDrinkList()
-        }
-
 
         return binding.root
     }
@@ -64,6 +45,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Handler(Looper.getMainLooper()).postDelayed({ inflateDrinkList() },1000)
 
         binding.drinkCardRecyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
@@ -72,8 +54,10 @@ class HomeFragment : Fragment() {
                     val isLastVisible =
                         drinkCardAdapter.getCurrentPosition() == drinkCardAdapter.itemCount
                     if (dy > 0 && isLastVisible) {
-                        retrieveFromDB()
-                        println("retrieve")
+                       // (activity as MainActivity).retrieveFromDB()
+                       // println("retrieve")
+                     //   drinkCardAdapter.beerListForAdapter=DrinkList.drinkList()
+//                        drinkCardAdapter.notifyItemRangeChanged(0,drinkCardAdapter.itemCount)
                     }
                 }
             })
@@ -81,13 +65,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun retrieveFromDB() {
-        viewModel.send(DBEvent.RetrieveDrinksByFirstLetter(currentLetter[letterIndex]))
-        observer()
-        if (letterIndex<currentLetter.size){ letterIndex++
-        println("++")}
-        println(currentLetter[letterIndex])
-    }
 
     private fun makeActionDone(action: DrinkAction) {
         when (action) {
@@ -112,45 +89,23 @@ class HomeFragment : Fragment() {
     private fun inflateDrinkList() {
         val headerAdapter = HeaderAdapter()
 
-        drinkCardAdapter = DrinkCardAdapter(
-            DrinkList.drinkList(),
-        ) { action -> makeActionDone(action) }
+        drinkCardAdapter = DrinkCardAdapter { action -> makeActionDone(action) }
+
+        DrinkList.drinkList().forEach { println(it?.name) }
+        println(DrinkList.drinkList().size)
 
         val concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter)
 
         binding.drinkCardRecyclerView.adapter = concatAdapter
 
+        binding.loadingRing.visibility=GONE
+
+        //concatAdapter.notifyItemRangeChanged(0,DrinkList.drinkList().size)
+
+        //binding.loadingRing.visibility=View.GONE
+
     }
 
-
-    private fun observer() {
-        viewModel.result.observe(viewLifecycleOwner) {
-            when (it) {
-                is DBResult.Result -> {
-                    addToDrinkList(it.db)
-                    //  println(DrinkList.drinkList().size)
-                    DrinkList.drinkList().forEach {
-                     //   println(it.name)
-                    }
-                    inflateDrinkList()
-                    println(drinkCardAdapter.itemCount)
-                }
-                is DBResult.Error -> Snackbar.make(
-                    binding.root,
-                    "Error retrieving Drinks: $it",
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction("Retry") {
-                        viewModel.send(
-                            DBEvent.RetrieveDrinksByFirstLetter(
-                                currentLetter[letterIndex]
-                            )
-                        )
-                    }
-                    .show()
-            }
-        }
-    }
 
 }
 
