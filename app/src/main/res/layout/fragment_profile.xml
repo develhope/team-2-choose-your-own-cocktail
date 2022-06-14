@@ -55,7 +55,7 @@
         android:id="@+id/data_nascita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_data_nascita"
+        android:text="@string/data_nascita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
