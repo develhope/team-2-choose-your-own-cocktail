@@ -32,10 +32,10 @@
         app:layout_constraintVertical_bias="0.28" />
 
     <TextView
-        android:id="@+id/francescopedulla"
+        android:id="@+id/francesco_pedullà"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Francesco_Pedullà"
+        android:text="@string/francesco_pedullà"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,20 +52,20 @@
         app:layout_constraintVertical_bias="0.36" />
 
     <TextView
-        android:id="@+id/datadinascita"
+        android:id="@+id/data_nascita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/data_di_nascita"
+        android:text="@string/string_data_nascita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.40" />
 
     <TextView
-        android:id="@+id/stringdatadinascita"
+        android:id="@+id/string_data_nascita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_data_di_nascita"
+        android:text="@string/string_data_nascita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
@@ -76,7 +76,6 @@
         android:layout_width="370dp"
         android:layout_height="2dp"
         android:background="?android:attr/listDivider"
-        android:text="@string/data_di_nascita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
@@ -107,27 +106,26 @@
         android:layout_width="370dp"
         android:layout_height="2dp"
         android:background="?android:attr/listDivider"
-        android:text="@string/data_di_nascita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.60" />
 
     <TextView
-        android:id="@+id/numeroditelefono"
+        android:id="@+id/numero_telefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/numero_di_telefono"
+        android:text="@string/numero_telefono"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.64" />
 
     <TextView
-        android:id="@+id/stringnumeroditelefono"
+        android:id="@+id/string_numero_telefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_numero_di_telefono"
+        android:text="@string/string_numero_telefono"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
@@ -138,7 +136,6 @@
         android:layout_width="370dp"
         android:layout_height="2dp"
         android:background="?android:attr/listDivider"
-        android:text="@string/data_di_nascita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
@@ -148,14 +145,14 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Email"
+        android:text="@string/email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.76" />
 
     <TextView
-        android:id="@+id/stringemail"
+        android:id="@+id/string_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_email"

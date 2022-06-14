@@ -11,37 +11,29 @@
     <string name="details">Go to detail</string>
     <string name="details_label">Drink details</string>
     <string name="results">results</string>
-    <string name="our_beers">I nostri drink</string>
+    <string name="our_beers" translatable="false">I nostri drink</string>
     <string name="hello_blank_fragment" tools:ignore="MissingTranslation">Hello blank fragment</string>
-    <string name="Loreipsum" tools:ignore="MissingTranslation">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</string>
     <string name="type_of_drink" tools:ignore="MissingTranslation">ichnusa non filtrata\n33 cl</string>
     <string name="log_out">log out</string>
     <string name="app_version">v.1.0.0</string>
     <string name="nome" translatable="false">Nome</string>
-    <string name="Francesco_Pedullà" translatable="false">Francesco Pedullà</string>
-    <string name="data_di_nascita" translatable="false">Data di Nascita</string>
-    <string name="string_data_di_nascita" translatable="false">08 giugno 1992</string>
+    <string name="francesco_pedullà" translatable="false">Francesco Pedullà</string>
+    <string name="data_nascita" translatable="false">Data di Nascita</string>
+    <string name="string_data_nascita" translatable="false">08 giugno 1992</string>
     <string name="sesso" translatable="false">Sesso</string>
     <string name="genere" translatable="false">M</string>
-    <string name="numero_di_telefono" translatable="false">Numero di telefono</string>
-    <string name="string_numero_di_telefono" translatable="false">3356255268</string>
-    <string name="Email" translatable="false">Email</string>
+    <string name="numero_telefono" translatable="false">Numero di telefono</string>
+    <string name="string_numero_telefono" translatable="false">3356255268</string>
+    <string name="email" translatable="false">Email</string>
     <string name="string_email" translatable="false">f.pedulla@live.it</string>
-    <string name="homeFragTitle">Le Nostre Birre</string>
     <string name="nome_birra" translatable="false">Nome Birra</string>
     <string name="_33_cl" translatable="false">33 cl</string>
     <string name="preferance_button" translatable="false">preferanceButton</string>
     <string name="searchFrag">Search</string>
-    <string name="favOff">\@drawable/ic_fav_off</string>
-    <string name="drinkname_text">Titolo</string>
-    <string name="drinkcl_text">33 cl</string>
-    <string name="drinkshortdescription_text">Descrizione</string>
-    <string name="shortdescription_maxLines">4</string>
-    <string name="drinkName_MaxLenght">18dp</string>
-    <string name= "nothing_found">Nothing found!</string>
-
-
-
-
+    <string name="favOff" translatable="false">\@drawable/ic_fav_off</string>
+    <string name="drinkname_text" translatable="false">Titolo</string>
+    <string name="drinkcl_text" translatable="false">33 cl</string>
+    <string name="drinkshortdescription_text" translatable="false">Descrizione</string>
+    <string name="shortdescription_maxLines" translatable="false">4</string>
+    <string name= "nothing_found" translatable="false">Nothing found!</string>
 </resources>
