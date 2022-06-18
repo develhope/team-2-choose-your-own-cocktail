@@ -67,5 +67,8 @@
     <dimen name="detail_page_preview_sideMargin">70dp</dimen>
     <dimen name="drinkcard_preview_marginStart">10dp</dimen>
     <dimen name="short_description_marginEnd">25dp</dimen>
+    <dimen name="header_rc_marginTop">30dp</dimen>
+    <dimen name="loading_ring_size">170dp</dimen>
+    <dimen name="loading_ring_layout_height">60dp</dimen>
 
 </resources>

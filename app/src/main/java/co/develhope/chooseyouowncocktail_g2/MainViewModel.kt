@@ -6,10 +6,10 @@ import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
 
 
-class MainViewModel(private val DbProvider: DrinksProvider) : ViewModelProvider.Factory {
+class MainViewModel : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DBViewModel::class.java)) {
-            return DBViewModel(DbProvider) as T
+            return DBViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

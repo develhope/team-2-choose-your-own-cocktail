@@ -8,9 +8,7 @@ import co.develhope.chooseyouowncocktail_g2.R
 
 
 class HeaderAdapter : RecyclerView.Adapter<HeaderAdapter.HeaderViewHolder>() {
-    class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-    }
+    class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeaderViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -19,7 +17,6 @@ class HeaderAdapter : RecyclerView.Adapter<HeaderAdapter.HeaderViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: HeaderViewHolder, position: Int) {
-
     }
 
 

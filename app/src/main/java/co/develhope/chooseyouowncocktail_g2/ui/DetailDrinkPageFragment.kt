@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.MainActivity
@@ -23,6 +25,8 @@ class DetailDrinkFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private lateinit var backPressedCallback: OnBackPressedCallback
+
 
     companion object {
         @JvmStatic
@@ -38,22 +42,21 @@ class DetailDrinkFragment : Fragment() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //  requireActivity().actionBar?.displayOptions
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailDrinkPageBinding.inflate(inflater, container, false)
         return binding.root
+
+
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        backPressedCallback = onBackPressCloseFrag()
 
         arguments?.let {
             DrinkList.getByID(it.getInt(param_drink_ID))?.let {
@@ -92,7 +95,15 @@ class DetailDrinkFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        backPressedCallback.remove()
         _binding = null
+    }
+
+
+    private fun onBackPressCloseFrag(): OnBackPressedCallback {
+        return requireActivity().onBackPressedDispatcher.addCallback {
+            (activity as MainActivity).remove(this@DetailDrinkFragment)
+        }
     }
 }
 

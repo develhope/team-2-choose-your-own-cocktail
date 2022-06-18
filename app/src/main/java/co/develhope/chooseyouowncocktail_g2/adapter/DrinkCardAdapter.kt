@@ -3,119 +3,82 @@ package co.develhope.chooseyouowncocktail_g2.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.chooseyouowncocktail_g2.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
-import co.develhope.chooseyouowncocktail_g2.databinding.LoadingRingBinding
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 
 
 class DrinkCardAdapter(
+    drinkListForAdapter: List<Drink>,
     val action: (DrinkAction) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    inner class DrinkHolder(binding: DrinkCardBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    inner class ProgressRingHolder(binding: LoadingRingBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-   var beerListForAdapter = DrinkList.drinkList()
-
-    private lateinit var context: Context
+) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
 
     private var currentPos = 0
 
-    private var isLoading = false
+    private var drinkList = drinkListForAdapter
 
-    companion object {
-        private const val viewTypeDrinkCard = 0
-        private const val viewTypeLoadingRing = 1
-    }
+    inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private lateinit var drinkBinding: DrinkCardBinding
-    private lateinit var loadingBinding: LoadingRingBinding
+    private lateinit var context: Context
 
 
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         context = parent.context
-
-        if (viewType == viewTypeDrinkCard) {
-            drinkBinding = DrinkCardBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-            return DrinkHolder(
-                drinkBinding
-            )
-        } else {
-            println("loading bar")
-            loadingBinding = LoadingRingBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-            return ProgressRingHolder(
-                loadingBinding
-            )
-
-        }
+        return ViewHolder(binding)
     }
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        currentPos = holder.position
+        currentPos = holder.absoluteAdapterPosition
 
-        if (getItemViewType(position)== viewTypeDrinkCard) {
+        with(receiver = holder) {
+            with(drinkList[position]) {
+                binding.drinkName.text = this.name
 
-            with(beerListForAdapter[position]) {
-                if (this != null) {
-                    drinkBinding.drinkName.text = this.name
+                binding.drinkCl.text = this.category
 
-                    drinkBinding.drinkCl.text = this.category
+                binding.drinkShortDescription.text = this.shortDescription
 
-                    drinkBinding.drinkShortDescription.text = this.shortDescription
+                binding.drinkImage.setImageByUrl(
+                    this.img,
+                    100,
+                    100
+                )
 
-                    drinkBinding.drinkImage.setImageByUrl(this.img,
-                        100,
-                        100
-                    )
+                binding.buttonGoToDetail.setOnClickListener {
+                    action(DrinkAction.GotoDetail(this.id))
+                }
 
-                    drinkBinding.buttonGoToDetail.setOnClickListener {
-                        action(DrinkAction.GotoDetail(this.id))
-                    }
+                var switch = false
+                val bf = binding.drinkFavourite
 
-                    var switch = false
-                    val bf = drinkBinding.drinkFavourite
-
-                    bf.setOnClickListener {
-                        switch = if (!switch) {
-                            bf.setBackgroundResource(R.drawable.ic_fav_on)
-                            true
-                        } else {
-                            bf.setBackgroundResource(R.drawable.ic_fav_off)
-                            false
-                        }
+                bf.setOnClickListener {
+                    switch = if (!switch) {
+                        bf.setBackgroundResource(R.drawable.ic_fav_on)
+                        true
+                    } else {
+                        bf.setBackgroundResource(R.drawable.ic_fav_off)
+                        false
                     }
                 }
             }
-        } else {
-            print("loading ring")
-            loadingBinding.loadingRing.visibility = View.VISIBLE
         }
     }
 
+
     fun getCurrentPosition(): Int {
         return currentPos
+    }
+
+    fun updateAdapterList(newList: List<Drink>) {
+        drinkList = newList
     }
 
 
@@ -123,15 +86,7 @@ class DrinkCardAdapter(
         return DrinkList.drinkList().size
     }
 
-    fun setLoadingState(boolean: Boolean) {
-        isLoading = boolean
-    }
-
-
-    override fun getItemViewType(position: Int): Int {
-        return if (DrinkList.drinkList().get(position) == null) viewTypeLoadingRing
-        else viewTypeDrinkCard    }
-
 }
+
 
 
