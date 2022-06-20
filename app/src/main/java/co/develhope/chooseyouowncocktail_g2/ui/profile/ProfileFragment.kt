@@ -32,12 +32,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.contactUs.setOnClickListener {
-            Toast.makeText(context, "LET ME KNOW !! ;)", Toast.LENGTH_LONG).show()
-        }
-        binding.settings.setOnClickListener {
-            Toast.makeText(context, "LET'S MAKE UP TOGHETHER;)", Toast.LENGTH_LONG).show()
-        }
         binding.logOut.setOnClickListener {
             Toast.makeText(context, "SEE YOU SOON :)", Toast.LENGTH_LONG).show()
         }

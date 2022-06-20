@@ -33,7 +33,6 @@
             android:layout_height="@dimen/detailpage_description_height"
             android:layout_marginTop="@dimen/detailpage_description_marginTop"
             android:layout_marginHorizontal="@dimen/detailpage_description_sideMargin"
-            android:text="@string/Loreipsum"
             android:textAlignment="viewStart"
             android:textAppearance="@style/detail_beerDescription"
             card_view:layout_constraintBottom_toBottomOf="parent"
