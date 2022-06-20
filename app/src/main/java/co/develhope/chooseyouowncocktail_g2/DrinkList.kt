@@ -1,4 +1,3 @@
-
 package co.develhope.chooseyouowncocktail_g2
 
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
@@ -10,25 +9,34 @@ object DrinkList {
     val currentLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
     var letterIndex = 0
 
-    private var drinks = listOf<Drink>()
-
-
+    private var drinkList = listOf<Drink>()
+    private var originList = listOf<Drink>()
 
 
     fun drinkList(): List<Drink> {
-        return drinks
+        return drinkList
+    }
+
+    fun originDrinkList(): List<Drink> {
+        return originList
     }
 
 
     fun List<Drink>.setList() {
-        drinks = this
+        drinkList = this
     }
 
-    fun addToDrinkList(drinks : List<Drink>){
+    fun getFavorite(): List<Drink> {
+        return drinkList.filter { it.favourite }
+    }
+
+    fun addToDrinkList(drinks: List<Drink>) {
         val newList = drinkList().toMutableList()
+        val newOrignList = drinkList().toMutableList()
         newList.addAll(drinks)
-        newList.setList()
-        println("add to drink list")
+        newOrignList.addAll(drinks)
+        originList = newOrignList
+        drinkList = newList
     }
 
     fun getByID(id: Int): Drink? {
@@ -37,7 +45,7 @@ object DrinkList {
 
     fun setFavorite(drink: Drink, bool: Boolean) {
         Collections.replaceAll(
-            drinks,
+            drinkList,
             drink,
             drink.copy(favourite = bool)
         )

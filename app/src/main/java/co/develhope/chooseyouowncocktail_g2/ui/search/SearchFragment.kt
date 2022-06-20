@@ -25,8 +25,9 @@ class SearchFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    //private lateinit var viewModel: ProfileViewModel
+    private lateinit var startList: List<Drink>
 
+    private lateinit var drinkCardAdapter: DrinkCardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,39 +44,44 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.empty.visibility = View.GONE
+
+        if (DrinkList.getFavorite().isNotEmpty()) startList =
+            DrinkList.getFavorite() else startList = drinkList
+
+        drinkCardAdapter = DrinkCardAdapter(
+            startList
+        ) { action -> makeActionDone(action) }
+
+        binding.searchResultRC.adapter = drinkCardAdapter
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(queryTyping: String?): Boolean {
-
-
+                search()
                 return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                binding.searchView.clearFocus()
-                val filteredList = drinkList.filterList(binding.searchView.query.toString())
-                //Sostituire la stringa in hardcode
-
-
-                if (filteredList.isNotEmpty()) {
-                    binding.resultCount.text =
-                        filteredList.size.toString() + " " +
-                                resources.getString(R.string.results)
-
-
-                    binding.searchResultRC.visibility = View.VISIBLE
-                    binding.empty.visibility = View.GONE
-                    binding.searchResultRC.adapter = DrinkCardAdapter(
-                    DrinkList.drinkList()) { action -> makeActionDone(action) }
-
-                } else {
-                    binding.searchResultRC.visibility = View.GONE
-                    binding.empty.visibility = View.VISIBLE
-                    binding.resultCount.visibility = View.GONE
-                }
 
                 return true
             }
         })
+    }
+
+    private fun search() {
+        val filteredList = drinkList.filterList(binding.searchView.query.toString())
+        if (filteredList.isNotEmpty()) {
+            binding.resultCount.text =
+                filteredList.size.toString() + " " +
+                        resources.getString(R.string.results)
+            binding.searchResultRC.visibility = View.VISIBLE
+            binding.empty.visibility = View.GONE
+            drinkCardAdapter.updateAdapterList(filteredList)
+            drinkCardAdapter.notifyDataSetChanged()
+        } else {
+            binding.searchResultRC.visibility = View.GONE
+            binding.empty.visibility = View.VISIBLE
+            binding.resultCount.visibility = View.GONE
+        }
     }
 
 
@@ -99,7 +105,10 @@ class SearchFragment : Fragment() {
                     )
                 }
             }
-            DrinkAction.SetPref -> TODO()
+            is DrinkAction.SetPref -> {
+                DrinkList.setFavorite(action.drink, action.boolean)
+
+            }
         }
     }
 
