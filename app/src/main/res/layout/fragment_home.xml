@@ -2,34 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BackgroundColor"
-    android:id="@+id/home"
-    tools:context=".ui.home.HomeFragment"
-    android:gravity="center"
     android:layout_gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:background="@color/BackgroundColor"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/header_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/short_margin"
-        android:layout_marginBottom="@dimen/medium_long_margin"
-        android:text="@string/our_beers"
-        android:textAlignment="center"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/loadingRingEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginVertical="180dp"
+        android:src="@drawable/loadingring"
+        android:visibility="gone" />
 
-        android:textAppearance="@style/recyclerview_header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drinkCardRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
+        android:clipToPadding="true"
         android:paddingHorizontal="@dimen/medium_long_margin"
-        android:paddingTop="@dimen/medium_long_margin"
-        android:paddingBottom="@dimen/margin_68"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,28 +6,46 @@ import java.util.*
 
 object DrinkList {
 
-    private var drinks = listOf<Drink>()
+    val currentLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
+    var letterIndex = 0
 
-
+    private var drinkList = listOf<Drink>()
+    private var originList = listOf<Drink>()
 
 
     fun drinkList(): List<Drink> {
-        return drinks
+        return drinkList
+    }
+
+    fun originDrinkList(): List<Drink> {
+        return originList
     }
 
 
     fun List<Drink>.setList() {
-        drinks = this
+        drinkList = this
     }
 
+    fun getFavorite(): List<Drink> {
+        return drinkList.filter { it.favourite }
+    }
+
+    fun addToDrinkList(drinks: List<Drink>) {
+        val newList = drinkList().toMutableList()
+        val newOrignList = drinkList().toMutableList()
+        newList.addAll(drinks)
+        newOrignList.addAll(drinks)
+        originList = newOrignList
+        drinkList = newList
+    }
 
     fun getByID(id: Int): Drink? {
-        return drinkList().firstOrNull() { it.id == id }
+        return drinkList().firstOrNull { it.id == id }
     }
 
     fun setFavorite(drink: Drink, bool: Boolean) {
         Collections.replaceAll(
-            drinks,
+            drinkList,
             drink,
             drink.copy(favourite = bool)
         )

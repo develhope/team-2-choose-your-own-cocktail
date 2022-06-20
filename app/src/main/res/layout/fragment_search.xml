@@ -42,13 +42,16 @@
         android:paddingBottom="@dimen/margin_68"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/drink_card" />
+
     <TextView
         android:id="@+id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nothing_found"
-        android:textAppearance="@style/drink_card_beerName"
-        android:textAlignment="center"/>
+        android:layout_marginStart="@dimen/rescount_marginStart"
+        android:layout_marginTop="@dimen/margin_29"
+        android:textAppearance="@style/search_result"
+        android:text="@string/nothing_found"/>
+
 
 
 </LinearLayout>

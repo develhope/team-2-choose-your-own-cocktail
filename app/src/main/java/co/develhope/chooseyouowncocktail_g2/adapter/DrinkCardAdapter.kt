@@ -15,20 +15,22 @@ import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 
 import android.content.Context
+import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
 
 
 class DrinkCardAdapter(
-
-    private val beerListForAdapter: List<Drink>,
-
-    val action: (DrinkAction) -> Unit
+    drinkListForAdapter: List<Drink>,
+    private val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
-    private lateinit var binding: DrinkCardBinding
-
-    inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     private lateinit var context: Context
+    private val originalList = drinkList()
 
+    private var drinkList = drinkListForAdapter
+    var currentPos = 0
+
+    inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -37,9 +39,10 @@ class DrinkCardAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        currentPos = holder.absoluteAdapterPosition
 
         with(receiver = holder) {
-            with(beerListForAdapter[position]) {
+            with(drinkList[position]) {
                 binding.drinkName.text = this.name
 
                 binding.drinkCl.text = this.category
@@ -56,29 +59,45 @@ class DrinkCardAdapter(
                     action(DrinkAction.GotoDetail(this.id))
                 }
 
-                var switch = false
-                val bf = binding.drinkFavourite
+                binding.drinkFavourite.setBackgroundResource(
+                    showFavoriteStatus(this)
+                )
 
-                bf.setOnClickListener {
-                    switch = if (!switch) {
-                        bf.setBackgroundResource(R.drawable.ic_fav_on)
-                        true
-                    } else {
-                        bf.setBackgroundResource(R.drawable.ic_fav_off)
-                        false
-                    }
+                binding.drinkFavourite.setOnClickListener {
+                    action(DrinkAction.SetPref(this, !this.favourite, position))
                 }
-            }
 
+            }
 
         }
     }
 
 
+    fun getCurrentList(): List<Drink> {
+        return drinkList
+    }
+
+
+    private fun showFavoriteStatus(drinkCard: Drink): Int {
+        val icon = if (drinkCard.favourite) {
+            R.drawable.ic_fav_on
+        } else {
+            R.drawable.ic_fav_off
+        }
+        return icon
+    }
+
+    fun getCurrentPosition(): Int {
+        return currentPos
+    }
+
+    fun updateAdapterList(newList: List<Drink>) {
+        drinkList = newList
+    }
 
 
     override fun getItemCount(): Int {
-        return beerListForAdapter.size
+        return drinkList.size
     }
 
 }

@@ -4,7 +4,7 @@ import co.develhope.chooseyouowncocktail_g2.domain.DrinkMapper
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 
 
-object DrinksProvider {
+class DrinksProvider {
 
     private val retrofitClient = RestClient.getClient()
 

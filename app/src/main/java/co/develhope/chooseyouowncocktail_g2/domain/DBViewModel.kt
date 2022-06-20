@@ -4,6 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.originDrinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import kotlinx.coroutines.CoroutineScope
@@ -15,16 +19,22 @@ sealed class DBEvent {
 }
 
 sealed class DBResult {
+    object Loading : DBResult()
     data class Result(val db: List<Drink>) : DBResult()
     data class Error(val message: String) : DBResult()
 }
 
-class DBViewModel(private val DBProvider: DrinksProvider) : ViewModel() {
+class DBViewModel : ViewModel() {
 
+    private val DBProvider: DrinksProvider = DrinksProvider()
 
     private var _result = MutableLiveData<DBResult>()
     val result: LiveData<DBResult>
         get() = _result
+
+    private var _list = MutableLiveData<List<Drink>>()
+    val list: LiveData<List<Drink>>
+        get() = _list
 
 
     fun send(event: DBEvent) =
@@ -40,11 +50,52 @@ class DBViewModel(private val DBProvider: DrinksProvider) : ViewModel() {
 
     private fun retrieveDB(list: List<Drink>) {
         Log.d("MainViewModel", "Retrieving from thecocktaildb.com")
+        _result.value = DBResult.Loading
         try {
+            if (DrinkList.letterIndex != DrinkList.currentLetter.size) DrinkList.letterIndex += 1
             _result.value = DBResult.Result(list)
         } catch (e: Exception) {
             _result.value =
                 DBResult.Error("error retrieving from DB: ${e.localizedMessage}")
         }
     }
+
+    fun moveItem(drink: Drink, destPos: Int) {
+        val drinksList = drinkList().toMutableList()
+        drinkList().forEach {
+            if (it.id == drink.id) {
+                drinksList.remove(it)
+                drinksList.add(destPos, it)
+                drinksList.setList()
+            }
+        }
+        _list.value = drinkList()
+    }
+
+    fun restoreOriginPos(drink: Drink) : Int{
+        var destPost = 0
+        val drinkList = drinkList().toMutableList()
+        val sorteredList = drinkList.filterNot { it.favourite }.sortedBy { getOriginPos(it) }
+        drinkList.sortedBy { sorteredList.indexOf(it) }
+            .forEachIndexed { index, originDrink ->
+                if (originDrink.id == drink.id) {
+                    moveItem(drink, index)
+                    destPost=0
+                }
+            }
+        return destPost
+    }
+
+
+    private fun getOriginPos(drink: Drink): Int {
+        var oldPos = 0
+        originDrinkList().forEachIndexed { index, originDrink ->
+            if (originDrink.id == drink.id) {
+                oldPos = index
+            }
+        }
+        return oldPos
+    }
+
+
 }
