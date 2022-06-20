@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -26,6 +27,10 @@ import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 import co.develhope.chooseyouowncocktail_g2.domain.DBEvent
 import co.develhope.chooseyouowncocktail_g2.domain.DBResult
 import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
+
+import com.google.android.material.snackbar.Snackbar
+
+
 import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
 
 
