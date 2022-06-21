@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
+import android.content.res.Resources
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -82,15 +83,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun inflateDrinkList() {
-        
+
 
         val drinkCardAdapter = DrinkCardAdapter(
-            DrinkList.drinkList(),
+            Resources,
         ) { action -> makeActionDone(action) }
         //binding.cciao.visibility=Visibility(View.VISIBLE)
 
         binding.drinkCardRecyclerView.adapter = drinkCardAdapter
-
     }
 
 
