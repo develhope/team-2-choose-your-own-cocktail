@@ -15,20 +15,20 @@ import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 
 import android.content.Context
+import android.content.res.Resources
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 
 
 class DrinkCardAdapter(
 
+    private val resources: Resources,
     private val beerListForAdapter: List<Drink>,
-
     val action: (DrinkAction) -> Unit
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
     private lateinit var binding: DrinkCardBinding
-
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
-
     private lateinit var context: Context
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DrinkCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -48,8 +48,8 @@ class DrinkCardAdapter(
 
                 binding.drinkImage.setImageByUrl(
                     this.img,
-                    100,
-                    100
+                    resources.getDimension(R.dimen.drink_image_dim).toInt(),
+                    resources.getDimension(R.dimen.drink_image_dim).toInt(),
                 )
 
                 binding.buttonGoToDetail.setOnClickListener {
@@ -69,13 +69,8 @@ class DrinkCardAdapter(
                     }
                 }
             }
-
-
         }
     }
-
-
-
 
     override fun getItemCount(): Int {
         return beerListForAdapter.size

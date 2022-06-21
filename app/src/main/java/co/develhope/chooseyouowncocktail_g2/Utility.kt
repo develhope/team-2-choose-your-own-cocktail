@@ -11,5 +11,4 @@ fun ImageView.setImageByUrl(url: String?, width: Int, height: Int) {
         .placeholder(R.drawable.placeholder)
         .error(R.drawable.placeholder)
         .into(this)
-
 }
