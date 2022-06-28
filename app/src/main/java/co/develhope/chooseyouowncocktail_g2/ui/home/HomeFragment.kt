@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import co.develhope.chooseyouowncocktail_g2.DrinkAction
 
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
+import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
 
 class HomeFragment : Fragment() {
@@ -82,11 +83,11 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun inflateDrinkList() {
-
+    private fun inflateDrinkList(drinksList: List<Drink>) {
 
         val drinkCardAdapter = DrinkCardAdapter(
-            Resources,
+            resources,
+            beerListForAdapter = drinksList
         ) { action -> makeActionDone(action) }
         //binding.cciao.visibility=Visibility(View.VISIBLE)
 
@@ -103,7 +104,7 @@ class HomeFragment : Fragment() {
                     DrinkList.drinkList().forEach {
                         println(it.name)
                     }
-                    inflateDrinkList()
+                    inflateDrinkList(it.db)
                     println(drinkCardAdapter.itemCount)
                 }
                 is DBResult.Error -> Snackbar.make(

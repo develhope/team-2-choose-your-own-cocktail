@@ -65,6 +65,7 @@ class SearchFragment : Fragment() {
                     binding.searchResultRC.visibility = View.VISIBLE
                     binding.empty.visibility = View.GONE
                     binding.searchResultRC.adapter = DrinkCardAdapter(
+                        resources,
                         filteredList
                     ) { action -> makeActionDone(action) }
 
