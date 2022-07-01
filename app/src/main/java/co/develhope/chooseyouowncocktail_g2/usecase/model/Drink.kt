@@ -1,4 +1,4 @@
-package co.develhope.chooseyouowncocktail_g2.domain.model
+package co.develhope.chooseyouowncocktail_g2.usecase.model
 
 data class Drink(
     val id: Int,

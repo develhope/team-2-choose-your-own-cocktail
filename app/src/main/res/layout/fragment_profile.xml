@@ -29,7 +29,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintVertical_bias="0.28"
+        android:fontFamily="@font/poppins_regular"/>
 
     <TextView
         android:id="@+id/francesco_pedullà"
@@ -39,7 +40,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintVertical_bias="0.32"
+        android:fontFamily="@font/poppins_regular"/>
 
     <View
         android:id="@+id/divider"
@@ -59,7 +61,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40" />
+        app:layout_constraintVertical_bias="0.40"
+        android:fontFamily="@font/poppins_regular"
+        />
 
     <TextView
         android:id="@+id/string_data_nascita"
@@ -69,7 +73,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.44"
+        android:fontFamily="@font/poppins_regular"/>
 
     <View
         android:id="@+id/divider_two"
@@ -89,7 +94,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintVertical_bias="0.52"
+        android:fontFamily="@font/poppins_regular"/>
 
     <TextView
         android:id="@+id/genere"
@@ -99,7 +105,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintVertical_bias="0.56"
+        android:fontFamily="@font/poppins_regular"
+        />
 
     <View
         android:id="@+id/divider_three"
@@ -119,7 +127,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64" />
+        app:layout_constraintVertical_bias="0.64"
+        android:fontFamily="@font/poppins_regular"/>
 
     <TextView
         android:id="@+id/string_numero_telefono"
@@ -129,7 +138,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.68"
+        android:fontFamily="@font/poppins_regular"/>
 
     <View
         android:id="@+id/divider_four"
@@ -149,7 +159,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.76"
+        android:fontFamily="@font/poppins_regular"/>
 
     <TextView
         android:id="@+id/string_email"
@@ -159,7 +170,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/nome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.80" />
+        app:layout_constraintVertical_bias="0.80"
+        android:fontFamily="@font/poppins_regular"/>
 
     <Button
         android:id="@+id/log_out"
@@ -184,6 +196,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/poppins_regular"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,4 +14,7 @@
     <string name="app_version">v.1.0.0</string>
     <string name="searchFrag">Cerca</string>
     <string name="details_label">Dettagli</string>
+    <string name="retry">Riprova</string>
+    <string name="retrieveError">Errore durante lo scaricamento dei drinks!</string>
+    <string name="somethinWrong">Qualcosa è andato storto!</string>
 </resources>

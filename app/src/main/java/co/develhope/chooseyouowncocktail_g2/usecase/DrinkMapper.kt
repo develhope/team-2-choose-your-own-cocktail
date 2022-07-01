@@ -1,8 +1,8 @@
-package co.develhope.chooseyouowncocktail_g2.domain
+package co.develhope.chooseyouowncocktail_g2.usecase
 
 import co.develhope.chooseyouowncocktail_g2.network.dto.DrinkDto
 import co.develhope.chooseyouowncocktail_g2.network.dto.DrinksResult
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import java.util.*
 
 object DrinkMapper {

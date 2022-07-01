@@ -19,7 +19,8 @@
         android:layoutDirection="rtl"
         android:queryHint="@string/search_bar"
         android:searchHintIcon="@drawable/ic_searchbarbutton"
-        android:searchIcon="@drawable/ic_searchbarbutton" />
+        android:searchIcon="@drawable/ic_searchbarbutton"
+        android:iconifiedByDefault="false"/>
 
 
     <TextView
@@ -35,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/rc_search_marginTop"
         android:clipToPadding="false"
-
         android:paddingHorizontal="@dimen/medium_long_margin"
         android:paddingTop="@dimen/medium_long_margin"
         android:paddingBottom="@dimen/margin_68"
@@ -49,9 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/rescount_marginStart"
         android:layout_marginTop="@dimen/margin_29"
-        android:textAppearance="@style/search_result"
-        android:text="@string/nothing_found"/>
-
+        android:text="@string/nothing_found"
+        android:textAppearance="@style/search_result" />
 
 
 </LinearLayout>

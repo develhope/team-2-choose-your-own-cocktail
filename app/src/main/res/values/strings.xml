@@ -36,4 +36,7 @@
     <string name="drinkshortdescription_text" translatable="false">Descrizione</string>
     <string name="shortdescription_maxLines" translatable="false">4</string>
     <string name= "nothing_found" translatable="false">Nothing found!</string>
+    <string name="retry">Retry</string>
+    <string name="retrieveError">Error retrieving drinks!</string>
+    <string name="somethinWrong">Something went wrong!</string>
 </resources>

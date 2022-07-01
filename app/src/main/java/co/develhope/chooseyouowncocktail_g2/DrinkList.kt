@@ -1,16 +1,16 @@
 package co.develhope.chooseyouowncocktail_g2
 
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import java.util.*
 
 
 object DrinkList {
 
-    val currentLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
+    val indexLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
     var letterIndex = 0
 
-    private var drinkList = listOf<Drink>()
-    private var originList = listOf<Drink>()
+    private val drinkList = mutableListOf<Drink>()
+    private val originList = mutableListOf<Drink>()
 
 
     fun drinkList(): List<Drink> {
@@ -22,8 +22,9 @@ object DrinkList {
     }
 
 
-    fun List<Drink>.setList() {
-        drinkList = this
+    fun MutableList<Drink>.setList() {
+        drinkList.clear()
+        drinkList.addAll(this)
     }
 
     fun getFavorite(): List<Drink> {
@@ -31,16 +32,8 @@ object DrinkList {
     }
 
     fun addToDrinkList(drinks: List<Drink>) {
-        val newList = drinkList().toMutableList()
-        val newOrignList = drinkList().toMutableList()
-        newList.addAll(drinks)
-        newOrignList.addAll(drinks)
-        originList = newOrignList
-        drinkList = newList
-    }
-
-    fun getByID(id: Int): Drink? {
-        return drinkList().firstOrNull { it.id == id }
+        drinkList.addAll(drinks)
+        originList.addAll(drinks)
     }
 
     fun setFavorite(drink: Drink, bool: Boolean) {

@@ -70,5 +70,8 @@
     <dimen name="header_rc_marginTop">30dp</dimen>
     <dimen name="loading_ring_size">170dp</dimen>
     <dimen name="loading_ring_layout_height">60dp</dimen>
+    <dimen name="rc_search_marginTop">15dp</dimen>
+    <dimen name="detailpage_preview_size">300</dimen>
+    <dimen name="drinkcard_preview_size">100</dimen>
 
 </resources>
