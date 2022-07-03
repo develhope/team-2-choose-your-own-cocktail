@@ -14,4 +14,25 @@
     <string name="app_version">v.1.0.0</string>
     <string name="searchFrag">Cerca</string>
     <string name="details_label">Dettagli</string>
+    <string name="our_beers" >I nostri drink</string>
+    <string name="hello_blank_fragment">Salve,fragment bianco</string>
+    <string name="type_of_drink" >ichnusa unfiltered\n33 cl</string>
+    <string name="francesco_pedullà" >Francesco Pedullà</string>
+    <string name="data_nascita" >Data di Nascita</string>
+    <string name="string_data_nascita" >08 giugno 1992</string>
+    <string name="sesso" >Sesso</string>
+    <string name="genere" >M</string>
+    <string name="numero_telefono" >Numero di telefono</string>
+    <string name="string_numero_telefono" >3356255268</string>
+    <string name="email">Email</string>
+    <string name="string_email" >f.pedulla@live.it</string>
+    <string name="nome_birra">Nome Birra</string>
+    <string name="_33_cl">33 cl</string>
+    <string name="preferance_button">preferanceButton</string>
+    <string name="favOff" >\@drawable/ic_fav_off</string>
+    <string name="drinkname_text">Titolo</string>
+    <string name="drinkcl_text" >33 cl</string>
+    <string name="drinkshortdescription_text">Descrizione</string>
+    <string name="shortdescription_maxLines" >4</string>
+    <string name= "nothing_found" >Nessun risultato!</string>
 </resources>
