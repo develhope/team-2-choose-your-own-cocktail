@@ -9,7 +9,7 @@
     android:layout_marginBottom="@dimen/medium_long_margin"
     android:elevation="@dimen/medium_long_margin"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="@dimen/corner_radius">
+    app:cardCornerRadius="@dimen/short_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/drink_name"
-            android:layout_width="@dimen/title_width"
+            android:layout_width="@dimen/dimens_172"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_136"
             android:layout_marginTop="@dimen/medium_margin"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_136"
-            android:layout_marginTop="@dimen/text_cl_marginTop"
+            android:layout_marginTop="@dimen/go_to_detail_height"
             android:layout_marginEnd="@dimen/text_cl_marginRight"
             android:layout_marginBottom="@dimen/text_cl_marginBottom"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -100,7 +100,7 @@
             android:layout_marginStart="@dimen/margin_136"
             android:layout_marginEnd="@dimen/short_description_marginEnd"
             android:layout_marginTop="@dimen/short_description_marginTop"
-            android:layout_marginBottom="@dimen/short_description_marginBottom"
+            android:layout_marginBottom="@dimen/margin_68"
             android:ellipsize="end"
             android:maxLines="3"
             android:textAppearance="@style/drink_card_beerDescription"

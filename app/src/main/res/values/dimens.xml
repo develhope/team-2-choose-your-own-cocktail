@@ -29,23 +29,17 @@
     <dimen name="favourite_button_marginLeft">20.09dp</dimen>
     <dimen name="favourite_button_marginTop">179.76dp</dimen>
     <dimen name="text_cl_width">37dp</dimen>
-    <dimen name="text_cl_marginTop">40dp</dimen>
     <dimen name="text_cl_marginRight">175dp</dimen>
     <dimen name="text_cl_marginBottom">136dp</dimen>
-    <dimen name="text_cl_marginLeft">136dp</dimen>
     <dimen name="short_description_width">182dp</dimen>
     <dimen name="short_description_marginRight">19dp</dimen>
     <dimen name="short_description_marginTop">90dp</dimen>
     <dimen name="name_size">18sp</dimen>
     <dimen name="name_marginTop">18sp</dimen>
     <dimen name="cl_size">16sp</dimen>
-    <dimen name="corner_radius">10dp</dimen>
     <dimen name="title_marginEnd">19dp</dimen>
     <dimen name="title_marginBottom">165dp</dimen>
-    <dimen name="title_width">172dp</dimen>
     <dimen name="title_height">48dp</dimen>
-    <dimen name="short_description_marginBottom">68dp</dimen>
-    <dimen name="detail_page_preview_size">230dp</dimen>
     <dimen name="detail_page_preview_marginbottom">260dp</dimen>
     <dimen name="detail_page_favbutton_marginend">350dp</dimen>
     <dimen name="detailpage_cl_marginbottom">105dp</dimen>
@@ -54,21 +48,14 @@
     <dimen name="detailpage_margin_start_title">120dp</dimen>
     <dimen name="drinkcard_title_marginstart">124dp</dimen>
     <dimen name="short_description_height">50dp</dimen>
-    <dimen name="detailpage_description_marginTop">20dp</dimen>
     <dimen name="detailpage_margin_end_cl">330dp</dimen>
-    <dimen name="detailpage_margin_start_cl">20dp</dimen>
     <dimen name="detailpage_description_height">150dp</dimen>
     <dimen name="detailpage_margin_bottom_title">170dp</dimen>
-    <dimen name="detailpage_cl_width">150dp</dimen>
-    <dimen name="detailpage_description_sideMargin">20dp</dimen>
     <dimen name="detailpage_favbutton_size">35dp</dimen>
     <dimen name="detail_page_preview_marginTop">45dp</dimen>
     <dimen name="detail_page_favbutton_marginStart">7dp</dimen>
-    <dimen name="detail_page_preview_sideMargin">70dp</dimen>
-    <dimen name="drinkcard_preview_marginStart">10dp</dimen>
     <dimen name="short_description_marginEnd">25dp</dimen>
     <dimen name="header_rc_marginTop">30dp</dimen>
-    <dimen name="loading_ring_size">170dp</dimen>
     <dimen name="loading_ring_layout_height">60dp</dimen>
 
 </resources>

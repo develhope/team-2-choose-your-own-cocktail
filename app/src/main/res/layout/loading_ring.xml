@@ -7,8 +7,8 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/loadingRing"
-        android:layout_width="@dimen/loading_ring_size"
-        android:layout_height="@dimen/loading_ring_size"
+        android:layout_width="@dimen/detailpage_margin_bottom_title"
+        android:layout_height="@dimen/detailpage_margin_bottom_title"
         android:src="@drawable/loadingring"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
