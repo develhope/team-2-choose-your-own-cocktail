@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -23,9 +24,7 @@ import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.LoaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
-
-
-import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
+import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
 
 
 class HomeFragment : Fragment() {
@@ -159,12 +158,20 @@ class HomeFragment : Fragment() {
     private fun makeActionDone(action: DrinkAction) {
         when (action) {
             is DrinkAction.GotoDetail -> {
-                action.drinkID.let {
-                    val detailDrinkFragment = DetailDrinkFragment
-                    (activity as MainActivity).goToFragment(
-                        detailDrinkFragment.newInstance(it),
-                        detailDrinkFragment.fragmentTag
-                    )
+                viewModel.getByID(action.drinkID).let {
+                    if (it != null) {
+                        val detailDrinkFragment = DetailDrinkFragment
+                        (activity as MainActivity).goToFragment(
+                            detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
+                            detailDrinkFragment.fragmentTag
+                        )
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Something went wrong!", Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
                 }
             }
             is DrinkAction.SetPref -> {
@@ -174,10 +181,14 @@ class HomeFragment : Fragment() {
                         action.drink,
                         0
                     )
-                    drinkCardAdapter.notifyItemMoved(action.fromPos, 0)
+                    drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
+                    //drinkCardAdapter.notifyDataSetChanged()
                 } else {
-                    val destPos=viewModel.restoreOriginPos(action.drink)
-                    drinkCardAdapter.notifyItemMoved(action.fromPos, destPos)
+                    val originPos=viewModel.restoreOriginPos(action.drink)
+                    drinkCardAdapter.notifyItemMoved(
+                        viewModel.getFromPos(action.drink),
+                        originPos
+                    )
                 }
             }
         }

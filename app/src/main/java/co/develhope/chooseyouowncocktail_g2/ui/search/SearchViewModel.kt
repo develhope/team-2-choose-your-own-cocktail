@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBEvent
@@ -58,6 +59,10 @@ class SearchViewModel : ViewModel() {
                     it.shortDescription!!.contains(query, true)
 
         }
+    }
+
+    fun getByID(id: Int): Drink? {
+        return drinkList().firstOrNull { it.id == id }
     }
 
 }

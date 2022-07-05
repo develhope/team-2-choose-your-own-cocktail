@@ -64,7 +64,7 @@ class DrinkCardAdapter(
                 )
 
                 binding.drinkFavourite.setOnClickListener {
-                    action(DrinkAction.SetPref(this, !this.favourite, position))
+                    action(DrinkAction.SetPref(this, !this.favourite))
                 }
 
             }
