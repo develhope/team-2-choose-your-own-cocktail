@@ -45,8 +45,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.empty.visibility = View.GONE
 
-        if (DrinkList.getFavorite().isNotEmpty()) startList =
-            DrinkList.getFavorite() else startList = drinkList
+        startList = DrinkList.getFavorite().ifEmpty { drinkList }
 
         drinkCardAdapter = DrinkCardAdapter(
             startList
@@ -85,13 +84,13 @@ class SearchFragment : Fragment() {
     }
 
 
-    private fun List<Drink?>.filterList(query: String): List<Drink> {
+    private fun List<Drink>.filterList(query: String): List<Drink> {
         return this.filter {
-            it?.name!!.contains(query, true) ||
+            it.name!!.contains(query, true) ||
                     it.description!!.contains(query, true) ||
                     it.shortDescription!!.contains(query, true)
 
-        } as List<Drink>
+        }
     }
 
     private fun makeActionDone(action: DrinkAction) {
