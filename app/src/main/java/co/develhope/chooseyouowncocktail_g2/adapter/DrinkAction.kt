@@ -1,6 +1,6 @@
-package co.develhope.chooseyouowncocktail_g2
+package co.develhope.chooseyouowncocktail_g2.adapter
 
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 
 
 sealed class DrinkAction {

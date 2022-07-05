@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
+
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,19 +13,21 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
-import co.develhope.chooseyouowncocktail_g2.DrinkAction
-import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
 import co.develhope.chooseyouowncocktail_g2.DrinkList.setFavorite
-import co.develhope.chooseyouowncocktail_g2.MainActivity
-import co.develhope.chooseyouowncocktail_g2.ViewModelFactory
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.LoaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 
 
 class HomeFragment : Fragment() {
@@ -61,20 +64,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.list.observe(viewLifecycleOwner) {
-            drinkCardAdapter.updateAdapterList(it)
-            drinkCardAdapter.notifyItemRangeChanged(
-                0,
-                drinkCardAdapter.itemCount
-            )
+        lifecycleScope.launch {
+            viewModel.list.collect {
+                drinkCardAdapter.updateAdapterList(it)
+                drinkCardAdapter.notifyItemRangeChanged(
+                    0,
+                    drinkCardAdapter.itemCount
+                )
+            }
         }
 
         if (drinkList().isEmpty()) {
             binding.loadingRingEmpty.visibility = VISIBLE
             retrieveFromDB()
         } else {
-            viewModel.list.value?.let { drinkCardAdapter.updateAdapterList(it) }
+            viewModel.list.value.let { drinkCardAdapter.updateAdapterList(it) }
         }
 
         onLastItemLoadMore()
@@ -86,26 +90,43 @@ class HomeFragment : Fragment() {
     }
 
     private fun apiRetrieveObserver() {
-        viewModel.result.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is DBResult.Loading -> {
-                    loaderAdapter.updateLoadingRing(true)
-                    isLoading = true
-                }
-                is DBResult.Result -> {
-                    if (isLoading) {
-
-                        DrinkList.addToDrinkList(result.db)
-                        updateRecyclerView()
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            binding.loadingRingEmpty.visibility = GONE
-                        }, 1000)
-
-                        isLoading = false
+        lifecycleScope.launch {
+            viewModel.result.collect { result ->
+                when (result) {
+                    is DBResult.Loading -> {
+                        loaderAdapter.updateLoadingRing(true)
+                        isLoading = true
                     }
-                }
-                is DBResult.Error -> {
-                    onLastItemLoadMore()
+                    is DBResult.Result -> {
+                        if (isLoading) {
+                            viewModel.increaseCurrentLetter()
+                            updateRecyclerView()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                binding.loadingRingEmpty.visibility = GONE
+                            }, 1000)
+
+                            isLoading = false
+                        }
+                    }
+                    is DBResult.Error -> {
+                        activity?.let {
+                            activity?.let { activity ->
+                                Snackbar.make(
+                                    activity.findViewById(android.R.id.content),
+                                    R.string.retrieveError,
+                                    Snackbar.LENGTH_INDEFINITE
+                                )
+                                    .setAction(R.string.retry) {
+                                        retrieveFromDB()
+                                    }
+                                    .show()
+                            }
+                        }
+                    }
+                    is DBResult.NullResult -> {
+                        viewModel.increaseCurrentLetter()
+                        retrieveFromDB()
+                    }
                 }
             }
         }
@@ -127,7 +148,7 @@ class HomeFragment : Fragment() {
                     super.onScrolled(recyclerView, dx, dy)
                     if (!recyclerView.canScrollVertically(1) && drinkList().isNotEmpty()
                     ) {
-                        retrieveFromDB()
+                        if (viewModel.checkCurrentLetter()) retrieveFromDB()
                     }
                 }
             })
@@ -137,7 +158,7 @@ class HomeFragment : Fragment() {
         if (viewModel.result.value != DBResult.Loading) {
             viewModel.send(
                 DBEvent.RetrieveDrinksByFirstLetter(
-                    DrinkList.currentLetter[DrinkList.letterIndex]
+                    DrinkList.indexLetter[DrinkList.letterIndex]
                 )
             )
         }
@@ -189,6 +210,7 @@ class HomeFragment : Fragment() {
                         viewModel.getFromPos(action.drink),
                         originPos
                     )
+                    //    drinkCardAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -197,15 +219,10 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         headerAdapter = HeaderAdapter()
         loaderAdapter = LoaderAdapter()
-
         drinkCardAdapter =
             DrinkCardAdapter(drinkList()) { action -> makeActionDone(action) }
-
         concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter, loaderAdapter)
-
         binding.drinkCardRecyclerView.adapter = concatAdapter
-
-
     }
 
     override fun onDestroyView() {
@@ -214,5 +231,3 @@ class HomeFragment : Fragment() {
     }
 
 }
-
-

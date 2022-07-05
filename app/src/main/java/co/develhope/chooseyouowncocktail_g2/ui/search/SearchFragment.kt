@@ -6,16 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-
+import androidx.lifecycle.lifecycleScope
 import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentSearchBinding
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
+import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBEvent
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBResult
 import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
-import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
-
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 
 class SearchFragment : Fragment() {
 
@@ -86,29 +89,6 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun apiRetrieveObserver() {
-        viewModel.result.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is DBResult.Loading -> {
-                    isLoading = true
-                }
-                is DBResult.Result -> {
-                    if (isLoading) {
-
-                        DrinkList.addToDrinkList(result.db)
-
-                        drinkCardAdapter.updateAdapterList(drinkList())
-
-                        isLoading = false
-                    }
-                }
-                is DBResult.Error -> {
-                    retrieveFromDB()
-                }
-            }
-        }
-    }
-
     private fun search(queryTyping: String?) {
         val filteredList = queryTyping?.let { viewModel.filterList(drinkList, it) }
         if (filteredList != null) {
@@ -149,9 +129,48 @@ class SearchFragment : Fragment() {
         if (viewModel.result.value != DBResult.Loading) {
             viewModel.send(
                 DBEvent.RetrieveDrinksByFirstLetter(
-                    DrinkList.currentLetter[DrinkList.letterIndex]
+                    DrinkList.indexLetter[DrinkList.letterIndex]
                 )
             )
+        }
+    }
+
+    private fun apiRetrieveObserver() {
+        lifecycleScope.launch {
+            viewModel.result.collect { result ->
+                when (result) {
+                    is DBResult.Loading -> {
+                        isLoading = true
+                    }
+                    is DBResult.Result -> {
+                        if (isLoading) {
+                            viewModel.increaseCurrentLetter()
+                            drinkCardAdapter.updateAdapterList(drinkList())
+                            drinkCardAdapter.notifyDataSetChanged()
+                            isLoading = false
+                        }
+                    }
+                    is DBResult.Error -> {
+                        activity?.let {
+                            activity?.let { activity ->
+                                Snackbar.make(
+                                    activity.findViewById(android.R.id.content),
+                                    R.string.retrieveError,
+                                    Snackbar.LENGTH_INDEFINITE
+                                )
+                                    .setAction(R.string.retry) {
+                                        retrieveFromDB()
+                                    }
+                                    .show()
+                            }
+                        }
+                    }
+                    is DBResult.NullResult -> {
+                        viewModel.increaseCurrentLetter()
+                        retrieveFromDB()
+                    }
+                }
+            }
         }
     }
 
@@ -168,7 +187,7 @@ class SearchFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             context,
-                            "Something went wrong!", Toast.LENGTH_LONG
+                            R.string.somethingWrong, Toast.LENGTH_LONG
                         )
                             .show()
                     }

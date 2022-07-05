@@ -8,8 +8,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.*
+import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 
 const val DETAILPAGE_PREVIEW_SIZE=300
 

@@ -1,33 +1,27 @@
 package co.develhope.chooseyouowncocktail_g2.ui.search
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
+import co.develhope.chooseyouowncocktail_g2.network.dto.DrinksResult
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBEvent
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel() {
 
-
     private val dbProvider: DrinksProvider = DrinksProvider()
 
-    private var _result = MutableLiveData<DBResult>()
-    val result: LiveData<DBResult>
+    private var _result = MutableStateFlow<DBResult>(DBResult.Result(emptyList()))
+    val result: StateFlow<DBResult>
         get() = _result
-
-    private var _list = MutableLiveData<List<Drink>>()
-    val list: LiveData<List<Drink>>
-        get() = _list
-
 
     fun send(event: DBEvent) =
         CoroutineScope(Dispatchers.Main).launch {
@@ -40,16 +34,36 @@ class SearchViewModel : ViewModel() {
             }
         }
 
-    private fun retrieveDB(list: List<Drink>) {
+
+    fun increaseCurrentLetter() {
+        if (checkCurrentLetter()) DrinkList.letterIndex += 1
+    }
+
+    private fun checkCurrentLetter(): Boolean {
+        return DrinkList.letterIndex < DrinkList.indexLetter.size
+    }
+
+    private fun retrieveDB(list: DrinksResult) {
         Log.d("MainViewModel", "Retrieving from thecocktaildb.com")
         _result.value = DBResult.Loading
         try {
-            if (DrinkList.letterIndex != DrinkList.currentLetter.size) DrinkList.letterIndex += 1
-            _result.value = DBResult.Result(list)
+            val retrievedDrinks = DrinkMapper.listToDomainModel(list)
+            _result.value = DBResult.Result(
+                retrievedDrinks
+            )
+            DrinkList.addToDrinkList(retrievedDrinks)
         } catch (e: Exception) {
-            _result.value =
-                DBResult.Error("error retrieving from DB: ${e.localizedMessage}")
+            when (e) {
+                is NullPointerException -> _result.value = DBResult.NullResult
+                else -> _result.value =
+                    DBResult.Error("error retrieving from DB: ${e.localizedMessage}")
+            }
+
         }
+    }
+
+    fun getByID(id: Int): Drink? {
+        return DrinkList.drinkList().firstOrNull { it.id == id }
     }
 
     fun filterList(list: List<Drink>, query: String): List<Drink> {
@@ -59,10 +73,6 @@ class SearchViewModel : ViewModel() {
                     it.shortDescription!!.contains(query, true)
 
         }
-    }
-
-    fun getByID(id: Int): Drink? {
-        return drinkList().firstOrNull { it.id == id }
     }
 
 }

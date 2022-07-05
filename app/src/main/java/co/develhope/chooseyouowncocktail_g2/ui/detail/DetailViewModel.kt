@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 
 
 class DetailViewModel : ViewModel() {
