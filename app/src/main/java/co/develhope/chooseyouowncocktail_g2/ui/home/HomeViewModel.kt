@@ -27,7 +27,7 @@ sealed class DBResult {
 
 class HomeViewModel : ViewModel() {
 
-    private val DBProvider: DrinksProvider = DrinksProvider()
+    private val dbProvider: DrinksProvider = DrinksProvider()
 
     private var _result = MutableLiveData<DBResult>()
     val result: LiveData<DBResult>
@@ -42,7 +42,7 @@ class HomeViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main).launch {
             when (event) {
                 is DBEvent.RetrieveDrinksByFirstLetter -> retrieveDB(
-                    DBProvider.searchByFirstLetter(
+                    dbProvider.searchByFirstLetter(
                         event.letter
                     )
                 )
