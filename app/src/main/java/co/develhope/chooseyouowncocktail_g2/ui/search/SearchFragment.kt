@@ -101,7 +101,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun initStateUI() {
-        drinkCardAdapter.updateAdapterList(drinkList())
+        drinkCardAdapter.updateAdapterList(startList)
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
         binding.searchResultRC.visibility = View.VISIBLE
@@ -195,6 +195,24 @@ class SearchFragment : Fragment() {
             }
             is DrinkAction.SetPref -> {
                 DrinkList.setFavorite(action.drink, action.boolean)
+                if (action.boolean) {
+                    viewModel.moveItem(
+                        action.drink,
+                        0
+                    )
+                    drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
+                    drinkCardAdapter.notifyDataSetChanged()
+                } else {
+                    val originPos = viewModel.restoreOriginPos(action.drink)
+                    drinkCardAdapter.notifyItemMoved(
+                        viewModel.getFromPos(action.drink),
+                        originPos
+                    )
+                    if(DrinkList.getFavorite().isEmpty()){
+                        drinkCardAdapter.updateAdapterList(drinkList())
+                    }
+                    drinkCardAdapter.notifyDataSetChanged()
+                }
             }
         }
     }

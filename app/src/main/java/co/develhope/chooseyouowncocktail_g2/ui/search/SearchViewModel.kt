@@ -3,6 +3,7 @@ package co.develhope.chooseyouowncocktail_g2.ui.search
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
 import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
@@ -22,6 +23,10 @@ class SearchViewModel : ViewModel() {
     private var _result = MutableStateFlow<DBResult>(DBResult.Result(emptyList()))
     val result: StateFlow<DBResult>
         get() = _result
+
+    private var _list = MutableStateFlow<List<Drink>>(emptyList())
+    val list: StateFlow<List<Drink>>
+        get() = _list
 
     fun send(event: DBEvent) =
         CoroutineScope(Dispatchers.Main).launch {
@@ -73,6 +78,48 @@ class SearchViewModel : ViewModel() {
                     it.shortDescription!!.contains(query, true)
 
         }
+    }
+
+
+    fun moveItem(drink: Drink, destPos: Int) {
+        val drinksList = DrinkList.drinkList().toMutableList()
+        DrinkList.drinkList().forEach {
+            if (it.id == drink.id) {
+                drinksList.remove(it)
+                drinksList.add(destPos, it)
+            }
+        }
+        drinksList.setList()
+        _list.value = drinksList
+    }
+
+    fun restoreOriginPos(drink: Drink): Int {
+        var destPost = 0
+        val drinkList = DrinkList.drinkList().toMutableList()
+        val sorteredList = drinkList.filterNot { it.favourite }.sortedBy { getOriginPos(it) }
+        drinkList.sortedBy { sorteredList.indexOf(it) }
+            .forEachIndexed { index, originDrink ->
+                if (originDrink.id == drink.id) {
+                    moveItem(originDrink, index)
+                    destPost = 0
+                }
+            }
+        return destPost
+    }
+
+    fun getFromPos(drink: Drink): Int {
+        return DrinkList.drinkList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
+    }
+
+
+    private fun getOriginPos(drink: Drink): Int {
+        var oldPos = 0
+        DrinkList.originDrinkList().forEachIndexed { index, originDrink ->
+            if (originDrink.id == drink.id) {
+                oldPos = index
+            }
+        }
+        return oldPos
     }
 
 }

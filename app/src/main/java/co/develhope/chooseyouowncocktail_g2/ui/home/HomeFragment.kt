@@ -78,7 +78,8 @@ class HomeFragment : Fragment() {
             binding.loadingRingEmpty.visibility = VISIBLE
             retrieveFromDB()
         } else {
-            viewModel.list.value.let { drinkCardAdapter.updateAdapterList(it) }
+            println("emptyList")
+            drinkCardAdapter.updateAdapterList(drinkList())
         }
 
         onLastItemLoadMore()
@@ -205,7 +206,7 @@ class HomeFragment : Fragment() {
                     drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
                     //drinkCardAdapter.notifyDataSetChanged()
                 } else {
-                    val originPos=viewModel.restoreOriginPos(action.drink)
+                    val originPos = viewModel.restoreOriginPos(action.drink)
                     drinkCardAdapter.notifyItemMoved(
                         viewModel.getFromPos(action.drink),
                         originPos
