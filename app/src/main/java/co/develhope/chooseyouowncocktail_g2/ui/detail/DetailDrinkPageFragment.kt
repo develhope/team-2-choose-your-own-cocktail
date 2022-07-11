@@ -12,7 +12,7 @@ import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 
-const val DETAILPAGE_PREVIEW_SIZE=300
+const val DETAILPAGE_PREVIEW_SIZE = 300
 
 class DetailDrinkFragment : Fragment() {
 
@@ -81,6 +81,15 @@ class DetailDrinkFragment : Fragment() {
                 drinkAction(DrinkAction.SetPref(drink, !drink.favourite))
                 viewModel.updateDetailedDrink(drink)
             }
+
+            binding.ingredients.text =
+                String.format(
+                    "${resources.getString(R.string.ingredients)}: %s",
+                    drink.ingredients.toString().replace("[", "")
+                        .replace("]", "")
+                        .replace("null", "")
+                )
+
 
         }
     }

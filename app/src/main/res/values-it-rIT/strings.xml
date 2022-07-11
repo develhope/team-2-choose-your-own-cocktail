@@ -38,4 +38,5 @@
     <string name="retrieveError">Error retrieving drinks</string>
     <string name="retry">Retry</string>
     <string name="somethingWrong">" Something went wrong!"</string>
+    <string name="ingredients">Ingredienti</string>
 </resources>
