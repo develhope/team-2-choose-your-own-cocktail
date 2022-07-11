@@ -37,4 +37,5 @@
     <string name= "nothing_found" >Nessun risultato!</string>
     <string name="retrieveError">Error retrieving drinks</string>
     <string name="retry">Retry</string>
+    <string name="somethingWrong">" Something went wrong!"</string>
 </resources>

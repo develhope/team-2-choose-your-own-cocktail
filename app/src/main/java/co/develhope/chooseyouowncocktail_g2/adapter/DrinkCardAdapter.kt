@@ -6,17 +6,15 @@ import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
 
-import co.develhope.chooseyouowncocktail_g2.DrinkAction
 
-
-import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
-import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
-import co.develhope.chooseyouowncocktail_g2.setImageByUrl
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 
 import android.content.Context
-import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
+import co.develhope.chooseyouowncocktail_g2.*
+
+
+const val DRINKCARD_PREVIEW_SIZE = 100
 
 
 class DrinkCardAdapter(
@@ -25,10 +23,9 @@ class DrinkCardAdapter(
 ) : RecyclerView.Adapter<DrinkCardAdapter.ViewHolder>() {
 
     private lateinit var context: Context
-    private val originalList = drinkList()
 
     private var drinkList = drinkListForAdapter
-    var currentPos = 0
+    private var currentPos = 0
 
     inner class ViewHolder(val binding: DrinkCardBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -51,8 +48,8 @@ class DrinkCardAdapter(
 
                 binding.drinkImage.setImageByUrl(
                     this.img,
-                    100,
-                    100
+                    DRINKCARD_PREVIEW_SIZE,
+                    DRINKCARD_PREVIEW_SIZE
                 )
 
                 binding.buttonGoToDetail.setOnClickListener {
@@ -73,13 +70,8 @@ class DrinkCardAdapter(
     }
 
 
-    fun getCurrentList(): List<Drink> {
-        return drinkList
-    }
-
-
-    private fun showFavoriteStatus(drinkCard: Drink): Int {
-        val icon = if (drinkCard.favourite) {
+    private fun showFavoriteStatus(drink: Drink): Int {
+        val icon = if (drink.favourite) {
             R.drawable.ic_fav_on
         } else {
             R.drawable.ic_fav_off
@@ -101,5 +93,4 @@ class DrinkCardAdapter(
     }
 
 }
-
 
