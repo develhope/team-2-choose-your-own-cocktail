@@ -98,5 +98,13 @@ class HomeViewModel : ViewModel() {
         return oldPos
     }
 
+    fun getByID(id: Int): Drink? {
+        return drinkList().firstOrNull { it.id == id }
+    }
+
+    fun getFromPos(drink: Drink): Int {
+        return drinkList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
+    }
+
 
 }

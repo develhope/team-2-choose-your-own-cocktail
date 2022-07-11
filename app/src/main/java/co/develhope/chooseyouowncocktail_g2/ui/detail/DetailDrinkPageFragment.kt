@@ -1,23 +1,17 @@
-package co.develhope.chooseyouowncocktail_g2.ui
+package co.develhope.chooseyouowncocktail_g2.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.MainActivity
-import co.develhope.chooseyouowncocktail_g2.R
+import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
-import co.develhope.chooseyouowncocktail_g2.setImageByUrl
 
-
-const val param_drink_ID = "drink_ID"
+const val DETAILPAGE_PREVIEW_SIZE=300
 
 class DetailDrinkFragment : Fragment() {
 
@@ -28,28 +22,33 @@ class DetailDrinkFragment : Fragment() {
     private lateinit var backPressedCallback: OnBackPressedCallback
 
 
+    private lateinit var drinkAction: (DrinkAction) -> Unit
+
+    private val viewModel =
+        ViewModelFactory().create(DetailViewModel::class.java)
+
     companion object {
         @JvmStatic
         val fragmentTag = DetailDrinkFragment::class.java.canonicalName
             ?: "DetailDrinkFragment"
 
-        fun newInstance(drinkID: Int) = DetailDrinkFragment().apply {
-            arguments = Bundle().apply {
-                putInt(param_drink_ID, drinkID)
+        fun newInstance(drink: Drink?, action: (DrinkAction) -> Unit) =
+            DetailDrinkFragment().apply {
+                if (drink != null) {
+                    viewModel.updateDetailedDrink(drink)
+                    drinkAction = action
+                }
+                return this
             }
-            return this
-        }
     }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailDrinkPageBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
 
@@ -58,40 +57,43 @@ class DetailDrinkFragment : Fragment() {
 
         backPressedCallback = onBackPressCloseFrag()
 
-        arguments?.let {
-            DrinkList.getByID(it.getInt(param_drink_ID))?.let {
-                inflateUI(it)
-            } ?: run {
-                Toast.makeText(context, "Nothing Found", Toast.LENGTH_LONG).show()
-                (activity as MainActivity).remove(this)
-            }
-        }
+        inflateUI()
 
-        var switch = false
-        val bf = binding.buttonFavorite
 
-        bf.setOnClickListener {
-            switch = if (!switch) {
-                bf.setBackgroundResource(R.drawable.ic_fav_on)
-                true
-            } else {
-                bf.setBackgroundResource(R.drawable.ic_fav_off)
-                false
+    }
+
+
+    private fun inflateUI() {
+        viewModel.drink.observe(viewLifecycleOwner) { drink ->
+            binding.title.text = drink.name
+            binding.description.text = drink.description
+            binding.cl.text = drink.category
+            binding.preview.setImageByUrl(
+                drink.img,
+                DETAILPAGE_PREVIEW_SIZE,
+                DETAILPAGE_PREVIEW_SIZE
+            )
+
+            binding.buttonFavorite.setBackgroundResource(showFavoriteStatus(drink))
+
+            binding.buttonFavorite.setOnClickListener {
+                drinkAction(DrinkAction.SetPref(drink, !drink.favourite))
+                viewModel.updateDetailedDrink(drink)
             }
+
         }
     }
 
 
-    private fun inflateUI(drink: Drink) {
-        binding.title.text = drink.name
-        binding.description.text = drink.description
-        binding.cl.text = drink.category
-        binding.preview.setImageByUrl(
-            drink.img,
-            300,
-            300
-        )
+    private fun showFavoriteStatus(drink: Drink): Int {
+        val icon = if (drink.favourite) {
+            R.drawable.ic_fav_on
+        } else {
+            R.drawable.ic_fav_off
+        }
+        return icon
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -106,4 +108,3 @@ class DetailDrinkFragment : Fragment() {
         }
     }
 }
-

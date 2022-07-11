@@ -14,7 +14,8 @@ import co.develhope.chooseyouowncocktail_g2.ui.home.DBEvent
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBResult
 import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
 import co.develhope.chooseyouowncocktail_g2.domain.model.Drink
-import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
+import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
+
 
 class SearchFragment : Fragment() {
 
@@ -157,12 +158,20 @@ class SearchFragment : Fragment() {
     private fun makeActionDone(action: DrinkAction) {
         when (action) {
             is DrinkAction.GotoDetail -> {
-                action.drinkID.let {
-                    val detailDrinkFragment = DetailDrinkFragment
-                    (activity as MainActivity).goToFragment(
-                        detailDrinkFragment.newInstance(it),
-                        detailDrinkFragment.fragmentTag
-                    )
+                viewModel.getByID(action.drinkID).let {
+                    if (it != null) {
+                        val detailDrinkFragment = DetailDrinkFragment
+                        (activity as MainActivity).goToFragment(
+                            detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
+                            detailDrinkFragment.fragmentTag
+                        )
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Something went wrong!", Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
                 }
             }
             is DrinkAction.SetPref -> {
