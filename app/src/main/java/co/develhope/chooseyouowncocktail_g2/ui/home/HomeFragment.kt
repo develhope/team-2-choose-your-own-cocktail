@@ -78,7 +78,6 @@ class HomeFragment : Fragment() {
             binding.loadingRingEmpty.visibility = VISIBLE
             retrieveFromDB()
         } else {
-            println("emptyList")
             drinkCardAdapter.updateAdapterList(drinkList())
         }
 
