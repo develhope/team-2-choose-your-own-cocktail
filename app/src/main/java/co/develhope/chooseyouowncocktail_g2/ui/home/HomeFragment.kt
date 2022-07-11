@@ -1,6 +1,5 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,16 +18,11 @@ import co.develhope.chooseyouowncocktail_g2.DrinkList
 import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
 import co.develhope.chooseyouowncocktail_g2.DrinkList.setFavorite
 import co.develhope.chooseyouowncocktail_g2.MainActivity
-import co.develhope.chooseyouowncocktail_g2.MainViewModel
+import co.develhope.chooseyouowncocktail_g2.ViewModelFactory
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.LoaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
-import co.develhope.chooseyouowncocktail_g2.domain.DBEvent
-import co.develhope.chooseyouowncocktail_g2.domain.DBResult
-import co.develhope.chooseyouowncocktail_g2.domain.DBViewModel
-
-import com.google.android.material.snackbar.Snackbar
 
 
 import co.develhope.chooseyouowncocktail_g2.ui.DetailDrinkFragment
@@ -48,7 +42,7 @@ class HomeFragment : Fragment() {
     private lateinit var backPressedCallback: OnBackPressedCallback
 
     private val viewModel =
-        MainViewModel().create(DBViewModel::class.java)
+        ViewModelFactory().create(HomeViewModel::class.java)
 
     private var isLoading = false
 

@@ -36,4 +36,6 @@
     <string name="drinkshortdescription_text" >Description</string>
     <string name="shortdescription_maxLines" >4</string>
     <string name= "nothing_found">Nothing found!</string>
+    <string name="retrieveError">Error retrieving drinks</string>
+    <string name="retry">Retry</string>
 </resources>
