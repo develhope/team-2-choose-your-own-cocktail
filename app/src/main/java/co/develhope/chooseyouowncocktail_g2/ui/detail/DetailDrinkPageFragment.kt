@@ -11,6 +11,7 @@ import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
+import org.koin.android.ext.android.inject
 
 const val DETAILPAGE_PREVIEW_SIZE = 300
 
@@ -25,8 +26,7 @@ class DetailDrinkFragment : Fragment() {
 
     private lateinit var drinkAction: (DrinkAction) -> Unit
 
-    private val viewModel =
-        ViewModelFactory().create(DetailViewModel::class.java)
+    private val viewModel: DetailViewModel by inject()
 
     companion object {
         @JvmStatic
@@ -87,7 +87,6 @@ class DetailDrinkFragment : Fragment() {
                     "${resources.getString(R.string.ingredients)}: %s",
                     drink.ingredients.toString().replace("[", "")
                         .replace("]", "")
-                        .replace("null", "")
                 )
 
 

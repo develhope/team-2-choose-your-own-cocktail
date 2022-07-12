@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
 
     private val dbProvider: DrinksProvider = DrinksProvider()
 
@@ -36,11 +36,11 @@ class SearchViewModel : ViewModel() {
 
 
     fun increaseCurrentLetter() {
-        if (checkCurrentLetter()) DrinkList.letterIndex += 1
+        if (checkCurrentLetter()) drinkList.letterIndex += 1
     }
 
     private fun checkCurrentLetter(): Boolean {
-        return DrinkList.letterIndex < DrinkList.indexLetter.size
+        return drinkList.letterIndex < drinkList.indexLetter.size
     }
 
     private fun retrieveDB(list: DrinksResult) {
@@ -51,7 +51,7 @@ class SearchViewModel : ViewModel() {
             _result.value = DBResult.Result(
                 retrievedDrinks
             )
-            DrinkList.addToDrinkList(retrievedDrinks)
+            drinkList.addToDrinkList(retrievedDrinks)
         } catch (e: Exception) {
             when (e) {
                 is NullPointerException -> _result.value = DBResult.NullResult
@@ -63,7 +63,7 @@ class SearchViewModel : ViewModel() {
     }
 
     fun getByID(id: Int): Drink? {
-        return DrinkList.drinkList().firstOrNull { it.id == id }
+        return drinkList.getList().firstOrNull { it.id == id }
     }
 
     fun filterList(list: List<Drink>, query: String): List<Drink> {
@@ -73,6 +73,47 @@ class SearchViewModel : ViewModel() {
                     it.shortDescription!!.contains(query, true)
 
         }
+    }
+
+
+    fun moveItem(drink: Drink, destPos: Int) {
+        val drinksList = drinkList.getList().toMutableList()
+       drinkList.getList().forEach {
+            if (it.id == drink.id) {
+                drinksList.remove(it)
+                drinksList.add(destPos, it)
+            }
+        }
+        drinkList.setList(drinksList)
+    }
+
+    fun restoreOriginPos(drink: Drink): Int {
+        var destPost = 0
+        val drinkList =  drinkList.getList().toMutableList()
+        val sorteredList = drinkList.filterNot { it.favourite }.sortedBy { getOriginPos(it) }
+        drinkList.sortedBy { sorteredList.indexOf(it) }
+            .forEachIndexed { index, originDrink ->
+                if (originDrink.id == drink.id) {
+                    moveItem(originDrink, index)
+                    destPost = 0
+                }
+            }
+        return destPost
+    }
+
+    fun getFromPos(drink: Drink): Int {
+        return  drinkList.getList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
+    }
+
+
+    private fun getOriginPos(drink: Drink): Int {
+        var oldPos = 0
+        drinkList.originDrinkList().forEachIndexed { index, originDrink ->
+            if (originDrink.id == drink.id) {
+                oldPos = index
+            }
+        }
+        return oldPos
     }
 
 }
