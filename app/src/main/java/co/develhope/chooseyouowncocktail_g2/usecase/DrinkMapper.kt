@@ -45,7 +45,7 @@ object DrinkMapper {
             setByCurrentLanguage(),
             strInstructions,
             strCategory,
-            ingrList,
+            ingrList.filterNotNull(),
             strDrinkThumb,
             false
         )
