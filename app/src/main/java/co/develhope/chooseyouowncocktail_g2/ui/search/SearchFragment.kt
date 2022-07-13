@@ -98,6 +98,7 @@ class SearchFragment : Fragment() {
         drinkCardAdapter.updateAdapterList(
             viewModel.drinkList.getFavorite().ifEmpty { viewModel.drinkList.getList() })
         drinkCardAdapter.notifyDataSetChanged()
+
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
         binding.searchResultRC.visibility = View.VISIBLE
@@ -190,12 +191,14 @@ class SearchFragment : Fragment() {
             }
             is DrinkAction.SetPref -> {
                 viewModel.drinkList.setFavorite(action.drink, action.boolean)
+
                 if (action.boolean) {
                     viewModel.moveItem(
                         action.drink,
                         0
                     )
                     drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
+                    
                     if (binding.searchView.query.isEmpty()) {
                         if (viewModel.drinkList.getFavorite().isNotEmpty()) {
                             drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
@@ -208,6 +211,7 @@ class SearchFragment : Fragment() {
                             )
                         )
                     }
+
                     drinkCardAdapter.notifyDataSetChanged()
                 } else {
                     val originPos = viewModel.restoreOriginPos(action.drink)
@@ -215,6 +219,7 @@ class SearchFragment : Fragment() {
                         viewModel.getFromPos(action.drink),
                         originPos
                     )
+                    
                     if (binding.searchView.query.isNotEmpty()) {
                         drinkCardAdapter.updateAdapterList(
                             viewModel.filterList(
@@ -228,6 +233,7 @@ class SearchFragment : Fragment() {
                         } else {
                             drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
                         }
+
                     }
                     drinkCardAdapter.notifyDataSetChanged()
                 }
