@@ -24,11 +24,7 @@ class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
-    private val drinkList = drinkList()
-
     private val binding get() = _binding!!
-
-    private lateinit var startList: List<Drink>
 
     private lateinit var drinkCardAdapter: DrinkCardAdapter
 
@@ -59,11 +55,8 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        startList = DrinkList.getFavorite().ifEmpty { drinkList }
-
         drinkCardAdapter = DrinkCardAdapter(
-            startList
+            viewModel.drinkList
         ) { action -> makeActionDone(action) }
 
         initStateUI()
@@ -90,7 +83,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun search(queryTyping: String?) {
-        val filteredList = queryTyping?.let { viewModel.filterList(drinkList, it) }
+        val filteredList = queryTyping?.let { viewModel.filterList(drinkList(), it) }
         if (filteredList != null) {
             if (filteredList.isNotEmpty()) {
                 showResultUI(filteredList)
@@ -101,7 +94,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun initStateUI() {
-        drinkCardAdapter.updateAdapterList(drinkList())
+        drinkCardAdapter.updateAdapterList(viewModel.drinkList)
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
         binding.searchResultRC.visibility = View.VISIBLE
@@ -195,6 +188,24 @@ class SearchFragment : Fragment() {
             }
             is DrinkAction.SetPref -> {
                 DrinkList.setFavorite(action.drink, action.boolean)
+                if (action.boolean) {
+                    viewModel.moveItem(
+                        action.drink,
+                        0
+                    )
+                    drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
+                    drinkCardAdapter.notifyDataSetChanged()
+                } else {
+                    val originPos = viewModel.restoreOriginPos(action.drink)
+                    drinkCardAdapter.notifyItemMoved(
+                        viewModel.getFromPos(action.drink),
+                        originPos
+                    )
+                    if(DrinkList.getFavorite().isEmpty()){
+                        drinkCardAdapter.updateAdapterList(drinkList())
+                    }
+                    drinkCardAdapter.notifyDataSetChanged()
+                }
             }
         }
     }
