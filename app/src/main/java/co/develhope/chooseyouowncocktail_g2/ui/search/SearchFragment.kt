@@ -32,8 +32,6 @@ class SearchFragment : Fragment() {
 
     private var isLoading = false
 
-    private lateinit var drinksList: List<Drink>
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +40,6 @@ class SearchFragment : Fragment() {
     ): View {
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
-        drinksList = viewModel.drinkList.getFavorite().ifEmpty { viewModel.drinkList.getList() }
-
 
         if (viewModel.drinkList.getList().isEmpty()) {
             retrieveFromDB()
@@ -60,19 +55,14 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         drinkCardAdapter = DrinkCardAdapter(
-            drinksList
+            viewModel.drinkList.getFavorite().ifEmpty { viewModel.drinkList.getList() }
         ) { action -> makeActionDone(action) }
 
         initStateUI()
 
         binding.searchResultRC.adapter = drinkCardAdapter
 
-
-
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-
             override fun onQueryTextChange(queryTyping: String?): Boolean {
                 if (queryTyping != null) {
                     if (queryTyping.isNotEmpty()) {
@@ -88,7 +78,6 @@ class SearchFragment : Fragment() {
                 search(query)
                 return true
             }
-
 
         })
     }
@@ -106,7 +95,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun initStateUI() {
-        drinkCardAdapter.updateAdapterList(drinksList)
+        drinkCardAdapter.updateAdapterList(
+            viewModel.drinkList.getFavorite().ifEmpty { viewModel.drinkList.getList() })
+        drinkCardAdapter.notifyDataSetChanged()
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
         binding.searchResultRC.visibility = View.VISIBLE
@@ -156,19 +147,18 @@ class SearchFragment : Fragment() {
                         }
                     }
                     is DBResult.Error -> {
-                        activity?.let {
-                            activity?.let { activity ->
-                                Snackbar.make(
-                                    activity.findViewById(android.R.id.content),
-                                    R.string.retrieveError,
-                                    Snackbar.LENGTH_INDEFINITE
-                                )
-                                    .setAction(R.string.retry) {
-                                        retrieveFromDB()
-                                    }
-                                    .show()
-                            }
+                        activity?.let { activity ->
+                            Snackbar.make(
+                                activity.findViewById(android.R.id.content),
+                                R.string.retrieveError,
+                                Snackbar.LENGTH_INDEFINITE
+                            )
+                                .setAction(R.string.retry) {
+                                    retrieveFromDB()
+                                }
+                                .show()
                         }
+
                     }
                     is DBResult.NullResult -> {
                         viewModel.increaseCurrentLetter()
@@ -206,8 +196,17 @@ class SearchFragment : Fragment() {
                         0
                     )
                     drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
-                    if (viewModel.drinkList.getFavorite().isNotEmpty()) {
-                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
+                    if (binding.searchView.query.isEmpty()) {
+                        if (viewModel.drinkList.getFavorite().isNotEmpty()) {
+                            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
+                        }
+                    } else {
+                        drinkCardAdapter.updateAdapterList(
+                            viewModel.filterList(
+                                viewModel.drinkList.getList(),
+                                binding.searchView.query.toString()
+                            )
+                        )
                     }
                     drinkCardAdapter.notifyDataSetChanged()
                 } else {
@@ -216,8 +215,19 @@ class SearchFragment : Fragment() {
                         viewModel.getFromPos(action.drink),
                         originPos
                     )
-                    if (viewModel.drinkList.getFavorite().isEmpty()) {
-                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
+                    if (binding.searchView.query.isNotEmpty()) {
+                        drinkCardAdapter.updateAdapterList(
+                            viewModel.filterList(
+                                viewModel.drinkList.getList(),
+                                binding.searchView.query.toString()
+                            )
+                        )
+                    } else {
+                        if (viewModel.drinkList.getFavorite().isNotEmpty()) {
+                            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
+                        } else {
+                            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
+                        }
                     }
                     drinkCardAdapter.notifyDataSetChanged()
                 }

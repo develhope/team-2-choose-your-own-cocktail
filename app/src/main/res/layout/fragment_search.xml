@@ -19,7 +19,9 @@
         android:layoutDirection="rtl"
         android:queryHint="@string/search_bar"
         android:searchHintIcon="@drawable/ic_searchbarbutton"
-        android:searchIcon="@drawable/ic_searchbarbutton" />
+        android:searchIcon="@drawable/ic_searchbarbutton"
+        android:iconifiedByDefault="false"
+        />
 
 
     <TextView
