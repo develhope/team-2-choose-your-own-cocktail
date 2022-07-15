@@ -4,7 +4,7 @@ import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import java.util.*
 
 
-object DrinkList {
+class DrinkList {
 
     val indexLetter = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
     var letterIndex = 0
@@ -13,7 +13,7 @@ object DrinkList {
     private val originList = mutableListOf<Drink>()
 
 
-    fun drinkList(): List<Drink> {
+    fun getList(): List<Drink> {
         return drinkList
     }
 
@@ -22,9 +22,9 @@ object DrinkList {
     }
 
 
-    fun MutableList<Drink>.setList() {
+    fun setList(newList : MutableList<Drink>) {
         drinkList.clear()
-        drinkList.addAll(this)
+        drinkList.addAll(newList)
     }
 
     fun getFavorite(): List<Drink> {

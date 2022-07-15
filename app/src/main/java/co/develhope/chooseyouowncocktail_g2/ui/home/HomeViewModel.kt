@@ -3,9 +3,6 @@ package co.develhope.chooseyouowncocktail_g2.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.originDrinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
 import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
@@ -27,7 +24,7 @@ sealed class DBResult {
     data class Error(val message: String) : DBResult()
 }
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
 
     private val dbProvider: DrinksProvider = DrinksProvider()
 
@@ -38,6 +35,10 @@ class HomeViewModel : ViewModel() {
     private var _list = MutableStateFlow<List<Drink>>(emptyList())
     val list: StateFlow<List<Drink>>
         get() = _list
+
+    init {
+        _list.value=drinkList.getList()
+    }
 
 
     fun send(event: DBEvent) =
@@ -59,7 +60,7 @@ class HomeViewModel : ViewModel() {
             _result.value = DBResult.Result(
                 retrievedDrinks
             )
-            DrinkList.addToDrinkList(retrievedDrinks)
+            drinkList.addToDrinkList(retrievedDrinks)
         } catch (e: Exception) {
             when (e) {
                 is NullPointerException -> _result.value = DBResult.NullResult
@@ -71,29 +72,29 @@ class HomeViewModel : ViewModel() {
     }
 
     fun increaseCurrentLetter() {
-        if (checkCurrentLetter()) DrinkList.letterIndex += 1
+        if (checkCurrentLetter()) drinkList.letterIndex += 1
     }
 
     fun checkCurrentLetter(): Boolean {
-        return DrinkList.letterIndex < DrinkList.indexLetter.size
+        return drinkList.letterIndex < drinkList.indexLetter.size
     }
 
 
     fun moveItem(drink: Drink, destPos: Int) {
-        val drinksList = drinkList().toMutableList()
-        drinkList().forEach {
+        val drinksList = drinkList.getList().toMutableList()
+        drinkList.getList().forEach {
             if (it.id == drink.id) {
                 drinksList.remove(it)
                 drinksList.add(destPos, it)
             }
         }
-        drinksList.setList()
+        drinkList.setList(drinksList)
         _list.value = drinksList
     }
 
     fun restoreOriginPos(drink: Drink): Int {
         var destPost = 0
-        val drinkList = drinkList().toMutableList()
+        val drinkList = drinkList.getList().toMutableList()
         val sorteredList = drinkList.filterNot { it.favourite }.sortedBy { getOriginPos(it) }
         drinkList.sortedBy { sorteredList.indexOf(it) }
             .forEachIndexed { index, originDrink ->
@@ -106,13 +107,13 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getFromPos(drink: Drink): Int {
-        return drinkList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
+        return drinkList.getList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
     }
 
 
     private fun getOriginPos(drink: Drink): Int {
         var oldPos = 0
-        originDrinkList().forEachIndexed { index, originDrink ->
+        drinkList.originDrinkList().forEachIndexed { index, originDrink ->
             if (originDrink.id == drink.id) {
                 oldPos = index
             }
@@ -121,7 +122,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getByID(id: Int): Drink? {
-        return drinkList().firstOrNull { it.id == id }
+        return drinkList.getList().firstOrNull { it.id == id }
     }
 
 

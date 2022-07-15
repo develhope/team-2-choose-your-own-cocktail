@@ -14,9 +14,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import co.develhope.chooseyouowncocktail_g2.databinding.ActivityMainBinding
-import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
+import co.develhope.chooseyouowncocktail_g2.di.appModules
+import co.develhope.chooseyouowncocktail_g2.di.viewModels
 import com.google.android.material.navigation.NavigationBarView
-
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        startKoin {
+            androidContext(this@MainActivity)
+            modules(listOf(appModules,viewModels))
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
