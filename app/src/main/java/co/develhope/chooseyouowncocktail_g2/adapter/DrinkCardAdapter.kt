@@ -53,7 +53,7 @@ class DrinkCardAdapter(
                 )
 
                 binding.buttonGoToDetail.setOnClickListener {
-                    action(DrinkAction.GotoDetail(this.id))
+                    action(DrinkAction.GotoDetail(this))
                 }
 
                 binding.drinkFavourite.setBackgroundResource(

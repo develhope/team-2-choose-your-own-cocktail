@@ -14,7 +14,14 @@ class DetailViewModel(val drinkList: DrinkList) : ViewModel() {
         get() = _drink
 
     fun updateDetailedDrink(drink: Drink) {
-        _drink.value = drinkList.getList().first { it.id == drink.id }
+        val currentDrink = drinkList.getList().firstOrNull { it.id == drink.id }
+        if (currentDrink != null) {
+            _drink.value = currentDrink
+        } else {
+            _drink.value = drink
+        }
+
+
     }
 
 

@@ -9,4 +9,7 @@ interface DrinkService {
     @GET("/api/json/v1/1/search.php")
     suspend fun getDrinkByFirstLetter(@Query("f") drinkName: Char): DrinksResult
 
+    @GET("/api/json/v1/1/search.php")
+    suspend fun searchByName(@Query("s") drinkName: String): DrinksResult
+
 }

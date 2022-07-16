@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
             binding.loadingRingEmpty.visibility = VISIBLE
             retrieveFromDB()
         } else {
-         drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
+            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
         }
 
         onLastItemLoadMore()
@@ -145,7 +145,8 @@ class HomeFragment : Fragment() {
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (!recyclerView.canScrollVertically(1) && viewModel.drinkList.getList().isNotEmpty()
+                    if (!recyclerView.canScrollVertically(1) && viewModel.drinkList.getList()
+                            .isNotEmpty()
                     ) {
                         if (viewModel.checkCurrentLetter()) retrieveFromDB()
                     }
@@ -178,20 +179,13 @@ class HomeFragment : Fragment() {
     private fun makeActionDone(action: DrinkAction) {
         when (action) {
             is DrinkAction.GotoDetail -> {
-                viewModel.getByID(action.drinkID).let {
-                    if (it != null) {
-                        val detailDrinkFragment = DetailDrinkFragment
-                        (activity as MainActivity).goToFragment(
-                            detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
-                            detailDrinkFragment.fragmentTag
-                        )
-                    } else {
-                        Toast.makeText(
-                            context,
-                            "Something went wrong!", Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
+                action.drink.let {
+                    val detailDrinkFragment = DetailDrinkFragment
+                    (activity as MainActivity).goToFragment(
+                        detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
+                        detailDrinkFragment.fragmentTag
+                    )
+
                 }
             }
             is DrinkAction.SetPref -> {
@@ -204,12 +198,19 @@ class HomeFragment : Fragment() {
                     drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
                     //drinkCardAdapter.notifyDataSetChanged()
                 } else {
-                    val originPos = viewModel.restoreOriginPos(action.drink)
-                    drinkCardAdapter.notifyItemMoved(
-                        viewModel.getFromPos(action.drink),
-                        originPos
-                    )
-                    //    drinkCardAdapter.notifyDataSetChanged()
+                    if (viewModel.drinkList.originDrinkList()
+                            .find { it.id == action.drink.id } != null
+                    ) {
+                        val originPos = viewModel.restoreOriginPos(action.drink)
+                        drinkCardAdapter.notifyItemMoved(
+                            viewModel.getFromPos(action.drink),
+                            originPos
+                        )
+                    } else {
+                        viewModel.removeItem(action.drink)
+                        drinkCardAdapter.notifyDataSetChanged()
+                    }
+
                 }
             }
         }

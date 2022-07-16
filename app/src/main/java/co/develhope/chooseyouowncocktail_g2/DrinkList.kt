@@ -22,7 +22,7 @@ class DrinkList {
     }
 
 
-    fun setList(newList : MutableList<Drink>) {
+    fun setList(newList: MutableList<Drink>) {
         drinkList.clear()
         drinkList.addAll(newList)
     }
