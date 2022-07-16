@@ -100,6 +100,7 @@ class SearchFragment : Fragment() {
             resultList
         )
         drinkCardAdapter.notifyDataSetChanged()
+
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
         binding.searchResultRC.visibility = View.VISIBLE
@@ -236,6 +237,7 @@ class SearchFragment : Fragment() {
                             viewModel.moveItem(
                                 action.drink,
                                 0
+
                             )
                             drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
 
@@ -249,6 +251,7 @@ class SearchFragment : Fragment() {
                     ) {
                         drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
                     }
+
                     drinkCardAdapter.notifyDataSetChanged()
                 } else {
                     viewModel.drinkList.originDrinkList().find { it.id == action.drink.id }.let {
@@ -257,6 +260,7 @@ class SearchFragment : Fragment() {
                             drinkCardAdapter.notifyItemMoved(
                                 viewModel.getFromPos(action.drink),
                                 originPos
+
                             )
                         } else {
                             viewModel.removeItem(action.drink)
@@ -271,6 +275,7 @@ class SearchFragment : Fragment() {
                         } else {
                             drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
                         }
+
                     }
                     drinkCardAdapter.notifyDataSetChanged()
                 }

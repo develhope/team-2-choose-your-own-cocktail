@@ -3,6 +3,8 @@ package co.develhope.chooseyouowncocktail_g2.ui.search
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
+import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
 import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
@@ -30,10 +32,11 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
     private var _result = MutableStateFlow<DBResult>(DBResult.Result)
     val result: StateFlow<DBResult>
         get() = _result
-
+        
     private var _search = MutableStateFlow<SearchResult>(SearchResult.Result(listOf()))
     val search: StateFlow<SearchResult>
         get() = _search
+
 
     fun send(event: DBEvent) =
         CoroutineScope(Dispatchers.Main).launch {
@@ -88,6 +91,7 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
 
     fun getByID(id: Int): Drink? {
         return drinkList.getList().firstOrNull { it.id == id }
+
     }
 
 
@@ -106,11 +110,14 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
     fun removeItem(drink: Drink) {
         val drinksList = drinkList.getList().toMutableList()
         drinkList.getList().forEach {
+
             if (it.id == drink.id) {
                 drinksList.remove(it)
             }
         }
+
         drinkList.setList(drinksList)
+
     }
 
     fun addItem(drink: Drink) {
@@ -122,6 +129,7 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
     fun restoreOriginPos(drink: Drink): Int {
         var destPost = 0
         val drinkList = drinkList.getList().toMutableList()
+
         val sorteredList = drinkList.filterNot { it.favourite }.sortedBy { getOriginPos(it) }
         drinkList.sortedBy { sorteredList.indexOf(it) }
             .forEachIndexed { index, originDrink ->
@@ -170,6 +178,7 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
     private fun getOriginPos(drink: Drink): Int {
         var oldPos = 0
         drinkList.originDrinkList().forEachIndexed { index, originDrink ->
+
             if (originDrink.id == drink.id) {
                 oldPos = index
             }
