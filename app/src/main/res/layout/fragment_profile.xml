@@ -185,7 +185,7 @@
         android:layout_width="42dp"
         android:layout_height="16dp"
         android:layout_marginTop="0.2dp"
-        android:textSize="10sp"
+        android:textSize="13sp"
         android:text="@string/app_version"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
