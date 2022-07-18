@@ -37,6 +37,8 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
     val list: StateFlow<List<Drink>>
         get() = _list
 
+    var isLoading = false
+
     init {
         _list.value = drinkList.getList()
     }
@@ -133,10 +135,6 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
             }
         }
         return oldPos
-    }
-
-    fun getByID(id: Int): Drink? {
-        return drinkList.getList().firstOrNull { it.id == id }
     }
 
 

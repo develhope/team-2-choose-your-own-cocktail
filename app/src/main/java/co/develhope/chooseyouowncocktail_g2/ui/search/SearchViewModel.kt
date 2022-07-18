@@ -35,6 +35,10 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
     val search: StateFlow<SearchResult>
         get() = _search
 
+    var isLoading = false
+
+    var resultList = listOf<Drink>()
+
     fun send(event: DBEvent) =
         CoroutineScope(Dispatchers.Main).launch {
             when (event) {

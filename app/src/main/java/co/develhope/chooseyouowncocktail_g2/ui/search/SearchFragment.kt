@@ -30,10 +30,6 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by inject()
 
-    private var isLoading = false
-
-    private var resultList = listOf<Drink>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +54,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         drinkCardAdapter = DrinkCardAdapter(
             emptyList()
         ) { action -> makeActionDone(action) }
@@ -70,6 +65,7 @@ class SearchFragment : Fragment() {
         binding.searchView.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextChange(queryTyping: String?): Boolean {
+
                     if (queryTyping != null) {
                         if (queryTyping.isNotEmpty()) {
                             searchOnDB(queryTyping)
@@ -89,29 +85,27 @@ class SearchFragment : Fragment() {
     }
 
     private fun initStateUI() {
-        resultList = if (binding.searchView.query.isEmpty()) {
+        viewModel.resultList = if (binding.searchView.query.isEmpty()) {
             viewModel.drinkList.getFavorite().ifEmpty {
                 viewModel.drinkList.getList()
             }
         } else {
-            viewModel.search.value.let { resultList }
+            viewModel.search.value.let { viewModel.resultList }
         }
         drinkCardAdapter.updateAdapterList(
-            resultList
+            viewModel.resultList
         )
         drinkCardAdapter.notifyDataSetChanged()
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
-        binding.searchResultRC.visibility = View.VISIBLE
     }
 
     private fun showResultUI(resultList: List<Drink>) {
         binding.resultCount.text =
-            resultList.size.toString() + " " +
+            viewModel.resultList.size.toString() + " " +
                     resources.getString(R.string.results)
         drinkCardAdapter.updateAdapterList(resultList)
         drinkCardAdapter.notifyDataSetChanged()
-        binding.searchResultRC.visibility = View.VISIBLE
         binding.resultCount.visibility = View.VISIBLE
         binding.empty.visibility = View.GONE
     }
@@ -138,15 +132,15 @@ class SearchFragment : Fragment() {
             viewModel.result.collect { result ->
                 when (result) {
                     is DBResult.Loading -> {
-                        isLoading = true
+                        viewModel.isLoading = true
                     }
                     is DBResult.Result -> {
-                        if (isLoading) {
+                        if (viewModel.isLoading) {
                             viewModel.increaseCurrentLetter()
 
                             drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
                             drinkCardAdapter.notifyDataSetChanged()
-                            isLoading = false
+                            viewModel.isLoading = false
                         }
                     }
                     is DBResult.Error -> {
@@ -185,14 +179,16 @@ class SearchFragment : Fragment() {
             viewModel.search.collect { result ->
                 when (result) {
                     is SearchResult.Loading -> {
-                        isLoading = true
+                        viewModel.isLoading = true
                     }
                     is SearchResult.Result -> {
-                        if (isLoading) {
-                            resultList = viewModel.checkExistingFavorite(result.result)
-                            showResultUI(resultList)
+                        if (viewModel.isLoading) {
+
+                            viewModel.resultList = viewModel.checkExistingFavorite(result.result)
+                            showResultUI(viewModel.resultList)
                             drinkCardAdapter.notifyDataSetChanged()
-                            isLoading = false
+                            viewModel.isLoading = false
+                            binding.searchResultRC.visibility = View.VISIBLE
                         }
                     }
                     is SearchResult.Error -> {
@@ -228,7 +224,11 @@ class SearchFragment : Fragment() {
             is DrinkAction.SetPref -> {
                 viewModel.drinkList.setFavorite(action.drink, action.boolean)
                 if (!viewModel.drinkList.getList().contains(action.drink)) {
-                    viewModel.setFavoriteOnSearchResult(resultList, action.drink, action.boolean)
+                    viewModel.setFavoriteOnSearchResult(
+                        viewModel.resultList,
+                        action.drink,
+                        action.boolean
+                    )
                 }
                 if (action.boolean) {
                     viewModel.getByID(action.drink.id).let {
@@ -278,6 +278,14 @@ class SearchFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        if (binding.searchView.query.isEmpty()) {
+            binding.searchResultRC.visibility = View.VISIBLE
+        } else {
+            binding.searchResultRC.visibility = View.GONE
+        }
+        super.onStart()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

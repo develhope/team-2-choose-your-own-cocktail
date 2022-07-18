@@ -9,7 +9,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -43,8 +42,6 @@ class HomeFragment : Fragment() {
     private lateinit var backPressedCallback: OnBackPressedCallback
 
     private val viewModel: HomeViewModel by inject()
-
-    private var isLoading = false
 
 
     override fun onCreateView(
@@ -94,17 +91,17 @@ class HomeFragment : Fragment() {
                 when (result) {
                     is DBResult.Loading -> {
                         loaderAdapter.updateLoadingRing(true)
-                        isLoading = true
+                        viewModel.isLoading = true
                     }
                     is DBResult.Result -> {
-                        if (isLoading) {
+                        if (viewModel.isLoading) {
                             viewModel.increaseCurrentLetter()
                             updateRecyclerView()
                             Handler(Looper.getMainLooper()).postDelayed({
                                 binding.loadingRingEmpty.visibility = GONE
                             }, 1000)
 
-                            isLoading = false
+                            viewModel.isLoading = false
                         }
                     }
                     is DBResult.Error -> {
@@ -167,10 +164,12 @@ class HomeFragment : Fragment() {
 
     private fun onBackPressScrollToTop(): OnBackPressedCallback {
         return requireActivity().onBackPressedDispatcher.addCallback {
-            if (drinkCardAdapter.getCurrentPosition() in 1..50) {
-                binding.drinkCardRecyclerView.smoothScrollToPosition(0)
-            } else {
-                binding.drinkCardRecyclerView.scrollToPosition(0)
+            if (_binding != null) {
+                if (drinkCardAdapter.getCurrentPosition() in 1..50) {
+                    binding.drinkCardRecyclerView.smoothScrollToPosition(0)
+                } else {
+                    binding.drinkCardRecyclerView.scrollToPosition(0)
+                }
             }
         }
     }
@@ -196,7 +195,6 @@ class HomeFragment : Fragment() {
                         0
                     )
                     drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
-                    //drinkCardAdapter.notifyDataSetChanged()
                 } else {
                     if (viewModel.drinkList.originDrinkList()
                             .find { it.id == action.drink.id } != null
