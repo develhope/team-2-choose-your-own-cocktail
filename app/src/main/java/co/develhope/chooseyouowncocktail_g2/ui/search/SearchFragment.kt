@@ -96,6 +96,7 @@ class SearchFragment : Fragment() {
             viewModel.resultList
         )
         drinkCardAdapter.notifyDataSetChanged()
+
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
     }
@@ -226,9 +227,11 @@ class SearchFragment : Fragment() {
                 if (!viewModel.drinkList.getList().contains(action.drink)) {
                     viewModel.setFavoriteOnSearchResult(
                         viewModel.resultList,
+
                         action.drink,
                         action.boolean
                     )
+
                 }
                 if (action.boolean) {
                     viewModel.getByID(action.drink.id).let {
@@ -236,6 +239,7 @@ class SearchFragment : Fragment() {
                             viewModel.moveItem(
                                 action.drink,
                                 0
+
                             )
                             drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
 
@@ -249,6 +253,7 @@ class SearchFragment : Fragment() {
                     ) {
                         drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
                     }
+
                     drinkCardAdapter.notifyDataSetChanged()
                 } else {
                     viewModel.drinkList.originDrinkList().find { it.id == action.drink.id }.let {
@@ -271,6 +276,7 @@ class SearchFragment : Fragment() {
                         } else {
                             drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
                         }
+
                     }
                     drinkCardAdapter.notifyDataSetChanged()
                 }
