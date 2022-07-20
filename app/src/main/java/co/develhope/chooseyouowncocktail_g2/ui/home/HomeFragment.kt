@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
                             viewModel.increaseCurrentLetter()
                             updateRecyclerView()
                             Handler(Looper.getMainLooper()).postDelayed({
-                                binding.loadingRingEmpty.visibility = GONE
+                                if (_binding != null) binding.loadingRingEmpty.visibility = GONE
                             }, 1000)
 
                             viewModel.isLoading = false

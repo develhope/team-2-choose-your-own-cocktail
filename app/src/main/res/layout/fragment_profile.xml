@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,131 +9,132 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="@dimen/profilefragament_profile_image_height"
+        android:layout_marginTop="@dimen/profilefragament_profile_image_marginTop"
         android:scaleType="fitCenter"
         android:src="@drawable/image_profile"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_name_margintop"
         android:text="@string/name"
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView"/>
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <EditText
         android:id="@+id/name_surname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-5dp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:background="@null"
         android:text="@string/name_surname"
-        android:textSize="13sp"
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
 
     <View
         android:id="@+id/divider"
-        android:layout_width="370dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="@dimen/profilefragament_divider_width"
+        android:layout_height="@dimen/profilefragament_divider_height"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_surname"/>
+        app:layout_constraintTop_toBottomOf="@+id/name_surname" />
 
     <TextView
         android:id="@+id/date_of_birth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
         android:text="@string/date_of_birth"
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"/>
+        app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <EditText
         android:id="@+id/string_date_of_birth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-5dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:text="@string/string_date_of_birth"
+        android:textSize="@dimen/profilefragament_text_size"
+        android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_of_birth"/>
+        app:layout_constraintTop_toBottomOf="@+id/date_of_birth" />
 
     <View
         android:id="@+id/divider_two"
-        android:layout_width="370dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="@dimen/profilefragament_divider_width"
+        android:layout_height="@dimen/profilefragament_divider_height"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_date_of_birth"/>
+        app:layout_constraintTop_toBottomOf="@+id/string_date_of_birth" />
 
     <TextView
         android:id="@+id/gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
         android:text="@string/gender"
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider_two"/>
+        app:layout_constraintTop_toBottomOf="@+id/divider_two" />
 
     <EditText
         android:id="@+id/string_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-5dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:text="@string/string_gender"
+        android:textSize="@dimen/profilefragament_text_size"
+        android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender"/>
+        app:layout_constraintTop_toBottomOf="@+id/gender"
+        android:visibility="invisible"/>
 
     <View
         android:id="@+id/divider_three"
         android:layout_width="370dp"
         android:layout_height="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_gender"/>
+        app:layout_constraintTop_toBottomOf="@+id/string_gender" />
 
     <TextView
         android:id="@+id/telephone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
         android:text="@string/telephone_number"
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider_three"/>
+        app:layout_constraintTop_toBottomOf="@+id/divider_three" />
 
     <EditText
         android:id="@+id/string_telephone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-5dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:text="@string/string_telephone_number"
+        android:textSize="@dimen/profilefragament_text_size"
+        android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/telephone_number"/>
+        app:layout_constraintTop_toBottomOf="@+id/telephone_number" />
 
     <View
         android:id="@+id/divider_four"
@@ -144,51 +144,61 @@
         android:layout_marginTop="5dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_telephone_number"/>
+        app:layout_constraintTop_toBottomOf="@+id/string_telephone_number" />
 
     <TextView
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:textSize="13sp"
+        android:layout_marginStart="@dimen/profile_email_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
         android:text="@string/email"
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider_four"/>
+        app:layout_constraintTop_toBottomOf="@+id/divider_four" />
 
     <EditText
         android:id="@+id/string_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-5dp"
+        android:layout_marginStart="@dimen/profile_email_input_marginstart"
         android:text="@string/string_email"
-        android:textSize="13sp"
+        android:textSize="@dimen/profilefragament_text_size"
+        android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"/>
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/log_out"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="@dimen/profile_logout_height"
+        android:layout_marginStart="@dimen/profile_logout_marginstart"
+        android:layout_marginTop="@dimen/profile_logout_margintop"
+        android:layout_marginEnd="@dimen/profile_logout_marginend"
         android:text="@string/log_out"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_email"/>
+        app:layout_constraintTop_toBottomOf="@+id/string_email" />
 
     <TextView
         android:id="@+id/text_version"
-        android:layout_width="42dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="0.2dp"
-        android:textSize="13sp"
+        android:layout_width="@dimen/profilefragament_text_version_width"
+        android:layout_height="@dimen/profilefragament_text_version_height"
         android:text="@string/app_version"
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/log_out"/>
+        app:layout_constraintTop_toBottomOf="@+id/log_out" />
+
+    <ToggleButton
+        android:id="@+id/gender_toggle"
+        android:layout_width="@dimen/profile_gender_width"
+        android:layout_height="@dimen/profile_gender_height"
+        android:textOn="@string/m"
+        android:textOff="@string/f"
+        android:layout_marginStart="@dimen/profile_gender_marginstart"
+        android:layout_marginTop="@dimen/profile_gender_margintop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

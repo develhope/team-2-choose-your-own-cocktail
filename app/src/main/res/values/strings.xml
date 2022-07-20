@@ -40,4 +40,6 @@
     <string name="retry">Retry</string>
     <string name="somethingWrong">" Something went wrong!"</string>
     <string name="ingredients">Ingredients</string>
+    <string name="f">F</string>
+    <string name="m">M</string>
 </resources>
