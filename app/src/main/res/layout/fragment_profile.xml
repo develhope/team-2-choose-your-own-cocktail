@@ -88,7 +88,7 @@
         android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:layout_marginTop="@dimen/profile_email_margintop"
         android:text="@string/gender"
-        android:textSize="@dimen/profilefragament_text_size"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_two" />
 
@@ -102,7 +102,7 @@
         android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gender"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
 
     <View
         android:id="@+id/divider_three"
@@ -197,7 +197,7 @@
         android:textOn="@string/m"
         android:textOff="@string/f"
         android:layout_marginStart="@dimen/profile_gender_marginstart"
-        android:layout_marginTop="@dimen/profile_gender_margintop"
+        android:layout_marginTop="-30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gender" />
 

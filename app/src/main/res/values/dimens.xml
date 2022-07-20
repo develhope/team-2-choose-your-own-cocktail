@@ -64,7 +64,7 @@
     <dimen name="loading_ring_size">150dp</dimen>
     <dimen name="loading_ring_horizontalmargin">80dp</dimen>
     <dimen name="loading_ring_verticalmargin">180dp</dimen>
-    <dimen name="profilefragament_profile_image_height">180dp</dimen>
+    <dimen name="profilefragament_profile_image_height">120dp</dimen>
     <dimen name="profilefragament_profile_image_marginTop">40dp</dimen>
     <dimen name="profilefragament_text_marginStart">20dp</dimen>
     <dimen name="profilefragament_editText_marginTop">-5dp</dimen>
@@ -79,9 +79,9 @@
     <dimen name="profilefragament_button_marginStart">150dp</dimen>
     <dimen name="profilefragament_button_marginEnd">150dp</dimen>
     <dimen name="profilefragament_button_margintop">30dp</dimen>
-    <dimen name="profile_gender_marginstart">320dp</dimen>
+    <dimen name="profile_gender_marginstart">300dp</dimen>
     <dimen name="profile_gender_margintop">-15dp</dimen>
-    <dimen name="profile_gender_width">50dp</dimen>
+    <dimen name="profile_gender_width">70dp</dimen>
     <dimen name="profile_gender_height">40dp</dimen>
     <dimen name="profile_email_marginstart">20dp</dimen>
     <dimen name="profile_email_margintop">5dp</dimen>
