@@ -30,8 +30,6 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by inject()
 
-    private var isLoading = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +45,8 @@ class SearchFragment : Fragment() {
 
         apiRetrieveObserver()
 
+        searchObserver()
+
         return binding.root
     }
 
@@ -55,62 +55,58 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         drinkCardAdapter = DrinkCardAdapter(
-            viewModel.drinkList.getFavorite().ifEmpty { viewModel.drinkList.getList() }
+            emptyList()
         ) { action -> makeActionDone(action) }
 
         initStateUI()
 
         binding.searchResultRC.adapter = drinkCardAdapter
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(queryTyping: String?): Boolean {
-                if (queryTyping != null) {
-                    if (queryTyping.isNotEmpty()) {
-                        search(queryTyping)
-                    } else {
-                        initStateUI()
+        binding.searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(queryTyping: String?): Boolean {
+
+                    if (queryTyping != null) {
+                        if (queryTyping.isNotEmpty()) {
+                            searchOnDB(queryTyping)
+                        } else {
+                            initStateUI()
+                        }
                     }
+                    return true
                 }
-                return true
-            }
 
-            override fun onQueryTextSubmit(query: String): Boolean {
-                search(query)
-                return true
-            }
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    searchOnDB(query)
+                    return true
+                }
 
-        })
-    }
-
-    private fun search(queryTyping: String?) {
-        val filteredList =
-            queryTyping?.let { viewModel.filterList(viewModel.drinkList.getList(), it) }
-        if (filteredList != null) {
-            if (filteredList.isNotEmpty()) {
-                showResultUI(filteredList)
-            } else {
-                nothingFoundUI()
-            }
-        }
+            })
     }
 
     private fun initStateUI() {
+        viewModel.resultList = if (binding.searchView.query.isEmpty()) {
+            viewModel.drinkList.getFavorite().ifEmpty {
+                viewModel.drinkList.getList()
+            }
+        } else {
+            viewModel.search.value.let { viewModel.resultList }
+        }
         drinkCardAdapter.updateAdapterList(
-            viewModel.drinkList.getFavorite().ifEmpty { viewModel.drinkList.getList() })
+            viewModel.resultList
+        )
         drinkCardAdapter.notifyDataSetChanged()
 
         binding.resultCount.visibility = View.GONE
         binding.empty.visibility = View.GONE
-        binding.searchResultRC.visibility = View.VISIBLE
     }
 
-    private fun showResultUI(filteredList: List<Drink>) {
+    private fun showResultUI(resultList: List<Drink>) {
         binding.resultCount.text =
-            filteredList.size.toString() + " " +
+            viewModel.resultList.size.toString() + " " +
                     resources.getString(R.string.results)
-        drinkCardAdapter.updateAdapterList(filteredList)
+        drinkCardAdapter.updateAdapterList(resultList)
         drinkCardAdapter.notifyDataSetChanged()
-        binding.searchResultRC.visibility = View.VISIBLE
         binding.resultCount.visibility = View.VISIBLE
         binding.empty.visibility = View.GONE
     }
@@ -137,14 +133,15 @@ class SearchFragment : Fragment() {
             viewModel.result.collect { result ->
                 when (result) {
                     is DBResult.Loading -> {
-                        isLoading = true
+                        viewModel.isLoading = true
                     }
                     is DBResult.Result -> {
-                        if (isLoading) {
+                        if (viewModel.isLoading) {
                             viewModel.increaseCurrentLetter()
+
                             drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
                             drinkCardAdapter.notifyDataSetChanged()
-                            isLoading = false
+                            viewModel.isLoading = false
                         }
                     }
                     is DBResult.Error -> {
@@ -170,68 +167,114 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private fun searchOnDB(query: String) {
+        if (viewModel.search.value != SearchResult.Loading) {
+            viewModel.send(
+                DBEvent.RetrieveDrinksByName(query)
+            )
+        }
+    }
+
+    private fun searchObserver() {
+        lifecycleScope.launch {
+            viewModel.search.collect { result ->
+                when (result) {
+                    is SearchResult.Loading -> {
+                        viewModel.isLoading = true
+                    }
+                    is SearchResult.Result -> {
+                        if (viewModel.isLoading) {
+
+                            viewModel.resultList = viewModel.checkExistingFavorite(result.result)
+                            showResultUI(viewModel.resultList)
+                            drinkCardAdapter.notifyDataSetChanged()
+                            viewModel.isLoading = false
+                            binding.searchResultRC.visibility = View.VISIBLE
+                        }
+                    }
+                    is SearchResult.Error -> {
+                        activity?.let { activity ->
+                            Snackbar.make(
+                                activity.findViewById(android.R.id.content),
+                                R.string.retrieveError,
+                                Snackbar.LENGTH_INDEFINITE
+                            )
+                                .show()
+                        }
+                    }
+                    is SearchResult.NullResult -> {
+                        nothingFoundUI()
+                    }
+                }
+            }
+        }
+    }
+
     private fun makeActionDone(action: DrinkAction) {
         when (action) {
             is DrinkAction.GotoDetail -> {
-                viewModel.getByID(action.drinkID).let {
-                    if (it != null) {
-                        val detailDrinkFragment = DetailDrinkFragment
-                        (activity as MainActivity).goToFragment(
-                            detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
-                            detailDrinkFragment.fragmentTag
-                        )
-                    } else {
-                        Toast.makeText(
-                            context,
-                            R.string.somethingWrong, Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
+                action.drink.let {
+                    val detailDrinkFragment = DetailDrinkFragment
+                    (activity as MainActivity).goToFragment(
+                        detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
+                        detailDrinkFragment.fragmentTag
+                    )
+
                 }
             }
             is DrinkAction.SetPref -> {
                 viewModel.drinkList.setFavorite(action.drink, action.boolean)
+                if (!viewModel.drinkList.getList().contains(action.drink)) {
+                    viewModel.setFavoriteOnSearchResult(
+                        viewModel.resultList,
 
-                if (action.boolean) {
-                    viewModel.moveItem(
                         action.drink,
-                        0
+                        action.boolean
                     )
-                    drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
-                    
-                    if (binding.searchView.query.isEmpty()) {
-                        if (viewModel.drinkList.getFavorite().isNotEmpty()) {
-                            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
-                        }
-                    } else {
-                        drinkCardAdapter.updateAdapterList(
-                            viewModel.filterList(
-                                viewModel.drinkList.getList(),
-                                binding.searchView.query.toString()
+
+                }
+                if (action.boolean) {
+                    viewModel.getByID(action.drink.id).let {
+                        if (it != null) {
+                            viewModel.moveItem(
+                                action.drink,
+                                0
+
                             )
-                        )
+                            drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
+
+                        } else {
+                            viewModel.addItem(action.drink)
+                            drinkCardAdapter.notifyItemInserted(0)
+                        }
+                    }
+                    if (binding.searchView.query.isEmpty() &&
+                        viewModel.drinkList.getFavorite().isNotEmpty()
+                    ) {
+                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
                     }
 
                     drinkCardAdapter.notifyDataSetChanged()
                 } else {
-                    val originPos = viewModel.restoreOriginPos(action.drink)
-                    drinkCardAdapter.notifyItemMoved(
-                        viewModel.getFromPos(action.drink),
-                        originPos
-                    )
-                    
-                    if (binding.searchView.query.isNotEmpty()) {
-                        drinkCardAdapter.updateAdapterList(
-                            viewModel.filterList(
-                                viewModel.drinkList.getList(),
-                                binding.searchView.query.toString()
+                    viewModel.drinkList.originDrinkList().find { it.id == action.drink.id }.let {
+                        if (it != null) {
+                            val originPos = viewModel.restoreOriginPos(action.drink)
+                            drinkCardAdapter.notifyItemMoved(
+                                viewModel.getFromPos(action.drink),
+                                originPos
                             )
-                        )
-                    } else {
-                        if (viewModel.drinkList.getFavorite().isNotEmpty()) {
-                            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
                         } else {
+                            viewModel.removeItem(action.drink)
+                            drinkCardAdapter.notifyDataSetChanged()
+                        }
+                    }
+                    if (binding.searchView.query.isNotEmpty()) {
+                        searchOnDB(binding.searchView.query.toString())
+                    } else {
+                        if (viewModel.drinkList.getFavorite().isEmpty()) {
                             drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
+                        } else {
+                            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
                         }
 
                     }
@@ -241,6 +284,14 @@ class SearchFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        if (binding.searchView.query.isEmpty()) {
+            binding.searchResultRC.visibility = View.VISIBLE
+        } else {
+            binding.searchResultRC.visibility = View.GONE
+        }
+        super.onStart()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

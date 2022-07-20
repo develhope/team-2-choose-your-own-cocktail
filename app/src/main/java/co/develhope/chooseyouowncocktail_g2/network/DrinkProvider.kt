@@ -21,7 +21,11 @@ class DrinksProvider {
     suspend fun searchByFirstLetter(letter: Char): DrinksResult {
         return retrofit.create(DrinkService::class.java)
             .getDrinkByFirstLetter(letter)
+    }
 
+    suspend fun searchByName(name: String): DrinksResult {
+        return retrofit.create(DrinkService::class.java)
+            .searchByName(name)
     }
 
 }

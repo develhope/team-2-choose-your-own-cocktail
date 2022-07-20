@@ -55,12 +55,8 @@ class DetailDrinkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         backPressedCallback = onBackPressCloseFrag()
-
         inflateUI()
-
-
     }
 
 
@@ -88,7 +84,6 @@ class DetailDrinkFragment : Fragment() {
                     drink.ingredients.toString().replace("[", "")
                         .replace("]", "")
                 )
-
 
         }
     }

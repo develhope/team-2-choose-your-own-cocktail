@@ -15,11 +15,12 @@ import kotlinx.coroutines.launch
 
 sealed class DBEvent {
     data class RetrieveDrinksByFirstLetter(val letter: Char) : DBEvent()
+    data class RetrieveDrinksByName(val name: String) : DBEvent()
 }
 
 sealed class DBResult {
     object Loading : DBResult()
-    data class Result(val db: List<Drink>) : DBResult()
+    object Result : DBResult()
     object NullResult : DBResult()
     data class Error(val message: String) : DBResult()
 }
@@ -28,7 +29,7 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
 
     private val dbProvider: DrinksProvider = DrinksProvider()
 
-    private var _result = MutableStateFlow<DBResult>(DBResult.Result(emptyList()))
+    private var _result = MutableStateFlow<DBResult>(DBResult.Result)
     val result: StateFlow<DBResult>
         get() = _result
 
@@ -36,8 +37,10 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
     val list: StateFlow<List<Drink>>
         get() = _list
 
+    var isLoading = false
+
     init {
-        _list.value=drinkList.getList()
+        _list.value = drinkList.getList()
     }
 
 
@@ -49,6 +52,9 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
                         event.letter
                     )
                 )
+                is DBEvent.RetrieveDrinksByName -> retrieveDB(
+                    dbProvider.searchByName(event.name)
+                )
             }
         }
 
@@ -57,9 +63,7 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
         _result.value = DBResult.Loading
         try {
             val retrievedDrinks = DrinkMapper.listToDomainModel(list)
-            _result.value = DBResult.Result(
-                retrievedDrinks
-            )
+            _result.value = DBResult.Result
             drinkList.addToDrinkList(retrievedDrinks)
         } catch (e: Exception) {
             when (e) {
@@ -106,9 +110,21 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
         return destPost
     }
 
+    fun removeItem(drink: Drink) {
+        val drinksList = drinkList.getList().toMutableList()
+        drinkList.getList().forEach {
+            if (it.id == drink.id) {
+                drinksList.remove(it)
+            }
+        }
+        drinkList.setList(drinksList)
+    }
+
     fun getFromPos(drink: Drink): Int {
         return drinkList.getList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
     }
+
+
 
 
     private fun getOriginPos(drink: Drink): Int {
@@ -119,10 +135,6 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
             }
         }
         return oldPos
-    }
-
-    fun getByID(id: Int): Drink? {
-        return drinkList.getList().firstOrNull { it.id == id }
     }
 
 

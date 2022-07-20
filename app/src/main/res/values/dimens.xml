@@ -61,6 +61,9 @@
     <dimen name="ingredients_height">70dp</dimen>
     <dimen name="detailpage_ingredients_marginbottom">300dp</dimen>
     <dimen name="detailpage_description_marginbottom">400dp</dimen>
+    <dimen name="loading_ring_size">150dp</dimen>
+    <dimen name="loading_ring_horizontalmargin">80dp</dimen>
+    <dimen name="loading_ring_verticalmargin">180dp</dimen>
     <dimen name="profilefragament_profile_image_height">100dp</dimen>
     <dimen name="profilefragament_profile_image_marginTop">100dp</dimen>
     <dimen name="profilefragament_text_marginStart">20dp</dimen>
