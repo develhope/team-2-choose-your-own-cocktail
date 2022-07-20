@@ -3,8 +3,7 @@ package co.develhope.chooseyouowncocktail_g2.ui.search
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.drinkList
-import co.develhope.chooseyouowncocktail_g2.DrinkList.setList
+
 import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
