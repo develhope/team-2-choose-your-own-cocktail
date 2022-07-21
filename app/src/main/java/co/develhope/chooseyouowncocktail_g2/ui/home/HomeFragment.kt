@@ -1,6 +1,8 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,8 +25,9 @@ import co.develhope.chooseyouowncocktail_g2.adapter.LoaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 
@@ -40,8 +43,14 @@ class HomeFragment : Fragment() {
     private lateinit var concatAdapter: ConcatAdapter
 
     private lateinit var backPressedCallback: OnBackPressedCallback
+    private lateinit var jsonpref: String
+    private lateinit var listsharedpref:DrinkList
 
     private val viewModel: HomeViewModel by inject()
+    lateinit var preferences: SharedPreferences
+
+    private var gson = Gson()
+
 
 
     override fun onCreateView(
@@ -59,6 +68,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferences = this.getActivity()!!.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        try {
+
+            jsonpref = preferences.getString("pref", "")
+            listsharedpref = gson.fromJson(jsonpref, DrinkList.class)
+            drinkCardAdapter.updateAdapterList(listsharedpref)
+
+        } catch (Exception e){
 
         lifecycleScope.launch {
             viewModel.list.collect {
@@ -68,20 +85,21 @@ class HomeFragment : Fragment() {
                     drinkCardAdapter.itemCount
                 )
             }
-        }
+        }}
 
         if (viewModel.drinkList.getList().isEmpty()) {
             binding.loadingRingEmpty.visibility = VISIBLE
             retrieveFromDB()
         } else {
-            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
-        }
+            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList()
+            }
 
         onLastItemLoadMore()
 
         apiRetrieveObserver()
 
         backPressedCallback = onBackPressScrollToTop()
+
 
     }
 
@@ -208,6 +226,12 @@ class HomeFragment : Fragment() {
                         viewModel.removeItem(action.drink)
                         drinkCardAdapter.notifyDataSetChanged()
                     }
+                val drinkListjson = gson.toJson(viewModel.drinkList)
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putString("pref", drinkListjson)
+                editor.commit()
+
+
 
                 }
             }

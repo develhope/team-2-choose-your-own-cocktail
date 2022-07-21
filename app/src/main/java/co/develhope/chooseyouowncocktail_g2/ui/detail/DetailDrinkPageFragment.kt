@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2.ui.detail
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentDetailDrinkPageBinding
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
+import com.google.gson.Gson
 import org.koin.android.ext.android.inject
 
 const val DETAILPAGE_PREVIEW_SIZE = 300
@@ -27,6 +29,9 @@ class DetailDrinkFragment : Fragment() {
     private lateinit var drinkAction: (DrinkAction) -> Unit
 
     private val viewModel: DetailViewModel by inject()
+    lateinit var preferences: SharedPreferences
+
+    private var gson = Gson()
 
     companion object {
         @JvmStatic
@@ -76,6 +81,10 @@ class DetailDrinkFragment : Fragment() {
             binding.buttonFavorite.setOnClickListener {
                 drinkAction(DrinkAction.SetPref(drink, !drink.favourite))
                 viewModel.updateDetailedDrink(drink)
+                val drinkListjson = gson.toJson(viewModel.drinkList)
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putString("pref", drinkListjson)
+                editor.commit()
             }
 
             binding.ingredients.text =

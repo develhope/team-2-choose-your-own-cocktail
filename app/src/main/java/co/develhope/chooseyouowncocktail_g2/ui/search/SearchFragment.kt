@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2.ui.search
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import co.develhope.chooseyouowncocktail_g2.ui.home.DBEvent
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBResult
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
@@ -29,6 +31,9 @@ class SearchFragment : Fragment() {
     private lateinit var drinkCardAdapter: DrinkCardAdapter
 
     private val viewModel: SearchViewModel by inject()
+    lateinit var preferences: SharedPreferences
+
+    private var gson = Gson()
 
 
     override fun onCreateView(
@@ -279,7 +284,12 @@ class SearchFragment : Fragment() {
 
                     }
                     drinkCardAdapter.notifyDataSetChanged()
+
                 }
+                val drinkListjson = gson.toJson(viewModel.drinkList)
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putString("pref", drinkListjson)
+                editor.commit()
             }
         }
     }
