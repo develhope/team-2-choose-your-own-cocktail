@@ -1,16 +1,12 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -25,7 +21,6 @@ import co.develhope.chooseyouowncocktail_g2.adapter.LoaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -43,15 +38,13 @@ class HomeFragment : Fragment() {
     private lateinit var concatAdapter: ConcatAdapter
 
     private lateinit var backPressedCallback: OnBackPressedCallback
-    private lateinit var jsonpref: String
-    private lateinit var listsharedpref:DrinkList
 
     private val viewModel: HomeViewModel by inject()
-    lateinit var preferences: SharedPreferences
 
-    private var gson = Gson()
-
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,14 +61,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences = this.getActivity()!!.getSharedPreferences("preferences", Context.MODE_PRIVATE)
-        try {
-
-            jsonpref = preferences.getString("pref", "")
-            listsharedpref = gson.fromJson(jsonpref, DrinkList.class)
-            drinkCardAdapter.updateAdapterList(listsharedpref)
-
-        } catch (Exception e){
 
         lifecycleScope.launch {
             viewModel.list.collect {
@@ -85,14 +70,14 @@ class HomeFragment : Fragment() {
                     drinkCardAdapter.itemCount
                 )
             }
-        }}
+        }
 
         if (viewModel.drinkList.getList().isEmpty()) {
             binding.loadingRingEmpty.visibility = VISIBLE
             retrieveFromDB()
         } else {
-            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList()
-            }
+            drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
+        }
 
         onLastItemLoadMore()
 
@@ -116,7 +101,7 @@ class HomeFragment : Fragment() {
                             viewModel.increaseCurrentLetter()
                             updateRecyclerView()
                             Handler(Looper.getMainLooper()).postDelayed({
-                                if (_binding != null) binding.loadingRingEmpty.visibility = GONE
+                                hideSplashScreen()
                             }, 1000)
 
                             viewModel.isLoading = false
@@ -197,16 +182,16 @@ class HomeFragment : Fragment() {
         when (action) {
             is DrinkAction.GotoDetail -> {
                 action.drink.let {
+                    (activity as MainActivity).supportActionBar?.title = action.drink.name
                     val detailDrinkFragment = DetailDrinkFragment
                     (activity as MainActivity).goToFragment(
                         detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
-                        detailDrinkFragment.fragmentTag
+                        "DetailDrinkFragment"
                     )
-
                 }
             }
             is DrinkAction.SetPref -> {
-                viewModel.drinkList.setFavorite(action.drink, action.boolean)
+                viewModel.setFavorite(action.drink, action.boolean)
                 if (action.boolean) {
                     viewModel.moveItem(
                         action.drink,
@@ -222,17 +207,12 @@ class HomeFragment : Fragment() {
                             viewModel.getFromPos(action.drink),
                             originPos
                         )
+                        drinkCardAdapter.notifyDataSetChanged()
                     } else {
                         viewModel.removeItem(action.drink)
+                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
                         drinkCardAdapter.notifyDataSetChanged()
                     }
-                val drinkListjson = gson.toJson(viewModel.drinkList)
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putString("pref", drinkListjson)
-                editor.commit()
-
-
-
                 }
             }
         }
@@ -245,6 +225,12 @@ class HomeFragment : Fragment() {
             DrinkCardAdapter(viewModel.drinkList.getList()) { action -> makeActionDone(action) }
         concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter, loaderAdapter)
         binding.drinkCardRecyclerView.adapter = concatAdapter
+    }
+
+    private fun hideSplashScreen() {
+        if (_binding != null) binding.loadingRingEmpty.visibility = GONE
+        (activity as MainActivity).binding.navView.visibility = VISIBLE
+        (activity as MainActivity).supportActionBar?.show()
     }
 
     override fun onDestroyView() {

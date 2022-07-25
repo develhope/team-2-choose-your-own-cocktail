@@ -1,10 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.ui.search
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +14,6 @@ import co.develhope.chooseyouowncocktail_g2.ui.home.DBEvent
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBResult
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
@@ -31,10 +27,12 @@ class SearchFragment : Fragment() {
     private lateinit var drinkCardAdapter: DrinkCardAdapter
 
     private val viewModel: SearchViewModel by inject()
-    lateinit var preferences: SharedPreferences
 
-    private var gson = Gson()
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -219,24 +217,23 @@ class SearchFragment : Fragment() {
         when (action) {
             is DrinkAction.GotoDetail -> {
                 action.drink.let {
+                    (activity as MainActivity).supportActionBar?.title = action.drink.name
                     val detailDrinkFragment = DetailDrinkFragment
                     (activity as MainActivity).goToFragment(
                         detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
-                        detailDrinkFragment.fragmentTag
+                        "DetailDrinkFragment"
                     )
 
                 }
             }
             is DrinkAction.SetPref -> {
-                viewModel.drinkList.setFavorite(action.drink, action.boolean)
+                viewModel.setFavorite(action.drink, action.boolean)
                 if (!viewModel.drinkList.getList().contains(action.drink)) {
                     viewModel.setFavoriteOnSearchResult(
                         viewModel.resultList,
-
                         action.drink,
                         action.boolean
                     )
-
                 }
                 if (action.boolean) {
                     viewModel.getByID(action.drink.id).let {
@@ -286,10 +283,6 @@ class SearchFragment : Fragment() {
                     drinkCardAdapter.notifyDataSetChanged()
 
                 }
-                val drinkListjson = gson.toJson(viewModel.drinkList)
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putString("pref", drinkListjson)
-                editor.commit()
             }
         }
     }

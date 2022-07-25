@@ -18,10 +18,12 @@ class DetailViewModel(val drinkList: DrinkList) : ViewModel() {
         if (currentDrink != null) {
             _drink.value = currentDrink
         } else {
-            _drink.value = drink
+            _drink.value = drink.copy(favourite = !drink.favourite)
         }
+    }
 
-
+    fun initDetailPage(drink: Drink) {
+        _drink.value = drink
     }
 
 

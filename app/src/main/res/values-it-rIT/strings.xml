@@ -17,15 +17,11 @@
     <string name="our_beers" >I nostri drink</string>
     <string name="hello_blank_fragment">Salve,fragment bianco</string>
     <string name="type_of_drink" >ichnusa unfiltered\n33 cl</string>
-    <string name="name_surname">Francesco Pedullà</string>
     <string name="date_of_birth">Data di nascita</string>
-    <string name="string_date_of_birth"> 8 Giugno 1992</string>
     <string name="gender">Genere</string>
     <string name="string_gender">M</string>
     <string name="telephone_number">Numero di telefono</string>
-    <string name="string_telephone_number">3356255268</string>
     <string name="email">Email</string>
-    <string name="string_email" >f.pedulla@live.it</string>
     <string name="nome_birra">Nome Birra</string>
     <string name="_33_cl">33 cl</string>
     <string name="preferance_button">preferanceButton</string>
@@ -40,4 +36,7 @@
     <string name="somethingWrong">" Something went wrong!"</string>
     <string name="ingredients">Ingredienti</string>
     <string name="m">M</string>
+    <string name="f">F</string>
+    <string name="back">Indietro</string>
+    <string name="save">Salva</string>
 </resources>

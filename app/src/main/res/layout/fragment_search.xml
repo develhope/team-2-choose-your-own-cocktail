@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:clipToPadding="false"
-
+        android:layout_marginTop="@dimen/search_rc_margintop"
         android:paddingHorizontal="@dimen/medium_long_margin"
         android:paddingTop="@dimen/medium_long_margin"
         android:paddingBottom="@dimen/margin_68"

@@ -92,4 +92,13 @@
     <dimen name="profile_logout_marginend">150dp</dimen>
     <dimen name="profile_telnum_marginstart">20dp</dimen>
     <dimen name="profile_name_margintop">30dp</dimen>
+    <dimen name="gender_toggle_marginTop">-30dp</dimen>
+    <dimen name="gender_toggle_marginStart">250dp</dimen>
+    <dimen name="gender_toggle_marginEnd">20dp</dimen>
+    <dimen name="search_rc_margintop">20dp</dimen>
+    <dimen name="profile_savebutton_margintop">5dp</dimen>
+    <dimen name="pickbutton_size">35dp</dimen>
+    <dimen name="pickbutton_margintop">140dp</dimen>
+    <dimen name="pickbutton_marginstart">-30dp</dimen>
+    <dimen name="profilefragament_profile_image_width">160dp</dimen>
 </resources>

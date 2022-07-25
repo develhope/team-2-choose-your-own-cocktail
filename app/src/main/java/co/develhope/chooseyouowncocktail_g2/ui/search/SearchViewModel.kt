@@ -1,5 +1,6 @@
 package co.develhope.chooseyouowncocktail_g2.ui.search
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
@@ -9,6 +10,8 @@ import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
 import co.develhope.chooseyouowncocktail_g2.network.dto.DrinksResult
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBEvent
 import co.develhope.chooseyouowncocktail_g2.ui.home.DBResult
+import co.develhope.chooseyouowncocktail_g2.ui.home.FAVORITE_KEY
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +26,7 @@ sealed class SearchResult {
     data class Error(val message: String) : SearchResult()
 }
 
-class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
+class SearchViewModel(val drinkList: DrinkList, val preferences: SharedPreferences) : ViewModel() {
 
     private val dbProvider: DrinksProvider = DrinksProvider()
 
@@ -92,7 +95,6 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
 
     fun getByID(id: Int): Drink? {
         return drinkList.getList().firstOrNull { it.id == id }
-
     }
 
 
@@ -103,7 +105,6 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
                 drinksList.remove(it)
                 drinksList.add(destPos, it)
             }
-
         }
         drinkList.setList(drinksList)
     }
@@ -111,14 +112,11 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
     fun removeItem(drink: Drink) {
         val drinksList = drinkList.getList().toMutableList()
         drinkList.getList().forEach {
-
             if (it.id == drink.id) {
                 drinksList.remove(it)
             }
         }
-
         drinkList.setList(drinksList)
-
     }
 
     fun addItem(drink: Drink) {
@@ -130,7 +128,6 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
     fun restoreOriginPos(drink: Drink): Int {
         var destPost = 0
         val drinkList = drinkList.getList().toMutableList()
-
         val sorteredList = drinkList.filterNot { it.favourite }.sortedBy { getOriginPos(it) }
         drinkList.sortedBy { sorteredList.indexOf(it) }
             .forEachIndexed { index, originDrink ->
@@ -144,6 +141,14 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
 
     fun getFromPos(drink: Drink): Int {
         return drinkList.getList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
+    }
+
+    fun setFavorite(drink: Drink, bool: Boolean) {
+        drinkList.setFavorite(drink, bool)
+        preferences.edit().putString(
+            FAVORITE_KEY,
+            Gson().toJson(drinkList.getFavorite())
+        ).apply()
     }
 
     fun setFavoriteOnSearchResult(
@@ -161,7 +166,7 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
 
     fun checkExistingFavorite(resultList: List<Drink>): List<Drink> {
         val mutableRestList = resultList.toMutableList()
-        mutableRestList.forEach { drink ->
+        resultList.toMutableList().forEach { drink ->
             drinkList.getList().forEach {
                 if (it.id == drink.id) {
                     Collections.replaceAll(
@@ -173,14 +178,12 @@ class SearchViewModel(val drinkList: DrinkList) : ViewModel() {
             }
         }
         return mutableRestList
-
     }
 
 
     private fun getOriginPos(drink: Drink): Int {
         var oldPos = 0
         drinkList.originDrinkList().forEachIndexed { index, originDrink ->
-
             if (originDrink.id == drink.id) {
                 oldPos = index
             }
