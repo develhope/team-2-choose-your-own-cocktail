@@ -4,7 +4,7 @@ package co.develhope.chooseyouowncocktail_g2
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-
+import android.view.View.GONE
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -23,7 +23,7 @@ import org.koin.core.context.GlobalContext.startKoin
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
 
@@ -35,12 +35,11 @@ class MainActivity : AppCompatActivity() {
 
         startKoin {
             androidContext(this@MainActivity)
-            modules(listOf(appModules,viewModels))
+            modules(listOf(appModules, viewModels))
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
 
         val navView: BottomNavigationView = binding.navView
@@ -55,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_SELECTED
+        navView.visibility = GONE
+        supportActionBar?.hide()
 
     }
 
@@ -63,19 +64,17 @@ class MainActivity : AppCompatActivity() {
         tag: String
     ) {
         fragment.add(tag)
-        //se l'utente cambia fragment dalla bottom navigation bar, chiude il fragment
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (fragment.isVisible) {
-                //SOLUZIONE TEMPORANEA!!!!!!
                 Handler(Looper.getMainLooper()).postDelayed({
                     remove(fragment)
                 }, 200)
-                ////////////////////////////
             }
         }
     }
 
     fun remove(fragment: Fragment) {
+        supportActionBar?.title = navController.currentDestination?.label
         fragManager.beginTransaction()
             .remove(fragment)
             .commit()

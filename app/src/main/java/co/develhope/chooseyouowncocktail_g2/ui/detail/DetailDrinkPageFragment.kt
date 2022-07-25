@@ -1,9 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.ui.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -30,17 +28,36 @@ class DetailDrinkFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        val fragmentTag = DetailDrinkFragment::class.java.canonicalName
-            ?: "DetailDrinkFragment"
-
         fun newInstance(drink: Drink?, action: (DrinkAction) -> Unit) =
             DetailDrinkFragment().apply {
                 if (drink != null) {
-                    viewModel.updateDetailedDrink(drink)
+                    viewModel.initDetailPage(drink)
                     drinkAction = action
                 }
                 return this
             }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        (activity as MainActivity).menuInflater.inflate(R.menu.topbarbutton, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.backbutton -> {
+                (activity as MainActivity).supportFragmentManager.findFragmentByTag("DetailDrinkFragment")
+                    ?.let {
+                        (activity as MainActivity).remove(it)
+                    }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
@@ -49,6 +66,7 @@ class DetailDrinkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailDrinkPageBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -62,9 +80,13 @@ class DetailDrinkFragment : Fragment() {
 
     private fun inflateUI() {
         viewModel.drink.observe(viewLifecycleOwner) { drink ->
+
             binding.title.text = drink.name
+
             binding.description.text = drink.description
+
             binding.cl.text = drink.category
+
             binding.preview.setImageByUrl(
                 drink.img,
                 DETAILPAGE_PREVIEW_SIZE,

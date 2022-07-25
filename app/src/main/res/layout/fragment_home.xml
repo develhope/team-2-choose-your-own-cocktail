@@ -11,15 +11,13 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:id="@+id/loadingRingEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/loading_ring_horizontalmargin"
-        android:layout_marginVertical="@dimen/loading_ring_verticalmargin"
-        android:src="@drawable/loadingring"
-        android:visibility="gone" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splashscreen"
+        android:visibility="gone"
+        />
 
 
     <androidx.recyclerview.widget.RecyclerView

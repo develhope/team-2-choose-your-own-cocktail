@@ -1,17 +1,23 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
-import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
-import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import co.develhope.chooseyouowncocktail_g2.network.dto.DrinksResult
+import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+
+
+const val FAVORITE_KEY = "favorite"
 
 sealed class DBEvent {
     data class RetrieveDrinksByFirstLetter(val letter: Char) : DBEvent()
@@ -25,7 +31,7 @@ sealed class DBResult {
     data class Error(val message: String) : DBResult()
 }
 
-class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
+class HomeViewModel(val drinkList: DrinkList, val preferences: SharedPreferences) : ViewModel() {
 
     private val dbProvider: DrinksProvider = DrinksProvider()
 
@@ -65,6 +71,9 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
             val retrievedDrinks = DrinkMapper.listToDomainModel(list)
             _result.value = DBResult.Result
             drinkList.addToDrinkList(retrievedDrinks)
+            if (preferences.contains(FAVORITE_KEY)) {
+                combineStoredFavWithLocalList()
+            }
         } catch (e: Exception) {
             when (e) {
                 is NullPointerException -> _result.value = DBResult.NullResult
@@ -124,7 +133,32 @@ class HomeViewModel(val drinkList: DrinkList) : ViewModel() {
         return drinkList.getList().let { list -> list.indexOf(list.find { it.id == drink.id }) }
     }
 
+    fun setFavorite(drink: Drink, bool: Boolean) {
+        drinkList.setFavorite(drink, bool)
+        preferences.edit().putString(
+            FAVORITE_KEY,
+            Gson().toJson(drinkList.getFavorite())
+        ).apply()
+    }
 
+    private fun getFavoriteFromSharedPreferences(): List<Drink?> {
+        return Gson().fromJson(
+            preferences.getString(FAVORITE_KEY, null),
+            object : TypeToken<List<Drink?>?>() {}.type
+        )
+    }
+
+    private fun combineStoredFavWithLocalList() {
+        val storedFav = getFavoriteFromSharedPreferences().asReversed()
+        storedFav.forEach { drink ->
+            drinkList.getList().find { it.id == drink?.id }.apply {
+                if (this != null) {
+                    removeItem(this)
+                }
+            }
+        }
+        drinkList.setStoredFavorite(storedFav as List<Drink>)
+    }
 
 
     private fun getOriginPos(drink: Drink): Int {

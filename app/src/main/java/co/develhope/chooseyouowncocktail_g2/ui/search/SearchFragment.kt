@@ -1,9 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.ui.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +28,11 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by inject()
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -214,24 +217,23 @@ class SearchFragment : Fragment() {
         when (action) {
             is DrinkAction.GotoDetail -> {
                 action.drink.let {
+                    (activity as MainActivity).supportActionBar?.title = action.drink.name
                     val detailDrinkFragment = DetailDrinkFragment
                     (activity as MainActivity).goToFragment(
                         detailDrinkFragment.newInstance(it) { action -> makeActionDone(action) },
-                        detailDrinkFragment.fragmentTag
+                        "DetailDrinkFragment"
                     )
 
                 }
             }
             is DrinkAction.SetPref -> {
-                viewModel.drinkList.setFavorite(action.drink, action.boolean)
+                viewModel.setFavorite(action.drink, action.boolean)
                 if (!viewModel.drinkList.getList().contains(action.drink)) {
                     viewModel.setFavoriteOnSearchResult(
                         viewModel.resultList,
-
                         action.drink,
                         action.boolean
                     )
-
                 }
                 if (action.boolean) {
                     viewModel.getByID(action.drink.id).let {
@@ -279,6 +281,7 @@ class SearchFragment : Fragment() {
 
                     }
                     drinkCardAdapter.notifyDataSetChanged()
+
                 }
             }
         }

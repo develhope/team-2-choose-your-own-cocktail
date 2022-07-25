@@ -31,17 +31,29 @@ class DrinkList {
         return drinkList.filter { it.favourite }
     }
 
+    fun setStoredFavorite(drinks: List<Drink>) {
+        drinkList.addAll(0, drinks)
+    }
+
     fun addToDrinkList(drinks: List<Drink>) {
         drinkList.addAll(drinks)
         originList.addAll(drinks)
     }
 
-    fun setFavorite(drink: Drink, bool: Boolean) {
-        Collections.replaceAll(
-            drinkList,
-            drink,
-            drink.copy(favourite = bool)
-        )
+    fun setFavorite(drink: Drink, isFavorite: Boolean) {
+        if (originList.any { it.id == drink.id }) {
+            Collections.replaceAll(
+                drinkList,
+                drink,
+                drink.copy(favourite = isFavorite)
+            )
+        } else {
+            if (isFavorite) {
+                drinkList.add(0, drink.copy(favourite = isFavorite))
+            } else {
+                drinkList.remove(drink)
+            }
+        }
     }
 
 }

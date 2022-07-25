@@ -17,15 +17,11 @@
     <string name="log_out">log out</string>
     <string name="app_version">v.1.0.0</string>
     <string name="name" translatable="false">Name</string>
-    <string name="name_surname">Francesco Pedullà</string>
     <string name="date_of_birth">Date of birth</string>
-    <string name="string_date_of_birth">8 June 1992</string>
     <string name="gender">Gender</string>
     <string name="string_gender">M</string>
     <string name="telephone_number">Telephone number</string>
-    <string name="string_telephone_number">3356255268</string>
     <string name="email">Email</string>
-    <string name="string_email">f.pedulla@live.it</string>
     <string name="nome_birra">beer name</string>
     <string name="_33_cl">33 cl</string>
     <string name="preferance_button">preferanceButton</string>
@@ -42,4 +38,7 @@
     <string name="ingredients">Ingredients</string>
     <string name="f">F</string>
     <string name="m">M</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved succesfully!</string>
 </resources>
