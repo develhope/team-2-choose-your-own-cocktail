@@ -96,7 +96,7 @@
     <dimen name="gender_toggle_marginStart">250dp</dimen>
     <dimen name="gender_toggle_marginEnd">20dp</dimen>
     <dimen name="search_rc_margintop">20dp</dimen>
-    <dimen name="profile_savebutton_margintop">5dp</dimen>
+    <dimen name="profile_savebutton_margintop">15dp</dimen>
     <dimen name="pickbutton_size">35dp</dimen>
     <dimen name="pickbutton_margintop">140dp</dimen>
     <dimen name="pickbutton_marginstart">-30dp</dimen>

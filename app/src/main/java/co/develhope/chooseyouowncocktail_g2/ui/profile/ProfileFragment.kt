@@ -6,8 +6,10 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.User
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentProfileBinding
 import org.koin.android.ext.android.inject
@@ -42,6 +44,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.save.setOnClickListener {
+            Toast.makeText(context, R.string.saved, Toast.LENGTH_LONG).show()
             saveLocalUser()
         }
         binding.logOut.setOnClickListener {
