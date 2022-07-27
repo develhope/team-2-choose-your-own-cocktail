@@ -1,6 +1,7 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
 import android.content.SharedPreferences
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
@@ -15,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.logging.Handler
 
 
 const val FAVORITE_KEY = "favorite"
@@ -135,10 +137,12 @@ class HomeViewModel(val drinkList: DrinkList, val preferences: SharedPreferences
 
     fun setFavorite(drink: Drink, bool: Boolean) {
         drinkList.setFavorite(drink, bool)
-        preferences.edit().putString(
-            FAVORITE_KEY,
-            Gson().toJson(drinkList.getFavorite())
-        ).apply()
+        android.os.Handler(Looper.getMainLooper()).postDelayed({
+            preferences.edit().putString(
+                FAVORITE_KEY,
+                Gson().toJson(drinkList.getFavorite())
+            ).apply()
+        }, 200)
     }
 
     private fun getFavoriteFromSharedPreferences(): List<Drink?> {
@@ -149,7 +153,8 @@ class HomeViewModel(val drinkList: DrinkList, val preferences: SharedPreferences
     }
 
     private fun combineStoredFavWithLocalList() {
-        val storedFav = getFavoriteFromSharedPreferences().asReversed()
+        println("combine")
+        val storedFav = getFavoriteFromSharedPreferences()
         storedFav.forEach { drink ->
             drinkList.getList().find { it.id == drink?.id }.apply {
                 if (this != null) {

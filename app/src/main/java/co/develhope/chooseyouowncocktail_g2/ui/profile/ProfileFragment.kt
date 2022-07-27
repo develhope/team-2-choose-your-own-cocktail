@@ -2,11 +2,12 @@ package co.develhope.chooseyouowncocktail_g2.ui.profile
 
 import android.content.Intent
 import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import co.develhope.chooseyouowncocktail_g2.R
@@ -26,6 +27,20 @@ class ProfileFragment : Fragment() {
 
     private val viewModel: ProfileViewModel by inject()
 
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                profilePicUri = uri.toString()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    context!!.contentResolver.takePersistableUriPermission(
+                        uri,
+                        FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    )
+                }
+                binding.imageView.setImageURI(uri)
+            }
+        }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         super.onCreateOptionsMenu(menu, inflater)
@@ -36,7 +51,6 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -56,28 +70,12 @@ class ProfileFragment : Fragment() {
         }
 
         binding.imageView.setOnClickListener {
-            pickImageFromStorage()
+            getContent.launch("image/*")
         }
 
         binding.pickImage.setOnClickListener {
-            pickImageFromStorage()
+            getContent.launch("image/*")
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RESULT_LOAD_IMAGE && data != null) {
-            profilePicUri = data.data.toString()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                data.data?.let {
-                    context!!.contentResolver.takePersistableUriPermission(
-                        it,
-                        FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    )
-                }
-            }
-            binding.imageView.setImageURI(data.data)
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
 
@@ -102,15 +100,6 @@ class ProfileFragment : Fragment() {
                 binding.stringTelephoneNumber.text.toString(),
                 binding.stringEmail.text.toString()
             )
-        )
-    }
-
-    private fun pickImageFromStorage(){
-        startActivityForResult(
-            Intent(
-                Intent.ACTION_OPEN_DOCUMENT,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            ), RESULT_LOAD_IMAGE
         )
     }
 
