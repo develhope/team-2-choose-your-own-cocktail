@@ -1,10 +1,13 @@
 package co.develhope.chooseyouowncocktail_g2.ui.home
 
 import android.content.SharedPreferences
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.develhope.chooseyouowncocktail_g2.DrinkList
+import co.develhope.chooseyouowncocktail_g2.ListToShow
+import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.network.DrinksProvider
 import co.develhope.chooseyouowncocktail_g2.network.dto.DrinksResult
 import co.develhope.chooseyouowncocktail_g2.usecase.DrinkMapper
@@ -16,8 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.logging.Handler
-
 
 const val FAVORITE_KEY = "favorite"
 
@@ -33,7 +34,9 @@ sealed class DBResult {
     data class Error(val message: String) : DBResult()
 }
 
-class HomeViewModel(val drinkList: DrinkList, val preferences: SharedPreferences) : ViewModel() {
+class HomeViewModel(
+    val drinkList: DrinkList, val preferences: SharedPreferences, val headerAdapter: HeaderAdapter
+) : ViewModel() {
 
     private val dbProvider: DrinksProvider = DrinksProvider()
 
@@ -46,6 +49,7 @@ class HomeViewModel(val drinkList: DrinkList, val preferences: SharedPreferences
         get() = _list
 
     var isLoading = false
+
 
     init {
         _list.value = drinkList.getList()

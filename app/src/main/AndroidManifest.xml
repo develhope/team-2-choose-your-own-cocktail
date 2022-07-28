@@ -3,6 +3,11 @@
     package="co.develhope.chooseyouowncocktail_g2">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
+    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY"/>
+
+
 
 
 
@@ -15,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChooseYouOwnCocktail_G2">
         <activity
+
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

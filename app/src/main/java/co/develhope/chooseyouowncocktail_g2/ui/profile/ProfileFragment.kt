@@ -16,8 +16,6 @@ import co.develhope.chooseyouowncocktail_g2.databinding.FragmentProfileBinding
 import org.koin.android.ext.android.inject
 
 
-const val RESULT_LOAD_IMAGE = 1
-
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
@@ -83,7 +81,7 @@ class ProfileFragment : Fragment() {
         val user = viewModel.user
         binding.imageView.setImageURI(user.profilePic.toUri())
         binding.nameSurname.setText(user.name)
-        binding.stringDateOfBirth.setText(user.birth)
+        binding.stringDateofbirth.setText(user.birth)
         binding.stringEmail.setText(user.email)
         binding.genderSwitch.isChecked = user.gender
         binding.stringTelephoneNumber.setText(user.tel)
@@ -95,7 +93,7 @@ class ProfileFragment : Fragment() {
             User(
                 profilePicUri,
                 binding.nameSurname.text.toString(),
-                binding.stringDateOfBirth.text.toString(),
+                binding.stringDateofbirth.text.toString(),
                 binding.genderSwitch.isChecked,
                 binding.stringTelephoneNumber.text.toString(),
                 binding.stringEmail.text.toString()
@@ -116,7 +114,7 @@ class ProfileFragment : Fragment() {
         )
         binding.imageView.setImageURI(null)
         binding.nameSurname.setText("")
-        binding.stringDateOfBirth.setText("")
+        binding.stringDateofbirth.setText("")
         binding.stringEmail.setText("")
         binding.genderSwitch.switchPadding = 0
         binding.stringTelephoneNumber.setText("")

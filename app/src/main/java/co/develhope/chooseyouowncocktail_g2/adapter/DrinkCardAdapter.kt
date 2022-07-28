@@ -46,11 +46,13 @@ class DrinkCardAdapter(
 
                 binding.drinkShortDescription.text = this.shortDescription
 
-                binding.drinkImage.setImageByUrl(
-                    this.img,
-                    DRINKCARD_PREVIEW_SIZE,
-                    DRINKCARD_PREVIEW_SIZE
-                )
+                if (!this.img.isNullOrEmpty()) {
+                    binding.drinkImage.setImageByUrl(
+                        this.img,
+                        DRINKCARD_PREVIEW_SIZE,
+                        DRINKCARD_PREVIEW_SIZE
+                    )
+                }
 
                 binding.buttonGoToDetail.setOnClickListener {
                     action(DrinkAction.GotoDetail(this))

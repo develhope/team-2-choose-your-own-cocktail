@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import co.develhope.chooseyouowncocktail_g2.*
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkAction
 import co.develhope.chooseyouowncocktail_g2.adapter.DrinkCardAdapter
-import co.develhope.chooseyouowncocktail_g2.adapter.HeaderAdapter
 import co.develhope.chooseyouowncocktail_g2.adapter.LoaderAdapter
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentHomeBinding
 import co.develhope.chooseyouowncocktail_g2.ui.detail.DetailDrinkFragment
+import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -33,11 +33,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var drinkCardAdapter: DrinkCardAdapter
-    private lateinit var headerAdapter: HeaderAdapter
     private lateinit var loaderAdapter: LoaderAdapter
     private lateinit var concatAdapter: ConcatAdapter
-
-    private lateinit var backPressedCallback: OnBackPressedCallback
 
     private val viewModel: HomeViewModel by inject()
 
@@ -83,9 +80,33 @@ class HomeFragment : Fragment() {
 
         apiRetrieveObserver()
 
-        backPressedCallback = onBackPressScrollToTop()
+        listToShowObserver()
 
+        onBackPressScrollToTop()
 
+    }
+
+    private fun listToShowObserver() {
+        lifecycleScope.launch {
+            viewModel.headerAdapter.listToShow.collect {
+                when (it) {
+                    is ListToShow.AllDrinks -> {
+                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
+                        drinkCardAdapter.notifyDataSetChanged()
+
+                    }
+                    is ListToShow.MyDrinks -> {
+                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getLocalUserDrinks())
+                        drinkCardAdapter.notifyDataSetChanged()
+                        loaderAdapter.updateLoadingRing(false)
+                    }
+                    is ListToShow.FavoriteDrinks -> {
+                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getFavorite())
+                        drinkCardAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
     }
 
     private fun apiRetrieveObserver() {
@@ -133,7 +154,6 @@ class HomeFragment : Fragment() {
 
     private fun updateRecyclerView() {
         drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
-        //Delay per ragioni estetiche, altrimenti il loading ring non si vede
         Handler(Looper.getMainLooper()).postDelayed({
             loaderAdapter.updateLoadingRing(false)
             drinkCardAdapter.notifyDataSetChanged()
@@ -145,10 +165,14 @@ class HomeFragment : Fragment() {
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (!recyclerView.canScrollVertically(1) && viewModel.drinkList.getList()
-                            .isNotEmpty()
-                    ) {
-                        if (viewModel.checkCurrentLetter()) retrieveFromDB()
+                    if (viewModel.headerAdapter.listToShow.value == ListToShow.AllDrinks) {
+                        if (!recyclerView.canScrollVertically(1) && viewModel.drinkList.getList()
+                                .isNotEmpty()
+                        ) {
+                            if (viewModel.checkCurrentLetter()) retrieveFromDB()
+                        }
+                    } else {
+                        loaderAdapter.updateLoadingRing(false)
                     }
                 }
             })
@@ -197,7 +221,11 @@ class HomeFragment : Fragment() {
                         action.drink,
                         0
                     )
-                    drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
+                    if (viewModel.headerAdapter.listToShow.value == ListToShow.AllDrinks) {
+                        drinkCardAdapter.notifyItemMoved(viewModel.getFromPos(action.drink), 0)
+                    } else {
+                        drinkCardAdapter.notifyDataSetChanged()
+                    }
                 } else {
                     if (viewModel.drinkList.originDrinkList()
                             .find { it.id == action.drink.id } != null
@@ -207,23 +235,40 @@ class HomeFragment : Fragment() {
                             viewModel.getFromPos(action.drink),
                             originPos
                         )
-                        drinkCardAdapter.notifyDataSetChanged()
                     } else {
                         viewModel.removeItem(action.drink)
-                        drinkCardAdapter.updateAdapterList(viewModel.drinkList.getList())
-                        drinkCardAdapter.notifyDataSetChanged()
+                        drinkCardAdapter.updateAdapterList(
+                            getCurrentListToShow()
+                        )
                     }
                 }
+                drinkCardAdapter.updateAdapterList(getCurrentListToShow())
+                drinkCardAdapter.notifyDataSetChanged()
+
+            }
+        }
+    }
+
+    private fun getCurrentListToShow(): List<Drink> {
+        return when (viewModel.headerAdapter.listToShow.value) {
+            is ListToShow.AllDrinks -> {
+                viewModel.drinkList.getList()
+            }
+            is ListToShow.MyDrinks -> {
+                viewModel.drinkList.getUserDrinks()
+            }
+            is ListToShow.FavoriteDrinks -> {
+                viewModel.drinkList.getFavorite()
             }
         }
     }
 
     private fun initRecyclerView() {
-        headerAdapter = HeaderAdapter()
+        viewModel.headerAdapter.mainActivity = (activity as MainActivity)
         loaderAdapter = LoaderAdapter()
         drinkCardAdapter =
             DrinkCardAdapter(viewModel.drinkList.getList()) { action -> makeActionDone(action) }
-        concatAdapter = ConcatAdapter(headerAdapter, drinkCardAdapter, loaderAdapter)
+        concatAdapter = ConcatAdapter(viewModel.headerAdapter, drinkCardAdapter, loaderAdapter)
         binding.drinkCardRecyclerView.adapter = concatAdapter
     }
 
@@ -236,6 +281,12 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        onBackPressScrollToTop()
+        drinkCardAdapter.notifyDataSetChanged()
+        super.onResume()
     }
 
 }

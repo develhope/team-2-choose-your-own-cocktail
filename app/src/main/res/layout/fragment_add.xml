@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    android:background="@color/white_detailpage"
+    tools:context=".ui.add.AddFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -12,7 +13,7 @@
         android:layout_height="@dimen/profilefragament_profile_image_height"
         android:layout_marginTop="@dimen/profilefragament_profile_image_marginTop"
         android:scaleType="fitCenter"
-        android:src="@drawable/portrait_placeholder"
+        android:src="@drawable/placeholder"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,8 +22,8 @@
         android:id="@+id/pickImage"
         android:layout_width="@dimen/pickbutton_size"
         android:layout_height="@dimen/pickbutton_size"
-        android:layout_marginTop="@dimen/pickbutton_margintop"
         android:layout_marginStart="@dimen/pickbutton_marginstart"
+        android:layout_marginTop="@dimen/pickbutton_margintop"
         android:scaleType="fitCenter"
         android:src="@drawable/pickprofilepic"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -42,12 +43,15 @@
         app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <EditText
-        android:id="@+id/name_surname"
+        android:id="@+id/input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:background="@null"
-        android:text=""
+        android:maxLines="1"
+        android:text="Margarita"
+        android:textAppearance="@style/drink_card_beerDescription"
+
         android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
@@ -60,7 +64,7 @@
         android:layout_marginTop="@dimen/profile_email_margintop"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_surname" />
+        app:layout_constraintTop_toBottomOf="@+id/input_name" />
 
     <TextView
         android:id="@+id/date_of_birth"
@@ -68,20 +72,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:layout_marginTop="@dimen/profile_email_margintop"
-        android:text="@string/date_of_birth"
+        android:text="Long Description"
         android:textSize="@dimen/profilefragament_text_size"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <EditText
-        android:id="@+id/string_dateofbirth"
+        android:id="@+id/input_longdesc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:layout_marginStart="@dimen/profile_telnum_marginstart"
-        android:text=""
-        android:textSize="@dimen/profilefragament_text_size"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@null"
+        android:inputType="textMultiLine"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:text="Rub the rim of the glass with the lime slice to make the salt stick to it. Take care to moisten only the outer rim and sprinkle the salt on it. The salt should present to the lips of the imbiber and never mix into the cocktail. Shake the other ingredients with ice, then carefully pour into the glass."
+        android:textAppearance="@style/drink_card_beerDescription"
+        android:textSize="@dimen/profilefragament_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_of_birth" />
 
@@ -93,7 +103,7 @@
         android:layout_marginTop="@dimen/profile_email_margintop"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_dateofbirth" />
+        app:layout_constraintTop_toBottomOf="@+id/input_longdesc" />
 
     <TextView
         android:id="@+id/gender"
@@ -101,22 +111,28 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:layout_marginTop="@dimen/profile_email_margintop"
-        android:text="@string/gender"
-        android:textSize="20dp"
+        android:text="Short Description"
+        android:textSize="13dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_two" />
 
     <EditText
-        android:id="@+id/string_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/profile_telnum_marginstart"
-        android:text="@string/string_gender"
-        android:textSize="@dimen/profilefragament_text_size"
+        android:id="@+id/input_shortdesc"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@null"
+        android:inputType="textMultiLine"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:text="Rub the rim of the glass with the lime slice to make the salt stick to it."
+        android:textAppearance="@style/drink_card_beerDescription"
+        android:textSize="@dimen/profilefragament_text_size"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/gender" />
 
     <View
         android:id="@+id/divider_three"
@@ -126,7 +142,7 @@
         android:layout_marginTop="@dimen/profile_email_margintop"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_gender" />
+        app:layout_constraintTop_toBottomOf="@+id/input_shortdesc" />
 
     <TextView
         android:id="@+id/telephone_number"
@@ -134,22 +150,46 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/profile_telnum_marginstart"
         android:layout_marginTop="@dimen/profile_email_margintop"
-        android:text="@string/telephone_number"
+        android:text="Category"
         android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_three" />
 
-    <EditText
-        android:id="@+id/string_telephone_number"
+    <TextView
+        android:id="@+id/input_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/profile_telnum_marginstart"
-        android:text=""
-        android:inputType="phone"
-        android:textSize="@dimen/profilefragament_text_size"
         android:background="@null"
+        android:text=""
+        android:textSize="@dimen/profilefragament_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/telephone_number" />
+
+
+    <TextView
+        android:id="@+id/ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:layout_marginTop="@dimen/profile_email_margintop"
+        android:text="Ingredients (separate it by comma)"
+        android:textSize="@dimen/profilefragament_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_four" />
+
+    <EditText
+        android:id="@+id/input_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profile_telnum_marginstart"
+        android:background="@null"
+        android:inputType="text"
+        android:text="Tequila, Triple sec , Lime juice, Salt"
+        android:textSize="@dimen/profilefragament_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+
 
     <View
         android:id="@+id/divider_four"
@@ -159,40 +199,8 @@
         android:layout_marginTop="5dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_telephone_number" />
+        app:layout_constraintTop_toBottomOf="@+id/input_category" />
 
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/profile_email_marginstart"
-        android:layout_marginTop="@dimen/profile_email_margintop"
-        android:text="@string/email"
-        android:textSize="@dimen/profilefragament_text_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider_four" />
-
-    <EditText
-        android:id="@+id/string_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/profile_email_input_marginstart"
-        android:text=""
-        android:textSize="@dimen/profilefragament_text_size"
-        android:background="@null"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
-
-    <Button
-        android:id="@+id/log_out"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/profile_logout_height"
-        android:layout_marginStart="@dimen/profile_logout_marginstart"
-        android:layout_marginEnd="@dimen/profile_logout_marginend"
-        android:text="@string/log_out"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save" />
 
     <Button
         android:id="@+id/save"
@@ -201,34 +209,10 @@
         android:layout_marginStart="@dimen/profile_logout_marginstart"
         android:layout_marginTop="@dimen/profile_savebutton_margintop"
         android:layout_marginEnd="@dimen/profile_logout_marginend"
-        android:text="@string/save"
+        android:text="Add"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/string_email" />
+        app:layout_constraintTop_toBottomOf="@+id/input_ingredients" />
 
-    <TextView
-        android:id="@+id/text_version"
-        android:layout_width="@dimen/profilefragament_text_version_width"
-        android:layout_height="@dimen/profilefragament_text_version_height"
-        android:text="@string/app_version"
-        android:textSize="@dimen/profilefragament_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/log_out" />
-
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/gender_switch"
-        android:layout_width="@dimen/profile_gender_width"
-        android:layout_height="@dimen/profile_gender_height"
-        android:layout_marginTop="@dimen/gender_toggle_marginTop"
-        android:layout_marginStart="@dimen/gender_toggle_marginStart"
-        android:layout_marginEnd="@dimen/gender_toggle_marginEnd"
-        android:textOff="@string/f"
-        android:textOn="@string/m"
-        app:showText="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

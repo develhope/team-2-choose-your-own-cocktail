@@ -87,11 +87,13 @@ class DetailDrinkFragment : Fragment() {
 
             binding.cl.text = drink.category
 
-            binding.preview.setImageByUrl(
-                drink.img,
-                DETAILPAGE_PREVIEW_SIZE,
-                DETAILPAGE_PREVIEW_SIZE
-            )
+            if (!drink.img.isNullOrEmpty()) {
+                binding.preview.setImageByUrl(
+                    drink.img,
+                    DETAILPAGE_PREVIEW_SIZE,
+                    DETAILPAGE_PREVIEW_SIZE
+                )
+            }
 
             binding.buttonFavorite.setBackgroundResource(showFavoriteStatus(drink))
 
