@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken
 
 
 
-const val USER_KEY = "local_user"
+const val USER_KEY = "local_userr"
 
 class ProfileViewModel(val preferences: SharedPreferences) : ViewModel() {
 

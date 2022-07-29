@@ -51,6 +51,7 @@ class AddFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
                 drinkPicUri = uri.toString()
+
                 binding.imageView.setImageURI(uri)
             }
         }
