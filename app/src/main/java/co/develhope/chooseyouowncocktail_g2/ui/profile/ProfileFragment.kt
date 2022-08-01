@@ -1,18 +1,18 @@
 package co.develhope.chooseyouowncocktail_g2.ui.profile
 
-import android.content.Intent
-import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.User
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentProfileBinding
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 
@@ -21,16 +21,30 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private var profilePicUri = ""
-
     private val viewModel: ProfileViewModel by inject()
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
-                profilePicUri = uri.toString()
+                lifecycleScope.launch {
+                    context?.let {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            viewModel.saveToInternalStorage(
+                                it,
+                                ImageDecoder.decodeBitmap(
+                                    ImageDecoder.createSource(
+                                        requireContext().contentResolver,
+                                        uri
+                                    )
+                                )
+                            )
+                            setProfilePic()
 
-                binding.imageView.setImageURI(uri)
+                        } else {
+                            TODO("VERSION.SDK_INT < P")
+                        }
+                    }
+                }
             }
         }
 
@@ -59,7 +73,9 @@ class ProfileFragment : Fragment() {
         }
 
         if (viewModel.isUserInitialized()) {
-            setupUserData()
+            lifecycleScope.launch {
+                setupUserData()
+            }
         }
 
         binding.imageView.setOnClickListener {
@@ -74,7 +90,7 @@ class ProfileFragment : Fragment() {
 
     private fun setupUserData() {
         val user = viewModel.user
-        binding.imageView.setImageURI(user.profilePic.toUri())
+        setProfilePic()
         binding.nameSurname.setText(user.name)
         binding.stringDateofbirth.setText(user.birth)
         binding.stringEmail.setText(user.email)
@@ -82,11 +98,21 @@ class ProfileFragment : Fragment() {
         binding.stringTelephoneNumber.setText(user.tel)
     }
 
+    private fun setProfilePic() {
+        context?.let {
+            viewModel.loadImageFromStorage(it).let {
+                if (it != null) {
+                    binding.imageView.setImageBitmap(it)
+                }
+            }
+        }
+    }
+
     private fun saveLocalUser() {
         println(binding.genderSwitch.isChecked)
         viewModel.saveLocalUser(
             User(
-                profilePicUri,
+                null,
                 binding.nameSurname.text.toString(),
                 binding.stringDateofbirth.text.toString(),
                 binding.genderSwitch.isChecked,

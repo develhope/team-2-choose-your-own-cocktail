@@ -11,7 +11,12 @@ import co.develhope.chooseyouowncocktail_g2.databinding.DrinkCardBinding
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import co.develhope.chooseyouowncocktail_g2.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 
 
 const val DRINKCARD_PREVIEW_SIZE = 100
@@ -52,6 +57,10 @@ class DrinkCardAdapter(
                         DRINKCARD_PREVIEW_SIZE,
                         DRINKCARD_PREVIEW_SIZE
                     )
+                } else {
+                    this.name?.let {
+                        binding.drinkImage.setImageBitmap(loadImageFromStorage(context, it))
+                    }
                 }
 
                 binding.buttonGoToDetail.setOnClickListener {
@@ -68,6 +77,17 @@ class DrinkCardAdapter(
 
             }
 
+        }
+    }
+
+    fun loadImageFromStorage(context: Context, drinkName: String): Bitmap? {
+        return try {
+            val directory = context.getDir("userDrink", Context.MODE_APPEND)
+            val f = File(directory, "user-$drinkName.jpg")
+            BitmapFactory.decodeStream(FileInputStream(f))
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+            null
         }
     }
 
