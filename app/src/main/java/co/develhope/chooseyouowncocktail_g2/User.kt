@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 
 data class User(
-    val profilePic: String,
+    val profilePic: String?,
     val name: String,
     val birth: String,
     val gender: Boolean,

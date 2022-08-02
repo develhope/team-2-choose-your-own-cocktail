@@ -1,7 +1,10 @@
 package co.develhope.chooseyouowncocktail_g2.ui.add
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -9,10 +12,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import co.develhope.chooseyouowncocktail_g2.MainActivity
 import co.develhope.chooseyouowncocktail_g2.R
 import co.develhope.chooseyouowncocktail_g2.databinding.FragmentAddBinding
 import co.develhope.chooseyouowncocktail_g2.usecase.model.Drink
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 
@@ -29,15 +34,14 @@ const val BEER = "Beer"
 const val SOFTDRINK = "Soft Drink"
 
 
-
 class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
 
-    private var drinkPicUri = ""
-
     private val viewModel: AddViewModel by inject()
+
+    private lateinit var bitmapFromUri: Bitmap
 
     companion object {
         @JvmStatic
@@ -50,8 +54,20 @@ class AddFragment : Fragment() {
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
-                drinkPicUri = uri.toString()
-                binding.imageView.setImageURI(uri)
+                lifecycleScope.launch {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        bitmapFromUri = ImageDecoder.decodeBitmap(
+                            ImageDecoder.createSource(
+                                requireContext().contentResolver,
+                                uri
+                            )
+                        )
+                        binding.imageView.setImageBitmap(bitmapFromUri)
+
+                    } else {
+                        TODO("VERSION.SDK_INT < P")
+                    }
+                }
             }
         }
 
@@ -77,37 +93,38 @@ class AddFragment : Fragment() {
         }
 
         binding.save.setOnClickListener {
-            viewModel.saveLocalDrink(
-                Drink(
-                    0,
-                    binding.inputName.text.toString(),
-                    binding.inputLongdesc.text.toString(),
-                    binding.inputShortdesc.text.toString(),
-                    binding.inputCategory.text.toString(),
-                   listOf(binding.inputIngredients.text.toString()),
-                    drinkPicUri,
-                    false
+            lifecycleScope.launch {
+                this@AddFragment.context?.let { it1 ->
+                    viewModel.saveToInternalStorage(
+                        it1,
+                        bitmapFromUri, binding.inputName.text.toString()
+                    )
+                }
+
+                viewModel.saveLocalDrink(
+                    Drink(
+                        0,
+                        binding.inputName.text.toString(),
+                        binding.inputLongdesc.text.toString(),
+                        binding.inputShortdesc.text.toString(),
+                        binding.inputCategory.text.toString(),
+                        listOf(binding.inputIngredients.text.toString()),
+                        null,
+                        false
+                    )
                 )
-            )
-            println(binding.inputCategory.text.toString())
+            }
             Toast.makeText(context, R.string.saved, Toast.LENGTH_LONG).show()
             (activity as MainActivity).remove(this)
         }
 
         binding.imageView.setOnClickListener {
-            try {
-                getContent.launch("image/*")
-            } catch (e: SecurityException) {
-                println(e.message)
-            }
+            getContent.launch("image/*")
         }
 
+
         binding.pickImage.setOnClickListener {
-            try {
-                getContent.launch("image/*")
-            } catch (e: SecurityException) {
-                println(e.message)
-            }
+            getContent.launch("image/*")
         }
 
 
